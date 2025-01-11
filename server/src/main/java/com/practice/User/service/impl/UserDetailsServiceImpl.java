@@ -123,6 +123,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .lastName(lastName)
                 .phoneNumber(phoneNumber)
                 .birthDate(birthDate)
+                .registerDate(LocalDateTime.now())
+                .lastLogin(LocalDateTime.now())
                 .roles(roleEntities)
                 .build();
 

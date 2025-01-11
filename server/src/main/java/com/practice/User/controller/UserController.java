@@ -1,58 +1,73 @@
 package com.practice.User.controller;
 
 import com.practice.User.dtoRequest.AuthCreateUserRequestDto;
-import com.practice.User.dtoRequest.AuthLoginRequestDto;
-import com.practice.User.dtoResponse.AuthResponseDto;
-import com.practice.User.dtoResponse.AuthResponseRegisterDto;
-import com.practice.User.service.CloudinaryService;
-import com.practice.User.service.impl.UserDetailsServiceImpl;
+import com.practice.User.dtoRequest.UserRequestDto;
+import com.practice.User.dtoResponse.UserPageResponse;
+import com.practice.User.mapper.UserMapper;
+import com.practice.User.model.UserModel;
+import com.practice.User.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/auth")
-@Tag(name = "Authentication", description = "Authentication API")
+@RequestMapping("/user")
+@Tag(name = "User", description = "User Controller")
 @Validated
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserDetailsServiceImpl userDetailsServiceImpl;
-    private final CloudinaryService cloudinaryService;
+    private final UserService userService;
 
-    @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid AuthLoginRequestDto authDto) {
-        AuthResponseDto response = this.userDetailsServiceImpl.loginUser(authDto);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    @Operation(summary = "Obtener todos los usuarios", description = "Devuelve una lista paginada de usuarios.")
+    @ApiResponse(responseCode = "200", description = "Usuarios obtenidos exitosamente")
+    @GetMapping
+    public ResponseEntity<UserPageResponse> getAllUsers(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        UserPageResponse response = userService.getAllUsers(page, size);
+        return ResponseEntity.ok(response);
     }
 
-
-
-    @Operation(summary = "Subir foto de usuario")
-    @PostMapping(value = "/upload-photo", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> uploadPhoto(@RequestParam("photo") MultipartFile photo) {
-        try {
-            String photoUrl = cloudinaryService.uploadImage(photo);
-            return ResponseEntity.ok(photoUrl);
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error uploading image");
-        }
+    // Obtener un usuario por ID
+    @Operation(summary = "Obtener un usuario por ID", description = "Devuelve un usuario por su ID.")
+    @ApiResponse(responseCode = "200", description = "Usuario obtenido exitosamente")
+    @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
+    @GetMapping("/{id}")
+    public ResponseEntity<UserModel> getUserById(@PathVariable Long id) {
+        UserModel user = userService.getUserById(id);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
+    // Actualizar un usuario
+    @Operation(summary = "Actualizar un usuario", description = "Actualiza los detalles de un usuario existente.")
+    @ApiResponse(responseCode = "200", description = "Usuario actualizado exitosamente")
+    @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
+    @PatchMapping("/{id}")
+    public ResponseEntity<UserModel> updateUser(@PathVariable Long id, @RequestBody @Valid UserRequestDto updatedUserDto) {
+        UserModel updatedUser = userService.updateUser(id, updatedUserDto);
+        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
+    }
 
-    @Operation(summary = "Registrar nuevo usuario")
-    @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<AuthResponseRegisterDto> register(@RequestBody @Valid AuthCreateUserRequestDto authCreateUserDto) {
-        AuthResponseRegisterDto response = userDetailsServiceImpl.createUser(authCreateUserDto);
-        return new ResponseEntity<>(response, HttpStatus.CREATED);
+    // Eliminar un usuario
+    @Operation(summary = "Eliminar un usuario", description = "Elimina un usuario por su ID.")
+    @ApiResponse(responseCode = "204", description = "Usuario eliminado exitosamente")
+    @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
