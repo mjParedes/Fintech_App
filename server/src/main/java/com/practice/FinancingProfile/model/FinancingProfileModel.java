@@ -35,6 +35,6 @@ public class FinancingProfileModel {
     private Double savingsTotal;
     @Column(name = "patrimony_total")
     private Double patrimonyTotal;
-    @OneToMany(mappedBy = "financingProfileModel")
+    @OneToMany(mappedBy = "financingProfile")
     private Set<ObjectiveModel> objectiveModels = new HashSet<>();
 }

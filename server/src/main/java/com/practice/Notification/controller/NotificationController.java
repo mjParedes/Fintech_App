@@ -1,7 +1,5 @@
 package com.practice.Notification.controller;
 
-import com.practice.Notification.dtoRequest.NotificationRequestDto;
-import com.practice.Notification.dtoResponse.NotificationResponseDto;
 import com.practice.Notification.model.NotificationModel;
 import com.practice.Notification.service.NotificationServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -14,8 +12,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@Tag(name = "Notification")
 @RequiredArgsConstructor
+@Tag(name = "Notificación", description = "Notification API")
 public class NotificationController {
     private final NotificationServiceImpl notificationServiceImpl;
 
