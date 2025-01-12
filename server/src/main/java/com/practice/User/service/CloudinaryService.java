@@ -22,10 +22,20 @@ public class CloudinaryService {
     private final Cloudinary cloudinary;
 
     public CloudinaryService() {
-        Dotenv dotenv = Dotenv.load();
+        // Intenta obtener la URL de Cloudinary primero de System.getenv()
+        String cloudinaryUrl = System.getenv("CLOUDINARY_URL");
 
-        // Validar si la variable de entorno CLOUDINARY_URL está presente
-        String cloudinaryUrl = dotenv.get("CLOUDINARY_URL");
+        // Si no está en las variables del sistema, intenta con Dotenv como fallback
+        if (cloudinaryUrl == null || cloudinaryUrl.isEmpty()) {
+            try {
+                Dotenv dotenv = Dotenv.load();
+                cloudinaryUrl = dotenv.get("CLOUDINARY_URL");
+            } catch (Exception e) {
+                throw new IllegalStateException("CLOUDINARY_URL is not set in the environment variables.");
+            }
+        }
+
+        // Validación final
         if (cloudinaryUrl == null || cloudinaryUrl.isEmpty()) {
             throw new IllegalStateException("CLOUDINARY_URL is not set in the environment variables.");
         }
