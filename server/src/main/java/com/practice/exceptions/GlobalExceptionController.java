@@ -32,7 +32,7 @@ public class GlobalExceptionController {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
-        ErrorResponse errorResponse = new ErrorResponse("UNKN   OWN_ERROR", "Ocurrió un error inesperado: " + ex.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse("UNKNOWN_ERROR", "Ocurrió un error inesperado: " + ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
     }
 

@@ -56,10 +56,12 @@ public class AuthController {
     }
 
 
-    @Operation(summary = "Registrar nuevo usuario", description = "Registra un nuevo usuario y obtiene un token de autenticación. \n" +
-            "Los roles del usuario deben ser 'USER' o 'ADMIN'. No se puede registrar otro tipo de rol. \n" +
-            "Todos los campos son obligatorios excepto la foto.\n" +
-            "El email debe ser único.\n")
+    @Operation(summary = "Registrar nuevo usuario", description = """
+            Registra un nuevo usuario y obtiene un token de autenticación.\s
+            Los roles del usuario deben ser 'USER' o 'ADMIN'. No se puede registrar otro tipo de rol.\s
+            Todos los campos son obligatorios excepto la foto.
+            El email debe ser único.
+            """)
     @PostMapping(value = "/register", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<AuthResponseRegisterDto> register(@RequestBody @Valid AuthCreateUserRequestDto authCreateUserDto) {
         AuthResponseRegisterDto response = userDetailsServiceImpl.createUser(authCreateUserDto);
