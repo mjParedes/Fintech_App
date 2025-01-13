@@ -1,6 +1,7 @@
 package com.practice.User.service;
 
 import com.practice.exceptions.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,15 +22,10 @@ public class CloudinaryService {
 
     private final Cloudinary cloudinary;
 
-    public CloudinaryService() {
-        Dotenv dotenv = Dotenv.load();
-
-        // Validar si la variable de entorno CLOUDINARY_URL está presente
-        String cloudinaryUrl = dotenv.get("CLOUDINARY_URL");
+    public CloudinaryService(@Value("${CLOUDINARY_URL}") String cloudinaryUrl) {
         if (cloudinaryUrl == null || cloudinaryUrl.isEmpty()) {
-            throw new IllegalStateException("CLOUDINARY_URL is not set in the environment variables.");
+            throw new IllegalStateException("cloudinary.url no esta configurado en el archivo application.properties");
         }
-
         this.cloudinary = new Cloudinary(cloudinaryUrl);
     }
 

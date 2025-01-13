@@ -76,7 +76,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Authentication authentication = this.authenticate(email, password);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtUtils.generateJwtToken(authentication);
-        return new AuthResponseDto(id, email, "User logged successfully", token, true);
+        return new AuthResponseDto(id, email, "Usuario logeado exitosamente", token, true);
 
 
     }
@@ -84,11 +84,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public Authentication authenticate(String username, String password) {
         UserDetails userDetails = loadUserByUsername(username);
         if(userDetails == null) {
-            throw new BadCredentialsException("Invalid username or password");
+            throw new BadCredentialsException("Usuario no encontrado");
         }
 
         if(!passwordEncoder.matches(password, userDetails.getPassword())) {
-            throw new BadCredentialsException("Invalid password");
+            throw new BadCredentialsException("Contraseña incorrecta");
         }
 
         return new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
@@ -144,6 +144,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         String accessToken = jwtUtils.generateJwtToken(authentication);
 
 
-        return new AuthResponseRegisterDto(username, "User created successfully", accessToken, true);
+        return new AuthResponseRegisterDto(username,    "Usuario registrado exitosamente", accessToken, true);
     }
 }
