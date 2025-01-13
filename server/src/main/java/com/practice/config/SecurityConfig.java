@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -41,19 +42,14 @@ public class SecurityConfig  {
         http
                 .csrf(AbstractHttpConfigurer::disable) // Deshabilitar CSRF completamente
                 .authorizeHttpRequests(authorize -> authorize
-                        //Rutas públicas
-                        //.requestMatchers(HttpMethod.POST,"/auth/login").permitAll()
-
-                        //Rutas privadas
-                        //.requestMatchers(HttpMethod.POST,"/auth/register").hasRole("ADMIN")
-
-                        //Cualquier otro endpoint está denegado
+                        .requestMatchers("/", "/login/**", "/oauth2/**").permitAll()
                         .anyRequest().permitAll()
                 )
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .addFilterBefore(new JwtTokenValidator(jwtUtils), BasicAuthenticationFilter.class)
+
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)); // Permitir iframes para la consola H2
 
         return http.build();
@@ -78,7 +74,6 @@ public class SecurityConfig  {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
     //Habilitar CORS para permitir todos los endpoints
     @Bean

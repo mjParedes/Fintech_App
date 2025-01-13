@@ -25,12 +25,12 @@ import org.springframework.http.HttpHeaders;
                 version = "1.0.0",
                 contact = @Contact(
                         name = "Equipo Fintech",
-                        url = "(enlace no disponible)",
+                        url = "https://www.fintech.com",
                         email = "support@fintech.com"
                 ),
                 license = @License(
                         name = "Standard Apache License Version 2.0 for Fintech",
-                        url = "(enlace no disponible)",
+                        url = "https://www.apache.org/licenses/LICENSE-2.0",
                         identifier = "Apache-2.0"
                 )
         ),
@@ -41,7 +41,7 @@ import org.springframework.http.HttpHeaders;
                 ),
                 @Server(
                         description = "Production Server",
-                        url = "(enlace no disponible)"
+                        url = "https://fintech-ggjf.onrender.com"
                 )
         }
         /*security = @SecurityRequirement(
