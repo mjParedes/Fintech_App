@@ -21,6 +21,7 @@ public class TransactionModel {
     EnumTransactionType enumTransactionType;
     @Column(name = "unit_price")
     private Double unitPrice;
+    private Integer quantity;
     private Double commission;
     private LocalDateTime date = LocalDateTime.now();
     @ManyToOne
