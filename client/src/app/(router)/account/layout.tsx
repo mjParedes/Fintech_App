@@ -5,7 +5,7 @@ import Link from 'next/link';
 
 const AccountLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     return (
-        <div className='w-full h-auto bg-white pt-10 px-4'>
+        <div className='w-full  h-auto bg-white pt-10 px-4'>
             <div className='flex justify-center items-center flex-col'>
                 <Image src={logo} alt='Logo' width={200} height={200} />
             </div>
@@ -15,17 +15,12 @@ const AccountLayout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             </main>
             
 
-
-            <footer className='flex  justify-between p-4 border-t mt-10 w-full '>
-                <p className='text-sm'>© 2025 iUpi. <br/>Todos los derechos reservados.</p>
-                <div className=''>
-                    <p>
-                    <Link href='/' className='text-sm text-start'>Términos y condiciones</Link>
-                    </p>
-
-                    <p>
-                    <Link href='/' className='text-sm'>Política de privacidad</Link>
-                    </p>
+            
+            <footer className='flex justify-between p-4 border-t w-full fixed bottom-0 left-0 right-0 bg-white'>
+                <p className='text-sm text-start'>© 2025 iUpi.</p>
+                <div className='flex flex-col text-end'>
+                    <Link href='/' className='text-sm w-full'>Términos y condiciones</Link>
+                    <Link href='/' className='text-sm w-full'>Política de privacidad</Link>
                 </div>
             </footer>
         </div>
