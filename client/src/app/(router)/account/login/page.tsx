@@ -48,7 +48,7 @@ export default function LoginForm() {
   });
 
   return (
-    <section className=''>
+    <section className='mb-20'>
       <div> 
         <h2 className='mb-4 text-center font-semibold mt-3'>Bienvenido a iUpi</h2>
         <p className='text-center font-medium mb-5'>Inicia Sesion en tu cuenta</p>
@@ -136,16 +136,9 @@ export default function LoginForm() {
 
                 
               </div>
-              <button
-                type='submit'
-                className='p-2 bg-primaryDefault text-white rounded-md w-full '
-              >
-                Confirmar
-              </button>
-              
                 </div>
 
-                <button   type="submit" className="w-full mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:bg-primary400  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 ">
+                <button   type="submit" className="w-full  text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:bg-primary400  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 ">
                     Iniciar Sesión
                   </button>
                   <div className="relative flex py-5 items-center">

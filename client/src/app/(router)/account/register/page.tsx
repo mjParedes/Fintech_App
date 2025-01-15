@@ -117,7 +117,9 @@ export default function RegisterForm() {
 
   return (
     <div className=''>
-            <div> 
+            {step === 1 && (<>
+            
+              <div> 
                 <h2 className='mb-4 text-center font-semibold mt-3'>Bienvenido a iUpi</h2>
                 <p className='text-center font-medium mb-5'>Crea tu cuenta y empecemos</p>
             </div>
@@ -135,6 +137,7 @@ export default function RegisterForm() {
                 </Link>
               </div>
               </div>
+            </>)}
         <form
           onSubmit={formik.handleSubmit}
           className=''
