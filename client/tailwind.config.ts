@@ -46,7 +46,7 @@ export default {
         accent900: "#000F24",
       },
       fontFamily: {
-        sans: ['var(--font-montserrat)', 'sans-serif'],
+        sans: ['var(--font-inter)', 'sans-serif'],
       },
       fontSize: {
         'h1-regular': ['3.875rem', { lineHeight: '4.25rem', fontWeight: '400' }],
