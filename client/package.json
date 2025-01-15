@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "client": "file:",
+    "clsx": "^2.1.1",
     "formik": "^2.4.6",
     "js-cookie": "^3.0.5",
     "libphonenumber-js": "^1.11.17",
