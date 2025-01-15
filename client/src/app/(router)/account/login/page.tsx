@@ -1,8 +1,5 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
-
-
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/navigation'
@@ -10,30 +7,21 @@ import Loader from '../../../../components/Loader';
 import Link from 'next/link';
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-
-import Swal from 'sweetalert2';
 import Cookies from 'js-cookie';
+import { FcGoogle } from 'react-icons/fc';
 
 export default function LoginForm() {
-  const [showForm, setShowForm] = useState(false);
+  const [showForm, setShowForm] = useState(true);
   const [loading, setLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   
-  
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowForm(true);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, []);
-
   const validationSchema = Yup.object({
     email: Yup.string()
       .email('Ingrese un email válido')
       .required('El email es requerido'),
-    pass: Yup.string()
+    password: Yup.string()
       .min(8, 'La contraseña debe tener al menos  8 caracteres')
       .max(15,"la contraseña debe ser igual o menor a 12 caracteres")
       .required('La contraseña es requerida'),
@@ -42,7 +30,7 @@ export default function LoginForm() {
   const formik = useFormik({
     initialValues:{ 
       email: Cookies.get("userEmail") || "",
-      pass: "",
+      password: "",
     },
     validationSchema,
     onSubmit: async  (values, {resetForm}) => {
@@ -54,109 +42,87 @@ export default function LoginForm() {
         });
       }
       setLoading(true);
-      {/*
-        if(response.success == true){
-        Swal.fire({
-          icon: "success",
-          title: `${response.message}`,
-          showConfirmButton: false,
-          timer: 2500
-        });
-        setLoading(false)
-        resetForm();
-        
-        //luego tocaria la redireccion, pero aun falta
-      }
-
-      if(response.success == false){
-        Swal.fire({
-          icon: "error",
-          title: `${response.message}`,
-          showConfirmButton: false,
-          timer: 2500
-        });
-        setLoading(false)
-        resetForm();
-      }
-        */}
       
       
     },
   });
 
   return (
-    <section className='flex items-center justify-center h-screen'>
+    <section className=''>
+      <div> 
+                <h2 className='mb-4 text-center font-semibold mt-3'>Bienvenido a iUpi</h2>
+                <p className='text-center font-medium mb-5'>Inicia Sesion en tu cuenta</p>
+            </div>
+
+              <div className=''>
+                {/*aqui*/}
+              <div className="flex justify-center space-x-4 mb-4">
+                
+                <Link href="/account/register" className="w-full px-4 text-center py-2 border-b-2 border-blue-500 text-black hover:text-blue-500">
+                    Registro
+                </Link>
+                
+                <Link href="/account/login" className=" w-full text-center px-4 py-2 border-b-2 border-blue-500 text-black hover:text-blue-500">
+                    Ingreso
+                </Link>
+              </div>
+              </div>
       
       {showForm && (
         <form
           onSubmit={formik.handleSubmit}
-          className='bg-black text-white p-4 sm:p-6 md:p-8 lg:p-10'
+          className=' text-black p-4 sm:p-6 md:p-8 lg:p-10'
         >
           {loading ? (
             <Loader />
           ) : (
             <>
-              
-              <h2 className='mb-6'>Inicia Sesión</h2>
-
-
-              <label htmlFor='email' className='mb-2 mt-2'>
-                Correo Electrónico
-              </label>
-              <div className='relative mt-2 mb-2'>
-                <input
-                  type='email'
-                  id='email'
-                  placeholder='Correo electronico'
-                  className={`text-primaryDefault bg-gray-800   border-2  text-sm rounded-lg  block w-full p-2.5 pl-9  dark:bg-gray-700 dark:placeholder-gray-100 dark:text-white  ${formik.touched.email && formik.errors.email ? 'border-red-500 focus:ring-red-500 focus:border-red-500'  :  formik.touched.email && formik.values.email  ? 'border-green-500 focus:ring-green-500 focus:border-green-500' : formik.values.email ? 'border-green-500 focus:ring-green-500 focus:border-green-500' :   'border-gray-700 focus:ring-gray-700 focus:border-gray-700'}`}
-                  onChange={formik.handleChange}
-                  value={formik.values.email}
-                />
-                {formik.touched.email && formik.errors.email ? (
-                  <div className='my-1 text-primaryDefault'>{String(formik.errors.email)}</div>
-                ) : null}
+              <div className="mb-5">
+                  <label htmlFor="email" className="block mb-4 text-sm font-medium text-gray-900">Correo</label>
+                  <input
+                    type="email"
+                    id="email"
+                    className="border border-gray-600  text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3.5   dark:focus:ring-primary700 dark:focus:border-primary700" 
+                    placeholder="EJ: name@gmail.com"
+                    onChange={formik.handleChange}
+                    value={formik.values.email} 
+                  />
+                  {formik.touched.email && formik.errors.email ? (
+                        <div className='my-1 text-primaryDefault'>{String(formik.errors.email)}</div>
+                  ) : null}
+                    
                   
-                </div>
+              </div>
 
-              <label htmlFor='pass' className='mb-2 mt-2'>
-                Contraseña
-              </label>
               
-              <div className='relative mt-2 mb-2'>
+              <div className="mb-5">
+                <label htmlFor="password" className="block mb-4 text-sm font-medium text-gray-900">Contraseña</label>
+                <div className="relative">
                 <input
-                  type={showPassword ? 'text' : 'password'} // Cambia el tipo del input
-                  id='pass'
-                  name='pass'
-                  placeholder='Contraseña'
-                  className={`text-primaryDefault bg-gray-800   border-2  text-sm rounded-lg  block w-full p-2.5 pl-9  dark:bg-gray-700 dark:placeholder-gray-100 dark:text-white  ${formik.touched.pass && formik.errors.pass ? 'border-red-500 focus:ring-red-500 focus:border-red-500'  :  formik.touched.pass && formik.values.pass  ? 'border-green-500 focus:ring-green-500 focus:border-green-500' : formik.values.pass ? 'border-green-500 focus:ring-green-500 focus:border-green-500' :   'border-gray-700 focus:ring-gray-700 focus:border-gray-700'}`}
-                  //className='text-primaryDefault bg-gray-800 mb-2 p-2 border-none rounded-lg w-full pl-10 border border-gray-300'
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  className="border border-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3.5 dark:focus:ring-primary700 dark:focus:border-primary700"
+                  placeholder="contraseña"
                   onChange={formik.handleChange}
-                  value={formik.values.pass}
+                  value={formik.values.password}
                 />
-                {formik.touched.pass && formik.errors.pass ? (
-                  <div className='my-1 text-primaryDefault'>{String(formik.errors.pass)}</div>
-                ) : null}
-                <div className='absolute left-[10px] top-[22px] transform -translate-y-1/2'>
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 text-primaryDefault">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
-                  </svg>
-                </div>
-
-                <div
-                  className="absolute right-[10px] top-[22px] transform -translate-y-1/2 cursor-pointer"
-                  onClick={() => setShowPassword((prev) => !prev)}
-                >
-                  {showPassword ? (
-                    // Ícono para ocultar contraseña
-                    <FaEye className='text-primaryDefault' />
-                  ) : (
-                    // Ícono para mostrar contraseña
-                    <FaEyeSlash className='text-primaryDefault' />
-                  )}  
-                </div>
-                </div>
               
-              <div className='flex justify-between items-center mb-4'>
+                {showPassword ? (
+                                  
+                  <FaEye className="absolute right-3 top-4 cursor-pointer"
+                    onClick={() => setShowPassword(!showPassword)} />
+                  ) : (
+                                      // Ícono para mostrar contraseña
+                  <FaEyeSlash className="absolute right-3 top-4 cursor-pointer"
+                    onClick={() => setShowPassword(!showPassword)} />
+                  )} 
+                                    
+                                    
+                  </div>
+                  {formik.touched.password && formik.errors.password ? (
+                    <div className='my-1 text-primaryDefault'>{String(formik.errors.password)}</div>
+                  ) : null}
+                  <div className='flex justify-between items-center mb-4'>
                 <div className='flex items-center mb-4'>
                   <input
                     type='checkbox'
@@ -182,6 +148,26 @@ export default function LoginForm() {
                 No estas registrado? 
                 <Link href={"/registro"} > <span className='text-primaryLigth '> Crear Cuenta</span></Link>
               </h2>
+                </div>
+
+                <button   type="submit" className="w-full mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:bg-primary400  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 ">
+                    Crear Cuenta
+                  </button>
+                  <div className="relative flex py-5 items-center">
+                    <div className="flex-grow border-t border-gray-400"></div>
+                    <span className="flex-shrink mx-4 text-gray-400">o</span>
+                    <div className="flex-grow border-t border-gray-400"></div>
+                  </div>
+                  <button type="button" className="w-full mt-5 text-black font-bold bg-white border border-gray-300 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-300  rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 flex items-center justify-center">
+                    <FcGoogle width={20} height={20} className="mr-2" />
+                    Continuar con Google
+                  </button>
+                  <div className="text-center mt-4">
+                    <span>¿No tienes cuenta? Registrate  haciendo click </span>
+                    <Link href="/account/register" className="text-blue-700 hover:underline">
+                      aquí.
+                    </Link>
+                  </div>
             </>
           )}
         </form>

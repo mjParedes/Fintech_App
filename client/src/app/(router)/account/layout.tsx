@@ -9,24 +9,7 @@ const AccountLayout: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             <div className='flex justify-center items-center flex-col'>
                 <Image src={logo} alt='Logo' width={200} height={200} />
             </div>
-            <div> 
-                <h2 className='mb-4 text-center font-semibold mt-3'>Bienvenido a iUpi</h2>
-                <p className='text-center font-medium mb-5'>Crea tu cuenta y empecemos</p>
-            </div>
-
-              <div className=''>
-                {/*aqui*/}
-              <div className="flex justify-center space-x-4 mb-4">
-                
-                <Link href="/account/register" className="w-full px-4 text-center py-2 border-b-2 border-blue-500 text-black hover:text-blue-500">
-                    Registro
-                </Link>
-                
-                <Link href="/account/login" className=" w-full text-center px-4 py-2 border-b-2 border-blue-500 text-black hover:text-blue-500">
-                    Ingreso
-                </Link>
-              </div>
-              </div>
+            
             <main>
                 {children}
             </main>

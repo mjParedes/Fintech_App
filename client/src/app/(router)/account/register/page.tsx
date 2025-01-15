@@ -6,26 +6,20 @@ import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation'
 import Loader from '../../../../components/Loader';
 import Link from 'next/link';
-import { FaArrowLeft, FaArrowRight, FaEye } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaEye, FaEyeSlash, } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
-import { getCountryCallingCode, getCountries } from 'libphonenumber-js';
-import { getCountryName, MODIFIED_COUNTRIES } from '@/lib/countryList';
+import { MODIFIED_COUNTRIES } from '@/lib/countryList';
 import Select from 'react-select';
+import PasswordRequirements from '@/components/PasswordRequirements';
 
 
 export default function RegisterForm() {
-    const [showForm, setShowForm] = useState(false);
     const [loading, setLoading] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
     const [step, setStep] = useState(1);
-
-    
-    
-
-
 
     const validationSchema = Yup.object({
       email: Yup.string()
@@ -57,9 +51,6 @@ export default function RegisterForm() {
       .max(10, 'El código postal debe contener máximo 10 caracteres')
     });
 
-    
-
-
   const formik = useFormik({
     initialValues:{
       email: "",
@@ -74,9 +65,8 @@ export default function RegisterForm() {
     validationSchema,
     onSubmit: async  (values, {resetForm}) => {
       setLoading(true);
-
-      
-      
+      console.log(values);
+      router.push("/account/login");
     },
   });
 
@@ -88,6 +78,8 @@ export default function RegisterForm() {
         return !formik.errors.name && formik.values.name !== "" && !formik.errors.lastName && formik.values.lastName !== "";
       case 3:
         return !formik.errors.phoneNumber && formik.values.phoneNumber !== "" && !formik.errors.country && formik.values.country !== "" && !formik.errors.postalCode && formik.values.postalCode !== "";
+      case 4:
+        return !formik.errors.password && formik.values.password !== "" && !formik.errors.confirmPassword && formik.values.confirmPassword !== "";
     }
   };
 
@@ -96,12 +88,7 @@ export default function RegisterForm() {
       console.log(validateStep());
       setStep(step + 1);
     } else {
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'Por favor, complete todos los campos requeridos correctamente antes de continuar.',
-      });
-      console.log(validateStep());
+      
     }
   };
 
@@ -110,13 +97,44 @@ export default function RegisterForm() {
   };
 
 
-  
+  const getProgressWidth = () => {
+    switch (step) {
+      case 1:
+        return '25%';
+      case 2:
+        return '50%';
+      case 3:
+        return '75%';
+      case 4:
+        return '100%';
+      default:
+        return '0%';
+    }
+  };
   
 
 
 
   return (
     <div className=''>
+            <div> 
+                <h2 className='mb-4 text-center font-semibold mt-3'>Bienvenido a iUpi</h2>
+                <p className='text-center font-medium mb-5'>Crea tu cuenta y empecemos</p>
+            </div>
+
+              <div className=''>
+                {/*aqui*/}
+              <div className="flex justify-center space-x-4 mb-4">
+                
+                <Link href="/account/register" className="w-full px-4 text-center py-2 border-b-2 border-blue-500 text-black hover:text-blue-500">
+                    Registro
+                </Link>
+                
+                <Link href="/account/login" className=" w-full text-center px-4 py-2 border-b-2 border-blue-500 text-black hover:text-blue-500">
+                    Ingreso
+                </Link>
+              </div>
+              </div>
         <form
           onSubmit={formik.handleSubmit}
           className=''
@@ -173,7 +191,7 @@ export default function RegisterForm() {
                       Atrás
                     </button>
                     <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-300">
-                      <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '15%' }}></div>
+                      <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: getProgressWidth() }}></div>
                     </div>
                     <button onClick={handleNext} type="button" className="flex items-center text-blue-700 hover:underline ml-auto">
                       Adelante
@@ -212,7 +230,7 @@ export default function RegisterForm() {
                         <div className='my-1 text-primaryDefault'>{String(formik.errors.lastName)}</div>
                   ) : null}
                     
-                  <button  onClick={handleNext} type="button" className="w-full mt-5 text-black bg-white hover:bg-blue-800 focus:outline-primary900 focus:ring-4 focus:bg-primary900 border border-primary900 focus:text-white  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 ">Siguiente</button>
+                  <button  onClick={handleNext} type="submit" className="w-full mt-5 text-black bg-white hover:bg-blue-800 focus:outline-primary900 focus:ring-4 focus:bg-primary900 border border-primary900 focus:text-white  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 ">Siguiente</button>
                 </div>
                 </>
               )}
@@ -230,7 +248,7 @@ export default function RegisterForm() {
                       Atrás
                     </button>
                     <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-300">
-                      <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '15%' }}></div>
+                      <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: getProgressWidth() }}></div>
                     </div>
                     <button onClick={handleNext} type="button" className="flex items-center text-blue-700 hover:underline ml-auto">
                       Adelante
@@ -300,7 +318,90 @@ export default function RegisterForm() {
                     ) : null}
                   </div>
 
-                  <button  onClick={handleNext} type="button" className="w-full mt-5 text-black bg-white hover:bg-blue-800 focus:outline-primary900 focus:ring-4 focus:bg-primary900 border border-primary900 focus:text-white  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 ">Siguiente</button>
+                  <button  onClick={handleNext} type="submit" className="w-full mt-5 text-black bg-white hover:bg-blue-800 focus:outline-primary900 focus:ring-4 focus:bg-primary900 border border-primary900 focus:text-white  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 ">Siguiente</button>
+
+                </>
+              )}
+
+
+              {step === 4 && (
+
+                <>
+                  <div className='w-full my-4'>
+                    <h2 className='mb-4 text-center font-semibold mt-3'>Crea tu contraseña</h2>
+                    <p className='text-center font-medium mb-5'>Asegúrate de que sea segura</p>
+                  </div>
+                  <div className='flex justify-between items-center gap-5 my-8'>
+                    <button onClick={handlePrevious} type="button" className="flex items-center text-blue-700 hover:underline">
+                      <FaArrowLeft className="mr-2" />
+                      Atrás
+                    </button>
+                    <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-300">
+                      <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: getProgressWidth() }}></div>
+                    </div>
+                    <button type="submit" className="flex items-center text-blue-700 hover:underline ml-auto">
+                      Crear Cuenta
+                      <FaArrowRight className="ml-2" />
+                    </button>
+                  </div>
+
+                  <div className="mb-5">
+                    <label htmlFor="password" className="block mb-4 text-sm font-medium text-gray-900">Contraseña</label>
+                    <div className="relative">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        id="password"
+                        className="border border-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3.5 dark:focus:ring-primary700 dark:focus:border-primary700"
+                        placeholder="contraseña"
+                        onChange={formik.handleChange}
+                        value={formik.values.password}
+                      />
+
+                        {showPassword ? (
+                    // Ícono para ocultar contraseña
+                        <FaEye className="absolute right-3 top-4 cursor-pointer"
+                        onClick={() => setShowPassword(!showPassword)} />
+                      ) : (
+                        // Ícono para mostrar contraseña
+                        <FaEyeSlash className="absolute right-3 top-4 cursor-pointer"
+                        onClick={() => setShowPassword(!showPassword)} />
+                      )} 
+                      
+                      
+                    </div>
+                    {formik.touched.password && formik.errors.password ? (
+                      <div className='my-1 text-primaryDefault'>{String(formik.errors.password)}</div>
+                    ) : null}
+                  </div>
+
+                  <div className="mb-5">
+                    <label htmlFor="confirmPassword" className="block mb-4 text-sm font-medium text-gray-900">Confirmar Contraseña</label>
+                    <div className="relative">
+                      <input
+                        type={showPassword ? "text" : "password"}
+                        id="confirmPassword"
+                        className="border border-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3.5 dark:focus:ring-primary700 dark:focus:border-primary700"
+                        placeholder="confirmar contraseña"
+                        onChange={formik.handleChange}
+                        value={formik.values.confirmPassword}
+                      />
+                      
+                      {showPassword ? (
+                    // Ícono para ocultar contraseña
+                        <FaEye className="absolute right-3 top-4 cursor-pointer"
+                        onClick={() => setShowPassword(!showPassword)} />
+                      ) : (
+                        // Ícono para mostrar contraseña
+                        <FaEyeSlash className="absolute right-3 top-4 cursor-pointer"
+                        onClick={() => setShowPassword(!showPassword)} />
+                      )} 
+                        </div>
+                    {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
+                      <div className='my-1 text-primaryDefault'>{String(formik.errors.confirmPassword)}</div>
+                    ) : null}
+                  </div>
+                  <PasswordRequirements password={formik.values.password} />
+                  <button type="submit" className="w-full mt-5 text-black bg-white hover:bg-blue-800 focus:outline-primary900 focus:ring-4 focus:bg-primary900 border border-primary900 focus:text-white  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 ">Siguiente</button>
 
                 </>
               )}
