@@ -50,8 +50,8 @@ export default function LoginForm() {
   return (
     <section className=''>
       <div> 
-                <h2 className='mb-4 text-center font-semibold mt-3'>Bienvenido a iUpi</h2>
-                <p className='text-center font-medium mb-5'>Inicia Sesion en tu cuenta</p>
+        <h2 className='mb-4 text-center font-semibold mt-3'>Bienvenido a iUpi</h2>
+        <p className='text-center font-medium mb-5'>Inicia Sesion en tu cuenta</p>
             </div>
 
               <div className=''>
@@ -71,7 +71,7 @@ export default function LoginForm() {
       {showForm && (
         <form
           onSubmit={formik.handleSubmit}
-          className=' text-black p-4 sm:p-6 md:p-8 lg:p-10'
+          className=' text-black  sm:p-6 md:p-8 lg:p-10'
         >
           {loading ? (
             <Loader />
@@ -122,8 +122,8 @@ export default function LoginForm() {
                   {formik.touched.password && formik.errors.password ? (
                     <div className='my-1 text-primaryDefault'>{String(formik.errors.password)}</div>
                   ) : null}
-                  <div className='flex justify-between items-center mb-4'>
-                <div className='flex items-center mb-4'>
+              <div className='flex justify-between items-center mt-4'>
+                <div className='flex items-center'>
                   <input
                     type='checkbox'
                     id='remember'
@@ -131,12 +131,10 @@ export default function LoginForm() {
                     onChange={()=>{setRememberMe(!rememberMe)}}
                     checked={rememberMe}
                   />
-                  <label htmlFor='remember'>Recordarme</label>
+                  <label htmlFor='remember' className=''>Recordarme</label>
                 </div>
 
-                <p className='mb-4 ml-3 no-underline text-primaryLigth'>
-                  Recuperar contraseña
-                </p>
+                
               </div>
               <button
                 type='submit'
@@ -144,14 +142,11 @@ export default function LoginForm() {
               >
                 Confirmar
               </button>
-              <h2 className='text-gray-500 mt-4'>
-                No estas registrado? 
-                <Link href={"/registro"} > <span className='text-primaryLigth '> Crear Cuenta</span></Link>
-              </h2>
+              
                 </div>
 
                 <button   type="submit" className="w-full mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:bg-primary400  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 ">
-                    Crear Cuenta
+                    Iniciar Sesión
                   </button>
                   <div className="relative flex py-5 items-center">
                     <div className="flex-grow border-t border-gray-400"></div>
