@@ -43,10 +43,11 @@ public class SecurityConfig  {
                 .csrf(AbstractHttpConfigurer::disable) // Deshabilitar CSRF completamente
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "/login/**", "/oauth2/**").permitAll()
-                        .anyRequest().permitAll()
+                        .anyRequest().authenticated()
                 )
+                .oauth2Login(oauth2 -> oauth2.defaultSuccessUrl("/hello", true))
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 )
                 .addFilterBefore(new JwtTokenValidator(jwtUtils), BasicAuthenticationFilter.class)
 
