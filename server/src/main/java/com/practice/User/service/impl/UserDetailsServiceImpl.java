@@ -75,6 +75,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         Authentication authentication = this.authenticate(email, password);
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
+
         String token = jwtUtils.generateJwtToken(authentication);
         return new AuthResponseDto(id, email, "Usuario logeado exitosamente", token, true);
 
