@@ -1,11 +1,16 @@
 package com.practice.Notification.dtoRequest;
 
-import jakarta.validation.constraints.NotBlank;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.List;
-
-public record NotificationRequestDto(
-        @NotBlank(message = "El tipo de notificacion es obligatorio") List<String>  type_notification,
-        @NotBlank(message = "El mensaje es obligatorio") String message,
-        @NotBlank(message = "Campo leido marcar correctamente") Boolean isRead) {
+@Data
+@NoArgsConstructor
+@Schema(description = "")
+public class NotificationRequestDto {
+    private Long id;
+    private String typeNotification;
+    private String message;
+    private Boolean isRead;
+    private Long userId;
 }
