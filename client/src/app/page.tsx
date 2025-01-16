@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Image from "next/image";
 import logo from "../../public/Logo.png";
 import { useRouter } from "next/navigation";
+import Navbar from "@/components/layout/Navbar";
 
 export default function Home() {
   const router = useRouter();
@@ -18,6 +19,7 @@ export default function Home() {
 
   return (
     <main>
+      <Navbar />
       <section className="px-4 py-6 space-y-4 bg-accent400 w-full h-screen">
         <div className="flex justify-center items-center h-full ">
           <Image src={logo} alt="Logo" />
