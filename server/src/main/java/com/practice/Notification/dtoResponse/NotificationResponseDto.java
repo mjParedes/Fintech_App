@@ -1,10 +1,12 @@
 package com.practice.Notification.dtoResponse;
 
-import java.time.LocalDateTime;
+import com.practice.Notification.dtoRequest.NotificationRequestDto;
 
-public record NotificationResponseDto(Long id,
-                                      String type_notification,
-                                      String message,
-                                      Boolean isRead,
-                                      LocalDateTime dateCreate) {
+import java.time.LocalDateTime;
+import java.util.List;
+
+public record NotificationResponseDto(
+        List<NotificationRequestDto> notificationDtos,
+        int page, long totalElement
+) {
 }
