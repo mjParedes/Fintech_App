@@ -1,5 +1,7 @@
 package com.practice.Cost.service;
 
-public interface CostService {
+import com.practice.Cost.dtoResponse.CostPageResponseDto;
 
+public interface CostService {
+    CostPageResponseDto findAllCost(int page, int size);
 }
