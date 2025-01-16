@@ -7,7 +7,6 @@ import com.practice.Notification.model.NotificationModel;
 import java.util.List;
 
 public interface NotificationService {
-    List<NotificationModel> findAllNotification();
-    NotificationResponseDto createNotification(NotificationRequestDto requestDto);
+    NotificationResponseDto findAllNotification(int page, int size);
 
 }
