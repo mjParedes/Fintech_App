@@ -22,6 +22,7 @@ public class FinancingProfileModel {
     @Enumerated(EnumType.STRING)
     private EnumKnowledgeLevel enumKnowledgeLevel;
     @Column(name = "risk_profile")
+    @Enumerated(value = EnumType.STRING)
     private EnumRiskProfile enumRiskProfile;
     @Column(name = "income_monthly")
     private Double incomeMonthly;

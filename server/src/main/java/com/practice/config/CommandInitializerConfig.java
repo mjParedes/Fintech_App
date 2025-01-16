@@ -13,15 +13,17 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+
 
 @Component
 @RequiredArgsConstructor
 public class CommandInitializerConfig implements CommandLineRunner {
 
     private final RoleRepository roleRepository;
-    private final PermissionRepository permissionRepository; // Repositorio para los permisos
+    private final PermissionRepository permissionRepository;
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -39,35 +41,69 @@ public class CommandInitializerConfig implements CommandLineRunner {
 
         // Inicializar roles
         if (roleRepository.count() == 0) {
-            // Obtener todos los permisos
             Set<PermissionModel> allPermissions = new HashSet<>(permissionRepository.findAll());
 
-            // Crear rol ADMIN con todos los permisos
             RoleModel adminRole = new RoleModel(EnumRole.ADMIN);
             adminRole.setPermissions(allPermissions);
             roleRepository.save(adminRole);
 
-            // Crear rol USER sin permisos al inicio
             RoleModel userRole = new RoleModel(EnumRole.USER);
             roleRepository.save(userRole);
-
 
             System.out.println("Roles initialized.");
         }
 
-        // Crear un administrador inicial
+        // Crear usuarios iniciales
         if (userRepository.count() == 0) {
             RoleModel adminRole = roleRepository.findByEnumRole(EnumRole.ADMIN)
                     .orElseThrow(() -> new RuntimeException("El rol ADMIN no existe"));
+            RoleModel userRole = roleRepository.findByEnumRole(EnumRole.USER)
+                    .orElseThrow(() -> new RuntimeException("El rol USER no existe"));
 
-            UserModel admin = new UserModel();
-            admin.setEmail("admin@example.com");
-            admin.setPassword(passwordEncoder.encode("admin123"));
-            admin.setRoles(Set.of(adminRole));
+            UserModel admin = UserModel.builder()
+                    .email("admin@example.com")
+                    .password(passwordEncoder.encode("admin123"))
+                    .name("Ryan")
+                    .lastName("Gonzales")
+                    .phoneNumber(123456789)
+                    .birthDate(LocalDateTime.of(1980, 1, 1, 0, 0))
+                    .registerDate(LocalDateTime.now())
+                    .lastLogin(LocalDateTime.now())
+                    .roles(Set.of(adminRole))
+                    .photoUrl("https://i.sstatic.net/l60Hf.png")
+                    .build();
+
+            UserModel user1 = UserModel.builder()
+                    .email("user1@example.com")
+                    .password(passwordEncoder.encode("user123"))
+                    .name("Jhon")
+                    .lastName("Perez")
+                    .phoneNumber(123456789)
+                    .birthDate(LocalDateTime.of(1990, 1, 1, 0, 0))
+                    .registerDate(LocalDateTime.now())
+                    .lastLogin(LocalDateTime.now())
+                    .roles(Set.of(userRole))
+                    .photoUrl("https://i.sstatic.net/l60Hf.png")
+                    .build();
+
+            UserModel user2 = UserModel.builder()
+                    .email("user2@example.com")
+                    .password(passwordEncoder.encode("password2"))
+                    .name("Rodrigo")
+                    .lastName("Mendez")
+                    .phoneNumber(987654321)
+                    .birthDate(LocalDateTime.of(1992, 2, 2, 0, 0))
+                    .registerDate(LocalDateTime.now())
+                    .lastLogin(LocalDateTime.now())
+                    .roles(Set.of(userRole))
+                    .photoUrl("https://i.sstatic.net/l60Hf.png")
+                    .build();
 
             userRepository.save(admin);
+            userRepository.save(user1);
+            userRepository.save(user2);
 
-            System.out.println("Admin user created: admin@example.com / admin123");
+            System.out.println("Initial users created.");
         }
     }
 }

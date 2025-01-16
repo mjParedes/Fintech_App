@@ -21,28 +21,28 @@ public class UserRequestDto {
     @Schema(description = "URL de la foto", required = false, example = "https://example.com/photo.jpg")
     private String photoUrl;
 
-    @Schema(description = "Nombre del usuario", required = true, example = "Juan")
+    @Schema(description = "Nombre del usuario", example = "Juan")
     @NotBlank(message = "El nombre es obligatorio")
     private String name;
 
-    @Schema(description = "Apellido del usuario", required = true, example = "Perez")
+    @Schema(description = "Apellido del usuario", example = "Perez")
     @NotBlank(message = "El apellido es obligatorio")
     private String lastName;
 
-    @Schema(description = "Correo del usuario", required = true, example = "7o5f1@example.com")
+    @Schema(description = "Correo del usuario", example = "7o5f1@example.com")
     @NotBlank(message = "El correo es obligatorio")
     @Email(message = "El correo no es valido")
     private String email;
 
-    @Schema(description = "Contraseña del usuario", required = true, example = "password123")
+    @Schema(description = "Contraseña del usuario", example = "password123")
     @NotBlank(message = "La contraseña es obligatoria")
     private String password;
 
-    @Schema(description = "Telefono del usuario", required = true, example = "1234567890")
+    @Schema(description = "Telefono del usuario", example = "1234567890")
     @NotNull(message = "El telefono es obligatorio")
     private Integer phoneNumber;
 
-    @Schema(description = "Fecha de nacimiento del usuario", required = true, example = "1990-01-01T00:00:00")
+    @Schema(description = "Fecha de nacimiento del usuario", example = "1990-01-01T00:00:00")
     @NotNull(message = "La fecha de nacimiento es obligatoria")
     private LocalDateTime birthDate;
 }
