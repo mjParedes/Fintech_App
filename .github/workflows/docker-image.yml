@@ -33,7 +33,7 @@ jobs:
           DATABASE_PUBLIC_URL: ${{ secrets.DATABASE_PUBLIC_URL }}
           PGUSER: ${{ secrets.PGUSER }}
           PGPASSWORD: ${{ secrets.PGPASSWORD }}
-        run: mvn -f ./pom.xml clean package -DskipTests
+        run: mvn -f ./server/pom.xml clean package -DskipTests
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
