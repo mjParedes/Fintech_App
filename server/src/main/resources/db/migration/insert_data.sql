@@ -1,5 +1,5 @@
 -- Tabla Financing_Profile
-insert into fintech.financing_profile_model (id, knowledge_level, risk_profile, expenses_monthly, income_monthly,
+insert into financing_profile_model (id, knowledge_level, risk_profile, expenses_monthly, income_monthly,
                                              patrimony_total, percentage_save, saving_total, total_debt)
 values (1, 'INTERMEDIO', 'CONSERVADOR', 200, 202.73, 100.88, 2.3, 200036, 1256),
        (2, 'NOVATO', 'MODERADO', 145, 1896.12, 1239.698, 2.9, 124789, 1258.98),
@@ -20,7 +20,7 @@ where users.id = 3;
 
 
 -- Tabla Objectives
-insert into fintech.objectives (id, amount_objective, annual_progress, description, frequency, objectuve_type, priority,
+insert into objectives (id, amount_objective, annual_progress, description, frequency, objectuve_type, priority,
                                 start_date, target_date, financing_profile_id)
 values (1, 200.5, 20.8, 'Descripcion 1', 'MENSUAL', 'INVERSIONES', 'BAJA', '2005-01-14 13:14:01.000000',
         '2006-01-14 13:14:22.000000', 1),
