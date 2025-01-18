@@ -1,6 +1,7 @@
 package com.practice.exceptions;
 
 import jakarta.validation.ConstraintViolationException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,68 +13,125 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionController {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getFieldErrors().forEach(error ->
-                errors.put(error.getField(), error.getDefaultMessage())
-        );
-        String errorMessage = "Error de validación: " + errors.toString();
-        ErrorResponse errorResponse = new ErrorResponse("VALIDATION_ERROR", errorMessage);
-        return ResponseEntity.badRequest().body(errorResponse);
-    }
+        List<String> details = ex.getBindingResult()
+                .getFieldErrors()
+                .stream()
+                .map(error -> error.getField() + ": " + error.getDefaultMessage())
+                .collect(Collectors.toList());
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
-        ErrorResponse errorResponse = new ErrorResponse("UNKNOWN_ERROR", "Ocurrió un error inesperado: " + ex.getMessage());
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
+        ErrorResponse errorResponse = new ErrorResponse(
+                "VALIDATION_ERROR",
+                "Errores de validación en los campos enviados",
+                details
+        );
+
+        log.warn("Validation error: {}", details);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> handleHttpMessageNotReadableException(HttpMessageNotReadableException ex) {
-        ErrorResponse errorResponse = new ErrorResponse("BAD_REQUEST", "El cuerpo de la solicitud es inválido o está mal formado.");
-        return ResponseEntity.badRequest().body(errorResponse);
+        ErrorResponse errorResponse = new ErrorResponse(
+                "INVALID_REQUEST_BODY",
+                "El formato del cuerpo de la solicitud es inválido",
+                Collections.singletonList("Verifica la sintaxis JSON y los tipos de datos enviados")
+        );
+
+        log.warn("Invalid request body: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
     @ExceptionHandler(InvalidDataAccessApiUsageException.class)
     public ResponseEntity<ErrorResponse> handleInvalidDataAccessApiUsage(InvalidDataAccessApiUsageException ex) {
-        ErrorResponse errorResponse = new ErrorResponse("DATA_ACCESS_ERROR", "Error al realizar la consulta: " + ex.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse(
+                "INVALID_QUERY_PARAMETER",
+                "Error en los parámetros de consulta",
+                Collections.singletonList(ex.getMostSpecificCause().getMessage())
+        );
+
+        log.warn("Invalid data access: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<ErrorResponse> handleConstraintViolationException(ConstraintViolationException ex) {
-        String errorMessage = ex.getConstraintViolations()
+        List<String> details = ex.getConstraintViolations()
                 .stream()
                 .map(violation -> violation.getPropertyPath() + ": " + violation.getMessage())
-                .collect(Collectors.joining(", "));
-        ErrorResponse errorResponse = new ErrorResponse("CONSTRAINT_VIOLATION", errorMessage);
-        return ResponseEntity.badRequest().body(errorResponse);
+                .collect(Collectors.toList());
+
+        ErrorResponse errorResponse = new ErrorResponse(
+                "CONSTRAINT_VIOLATION",
+                "Violación de restricciones en los datos",
+                details
+        );
+
+        log.warn("Constraint violation: {}", details);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<ErrorResponse> handleMethodNotSupportedException(HttpRequestMethodNotSupportedException ex) {
-        ErrorResponse errorResponse = new ErrorResponse("METHOD_NOT_SUPPORTED", "Método HTTP no soportado: " + ex.getMethod());
+        List<String> supportedMethods = ex.getSupportedHttpMethods() != null ?
+                ex.getSupportedHttpMethods().stream().map(Object::toString).collect(Collectors.toList()) :
+                Collections.emptyList();
+
+        ErrorResponse errorResponse = new ErrorResponse(
+                "METHOD_NOT_ALLOWED",
+                "Método HTTP no soportado: " + ex.getMethod(),
+                Collections.singletonList("Métodos soportados: " + String.join(", ", supportedMethods))
+        );
+
+        log.warn("Method not allowed: {} for path {}", ex.getMethod(), ex.getMessage());
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(errorResponse);
     }
 
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<ErrorResponse> handleNoHandlerFoundException(NoHandlerFoundException ex) {
-        ErrorResponse errorResponse = new ErrorResponse("NOT_FOUND", "El recurso solicitado no se encontró.");
+        ErrorResponse errorResponse = new ErrorResponse(
+                "RESOURCE_NOT_FOUND",
+                "El recurso solicitado no existe",
+                Collections.singletonList("Path: " + ex.getRequestURL())
+        );
+
+        log.warn("Resource not found: {}", ex.getRequestURL());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ErrorResponse> handleAccessDeniedException(AccessDeniedException ex) {
-        ErrorResponse errorResponse = new ErrorResponse("ACCESS_DENIED", "No tienes permiso para realizar esta acción.");
+        ErrorResponse errorResponse = new ErrorResponse(
+                "ACCESS_DENIED",
+                "Acceso denegado",
+                Collections.singletonList("No tienes los permisos necesarios para realizar esta acción")
+        );
+
+        log.warn("Access denied for user");
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorResponse);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                "INTERNAL_SERVER_ERROR",
+                "Error interno del servidor",
+                Collections.singletonList("Por favor, contacta al equipo de soporte si el problema persiste")
+        );
+
+        log.error("Unexpected error occurred", ex);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
     }
 
 

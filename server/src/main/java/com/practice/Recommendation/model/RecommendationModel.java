@@ -25,11 +25,12 @@ public class RecommendationModel {
     private LocalDateTime createDate = LocalDateTime.now();
     private Boolean state;
 
-    @ManyToOne
+    @ManyToOne(targetEntity = UserModel.class)
     @JoinColumn(name = "user_id")
-    UserModel user;
-    @ManyToOne
+    private UserModel user;
+
+    @ManyToOne(targetEntity = InstrumentModel.class)
     @JoinColumn(name = "instrument_id")
-    InstrumentModel instrument;
+    private InstrumentModel instrument;
 
 }

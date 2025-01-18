@@ -38,7 +38,7 @@ public class ObjectiveModel {
     @Column(name = "target_date")
     private LocalDateTime targetDate = LocalDateTime.now();
 
-    @ManyToOne
+    @ManyToOne(targetEntity = FinancingProfileModel.class)
     @JoinColumn(name = "financing_profile_id")
     private FinancingProfileModel financingProfile;
 

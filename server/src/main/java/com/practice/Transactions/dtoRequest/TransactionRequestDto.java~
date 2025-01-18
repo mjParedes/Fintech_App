@@ -15,5 +15,5 @@ public class TransactionRequestDto {
     private Double unitPrice;
     private Integer quantity;
     private Double commission;
-    private PortfolioRequestDto portfolio;
+//    private PortfolioRequestDto portfolio;
 }

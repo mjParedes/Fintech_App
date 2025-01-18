@@ -24,7 +24,8 @@ public class TransactionModel {
     private Integer quantity;
     private Double commission;
     private LocalDateTime date = LocalDateTime.now();
-    @ManyToOne
+
+    @ManyToOne(targetEntity = PortfolioModel.class)
     @JoinColumn(name = "portfolio_id")
-    PortfolioModel portfolio;
+    private PortfolioModel portfolio;
 }
