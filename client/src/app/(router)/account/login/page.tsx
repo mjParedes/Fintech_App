@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/navigation'
@@ -9,6 +9,8 @@ import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import Cookies from 'js-cookie';
 import { FcGoogle } from 'react-icons/fc';
+import { fetchLoginUser } from '@/utils/FetchLoginUser';
+import Swal from 'sweetalert2';
 
 export default function LoginForm() {
   const [showForm, setShowForm] = useState(true);
@@ -34,6 +36,8 @@ export default function LoginForm() {
     },
     validationSchema,
     onSubmit: async  (values, {resetForm}) => {
+
+      const { email, password } = values;
       if (rememberMe) {
         Cookies.set('userEmail', values.email, {
           secure: true,
@@ -41,9 +45,48 @@ export default function LoginForm() {
           expires: 7, // Duración de la cookie en días
         });
       }
-      setLoading(true);
-      
-      
+
+      const dataForLoginUser = {
+        email: email,
+        password: password,
+      };
+          
+      try {
+        const response = await fetchLoginUser(dataForLoginUser);
+        console.log(response);
+  
+        if (response.success === true) {
+          Swal.fire({
+            icon: 'success',
+            title: `${response.message}`,
+            showConfirmButton: false,
+            timer: 1500
+          });
+
+          const dataCookies = {
+            email: response.email,
+            token: response.token,
+          }
+
+          Cookies.set('userLogged', JSON.stringify(dataCookies), {
+            secure: true,
+            sameSite: 'strict',
+            expires: 7, // Duración de la cookie en días
+          });
+
+          resetForm();
+          router.push("/app");
+          return;
+        } 
+      } catch (error) {
+        console.error('Error during registration:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Hubo un problema con el inicio de sesion.',
+          showConfirmButton: true,
+        });
+      }
     },
   });
 
