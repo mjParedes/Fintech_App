@@ -26,7 +26,7 @@ export default function Button({
 			'px-4 py-2 text-base': size === 'medium',
 			'px-6 py-3 text-lg': size === 'large',
 			// Variant styles
-			'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500': variant === 'solid',
+			'bg-accent300 text-white hover:bg-blue-700 focus:ring-blue-500': variant === 'solid',
 			'border border-blue-600 text-blue-600 hover:bg-blue-50 focus:ring-blue-500': variant === 'outline',
 			'text-blue-600 hover:underline focus:ring-blue-500': variant === 'text',
 
