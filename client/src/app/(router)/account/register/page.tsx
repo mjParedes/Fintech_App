@@ -154,7 +154,7 @@ export default function RegisterForm() {
 
 
   return (
-    <div className='pb-20'>
+    <div className='pb-20 sm:w-[400px] md:w-[400px] lg:w-[400px] xl:w-[400px] mx-auto bg-white  rounded-lg'>
             {step === 1 && (<>
             
               <div> 
