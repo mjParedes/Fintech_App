@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { ChevronRight, ChevronLeft, Home, Work, People } from '@mui/icons-material'
+import { ChevronRight, ChevronLeft, Cabin, Work, People } from '@mui/icons-material'
 import clsx from 'clsx'
 
 export default function Dashboard() {
 	const [isExpanded, setIsExpanded] = useState(false)
-	const [isClient, setIsClient] = useState(false) // Verifica si está en cliente
+	const [isClient, setIsClient] = useState(false)
 	const router = useRouter()
 
 	useEffect(() => {
-		setIsClient(typeof window !== 'undefined') // Marca que está en cliente
+		setIsClient(typeof window !== 'undefined')
 	}, [])
 
 	const menuItems = [
-		{ label: 'Inicio', icon: <Home />, path: '/' },
+		{ label: 'Inicio', icon: <Cabin />, path: '/' },
 		{ label: 'Portafolio', icon: <Work />, path: '/portfolio' },
 		{ label: 'Comunidad', icon: <People />, path: '/community' },
 	]
@@ -21,14 +21,14 @@ export default function Dashboard() {
 	const toggleMenu = () => setIsExpanded((prev) => !prev)
 
 	if (!isClient) {
-		return null // Renderiza nada si aún no está en cliente
+		return null
 	}
 
 	return (
 		<nav
 			className={clsx(
-				'fixed bg-background text-foreground shadow-lg',
-				'w-full bottom-0 md:w-20 md:h-full md:top-0 md:left-0',
+				'fixed text-white500 shadow-lg',
+				'w-full bottom-0 md:w-20 md:h-full md:top-12 md:left-0',
 				isExpanded && 'md:w-64'
 			)}
 		>
@@ -49,7 +49,7 @@ export default function Dashboard() {
 							key={item.path}
 							className={clsx(
 								'flex flex-col items-center justify-center md:items-start',
-								router.pathname === item.path ? 'text-primary500' : 'text-white500',
+								router.pathname === item.path ? 'text-accent500' : 'text-white500',
 								'hover:text-primary700'
 							)}
 						>
