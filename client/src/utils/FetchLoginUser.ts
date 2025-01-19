@@ -16,7 +16,6 @@ export const fetchLoginUser = async (userData: LoginUser) => {
             },
             body: JSON.stringify(userData),
         });
-        //console.log(response);
 
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -26,7 +25,6 @@ export const fetchLoginUser = async (userData: LoginUser) => {
         
         return data;
     } catch (error) {
-        console.error('There was a problem with the fetch operation:', error);
         throw error;
     }
 };

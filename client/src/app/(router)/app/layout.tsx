@@ -1,12 +1,16 @@
 
 import isUserLogged from '@/utils/isUserLogged';
+import { redirect } from 'next/navigation';
 import React from 'react';
 
 
-const AccountLayout: React.FC<{ children: React.ReactNode }> = async ({ children }) => {
+const AppLayout: React.FC<{ children: React.ReactNode }> = async ({ children }) => {
 
-    const token = await isUserLogged();
-    console.log(token);
+    const token = await isUserLogged(); 
+    if (token === false) {
+        redirect('/account/login');
+    }
+    
 
     return (
         <div className=''>
@@ -15,4 +19,4 @@ const AccountLayout: React.FC<{ children: React.ReactNode }> = async ({ children
     );
 };
 
-export default AccountLayout;
+export default AppLayout;

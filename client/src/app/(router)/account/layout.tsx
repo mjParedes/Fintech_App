@@ -2,8 +2,18 @@ import Image from 'next/image';
 import React from 'react';
 import logo from "../../../../public/Logo azul completo.png"
 import Link from 'next/link';
+import isUserLogged from '@/utils/isUserLogged';
+import { redirect } from 'next/navigation';
 
-const AccountLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const AccountLayout: React.FC<{ children: React.ReactNode }> = async ({ children }) => {
+
+
+    const token = await isUserLogged(); 
+    if (!(token === false)) {
+        redirect('/app');
+        
+    }
+
     return (
         <div className='w-full  h-auto bg-white pt-10 px-4'>
             <div className='flex justify-center items-center flex-col'>

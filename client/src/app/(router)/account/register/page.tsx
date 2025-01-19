@@ -65,8 +65,6 @@ export default function RegisterForm() {
     },
     validationSchema,
     onSubmit: async  (values, {resetForm}) => {
-      
-
       const {name, lastName,email, password, phoneNumber, birthDate} = values;
 
       const dataForRegisterUser = {
@@ -100,11 +98,10 @@ export default function RegisterForm() {
         return;
       } 
     } catch (error) {
-      console.error('Error during registration:', error);
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'Hubo un problema con el registro. Por favor, inténtelo de nuevo más tarde.',
+        text: 'Hubo un problema con el registro.',
         showConfirmButton: true,
       });
     }
@@ -157,7 +154,7 @@ export default function RegisterForm() {
 
 
   return (
-    <div className=''>
+    <div className='pb-20'>
             {step === 1 && (<>
             
               <div> 
@@ -443,7 +440,7 @@ export default function RegisterForm() {
                     ) : null}
                   </div>
                   <PasswordRequirements password={formik.values.password} />
-                  <button type="submit" className="w-full mt-5 text-black bg-white hover:bg-blue-800 focus:outline-primary900 focus:ring-4 focus:bg-primary900 border border-primary900 focus:text-white  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 ">Siguiente</button>
+                  <button type="submit" className="w-full mt-5 mb-5 text-black bg-white hover:bg-blue-800 focus:outline-primary900 focus:ring-4 focus:bg-primary900 border border-primary900 focus:text-white  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 ">Siguiente</button>
 
                 </>
               )}

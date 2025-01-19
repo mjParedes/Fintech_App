@@ -53,8 +53,7 @@ export default function LoginForm() {
           
       try {
         const response = await fetchLoginUser(dataForLoginUser);
-        console.log(response);
-  
+        
         if (response.success === true) {
           Swal.fire({
             icon: 'success',
@@ -79,11 +78,10 @@ export default function LoginForm() {
           return;
         } 
       } catch (error) {
-        console.error('Error during registration:', error);
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'Hubo un problema con el inicio de sesion.',
+          text: 'Hubo un problema con el inicio de sesion. Email o contraseña incorrecta',
           showConfirmButton: true,
         });
       }
