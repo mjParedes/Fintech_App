@@ -13,6 +13,7 @@ import 'react-phone-input-2/lib/style.css';
 import { MODIFIED_COUNTRIES } from '@/lib/countryList';
 import Select from 'react-select';
 import PasswordRequirements from '@/components/PasswordRequirements';
+import { fetchRegisterUser } from '@/utils/FetchRegisterUser';
 
 
 export default function RegisterForm() {
@@ -45,10 +46,10 @@ export default function RegisterForm() {
       .required('El número de teléfono es requerido'),
       country: Yup.string()
       .required('El país es requerido'),
-      postalCode: Yup.string()
-      .required('El código postal es requerido')
-      .min(4, 'El código postal debe contener al menos 4 caracteres')
-      .max(10, 'El código postal debe contener máximo 10 caracteres')
+      birthDate: Yup.date()
+      .required('La fecha de nacimiento es requerida')
+      .nullable()
+      .max(new Date(), 'La fecha de nacimiento no puede ser en el futuro')
     });
 
   const formik = useFormik({
@@ -58,15 +59,55 @@ export default function RegisterForm() {
       lastName:"",
       phoneNumber:"",
       country: "",
-      postalCode: "",
+      birthDate: "",
       password: "",
       confirmPassword:"",
     },
     validationSchema,
     onSubmit: async  (values, {resetForm}) => {
-      setLoading(true);
-      console.log(values);
-      router.push("/account/login");
+      
+
+      const {name, lastName,email, password, phoneNumber, birthDate} = values;
+
+      const dataForRegisterUser = {
+        photoUrl: "string",
+        name: name,
+        lastName: lastName,
+        email: email,
+        password: password,
+        phoneNumber: Number(phoneNumber),
+        birthDate: `${birthDate}T00:00:00` ,
+        roleDto: {
+          roles: [
+            "USER"
+          ]
+        }
+      };
+      
+
+    try {
+      const response = await fetchRegisterUser(dataForRegisterUser);
+
+      if (response.status === true) {
+        Swal.fire({
+          icon: 'success',
+          title: `${response.message}`,
+          showConfirmButton: false,
+          timer: 1500
+        });
+        resetForm();
+        router.push("/account/login");
+        return;
+      } 
+    } catch (error) {
+      console.error('Error during registration:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un problema con el registro. Por favor, inténtelo de nuevo más tarde.',
+        showConfirmButton: true,
+      });
+    }
     },
   });
 
@@ -77,7 +118,7 @@ export default function RegisterForm() {
       case 2:
         return !formik.errors.name && formik.values.name !== "" && !formik.errors.lastName && formik.values.lastName !== "";
       case 3:
-        return !formik.errors.phoneNumber && formik.values.phoneNumber !== "" && !formik.errors.country && formik.values.country !== "" && !formik.errors.postalCode && formik.values.postalCode !== "";
+        return !formik.errors.phoneNumber && formik.values.phoneNumber !== "" && !formik.errors.country && formik.values.country !== "" && !formik.errors.birthDate && formik.values.birthDate !== "";
       case 4:
         return !formik.errors.password && formik.values.password !== "" && !formik.errors.confirmPassword && formik.values.confirmPassword !== "";
     }
@@ -233,7 +274,7 @@ export default function RegisterForm() {
                         <div className='my-1 text-primaryDefault'>{String(formik.errors.lastName)}</div>
                   ) : null}
                     
-                  <button  onClick={handleNext} type="submit" className="w-full mt-5 text-black bg-white hover:bg-blue-800 focus:outline-primary900 focus:ring-4 focus:bg-primary900 border border-primary900 focus:text-white  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 ">Siguiente</button>
+                  <button  onClick={handleNext} type="button" className="w-full mt-5 text-black bg-white hover:bg-blue-800 focus:outline-primary900 focus:ring-4 focus:bg-primary900 border border-primary900 focus:text-white  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 ">Siguiente</button>
                 </div>
                 </>
               )}
@@ -305,23 +346,21 @@ export default function RegisterForm() {
 
 
                   <div className="mb-5">
-                    <label htmlFor="postalCode" className="block mb-4 text-sm font-medium text-gray-900">Código Postal</label>
-                    <input
-                      type="text"
-                      name='postalCode'
-                      id="postalCode"
+                    <label htmlFor="birthDate" className="block mb-4 text-sm font-medium text-gray-900">Fecha de Nacimiento</label>
+                    <input 
+                      type="date"
+                      name='birthDate'
+                      id="birthDate"
                       className="border border-gray-600 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-3.5 dark:focus:ring-primary700 dark:focus:border-primary700"
-                      placeholder="EJ: 000 000 000"
                       onChange={formik.handleChange}
-                      value={formik.values.postalCode}
-                      
+                      value={formik.values.birthDate}
                     />
-                    {formik.touched.postalCode && formik.errors.postalCode ? (
-                      <div className='my-1 text-primaryDefault'>{String(formik.errors.postalCode)}</div>
+                    {formik.touched.birthDate && formik.errors.birthDate ? (
+                      <div className='my-1 text-primaryDefault'>{String(formik.errors.birthDate)}</div>
                     ) : null}
                   </div>
 
-                  <button  onClick={handleNext} type="submit" className="w-full mt-5 text-black bg-white hover:bg-blue-800 focus:outline-primary900 focus:ring-4 focus:bg-primary900 border border-primary900 focus:text-white  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 ">Siguiente</button>
+                  <button  onClick={handleNext} type="button" className="w-full mt-5 text-black bg-white hover:bg-blue-800 focus:outline-primary900 focus:ring-4 focus:bg-primary900 border border-primary900 focus:text-white  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 ">Siguiente</button>
 
                 </>
               )}
