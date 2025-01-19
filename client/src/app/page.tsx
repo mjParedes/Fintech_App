@@ -5,6 +5,7 @@ import Image from "next/image";
 import logo from "../../public/Logo.png";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/layout/Navbar";
+import Dashboard from "@/components/layout/Dashboard";
 
 export default function Home() {
   const router = useRouter();
@@ -24,6 +25,7 @@ export default function Home() {
         <div className="flex justify-center items-center h-full ">
           <Image src={logo} alt="Logo" />
         </div>
+        <Dashboard />
       </section>
     </main>
   );
