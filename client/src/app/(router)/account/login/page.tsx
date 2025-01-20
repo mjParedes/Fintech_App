@@ -74,7 +74,7 @@ export default function LoginForm() {
           });
           setLoading(false);
           resetForm();
-          router.push("/app");
+          router.push("/app/home");
           return;
         } 
       } catch (error) {
