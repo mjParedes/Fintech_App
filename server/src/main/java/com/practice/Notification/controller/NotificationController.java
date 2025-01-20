@@ -40,10 +40,15 @@ public class NotificationController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<NotificationCreateResponseDto> createNotification(@RequestBody @Validated NotificationCreateRequestDto notificationCreateRequestDto){
+    public ResponseEntity<NotificationCreateResponseDto> createNotification(@RequestBody @Validated NotificationCreateRequestDto notificationCreateRequestDto) {
         NotificationCreateResponseDto response =
                 notificationServiceImpl.createNotification(notificationCreateRequestDto);
-        return  new ResponseEntity<>(response, HttpStatus.CREATED);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteNotification(@PathVariable Long id) {
+        notificationServiceImpl.deleteNotification(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

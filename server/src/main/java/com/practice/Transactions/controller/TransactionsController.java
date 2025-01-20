@@ -37,4 +37,9 @@ public class TransactionsController {
         TransactionCreateResponseDto response = transactionsServiceImpl.createTransaction(transactionsCreateRequestDto);
         return  new ResponseEntity<>(response, HttpStatus.CREATED);
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTransaction(@PathVariable Long id){
+             transactionsServiceImpl.deleteTransaction(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

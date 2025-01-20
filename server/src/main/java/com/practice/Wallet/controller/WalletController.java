@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,4 +45,10 @@ public class WalletController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    @Transactional
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteWallet(@PathVariable Long id){
+        walletServiceImpl.deleteWallet(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }

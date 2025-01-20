@@ -13,4 +13,6 @@ public interface NotificationService {
 
     NotificationCreateResponseDto createNotification(@Validated NotificationCreateRequestDto notificationCreateRequestDto);
 
+    void deleteNotification(Long id);
+
 }

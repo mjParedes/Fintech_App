@@ -65,4 +65,12 @@ public class WalletServiceImpl implements WalletService {
         WalletModel walletCreated = walletRepository.save(walletModel);
         return new WalletResponseCreateDto(walletCreated.getId(),currentBalance,idUser);
     }
+
+    @Override
+    public void deleteWallet(Long id) {
+        if(!walletRepository.existsById(id)){
+            throw new IllegalArgumentException("Wallet con el id " + id + "no fue encontrado");
+        }
+        walletRepository.deleteById(id);
+    }
 }

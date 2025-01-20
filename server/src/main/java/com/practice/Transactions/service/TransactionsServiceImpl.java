@@ -55,7 +55,7 @@ public class TransactionsServiceImpl implements TransactionsService {
 
         try {
             transactionType = EnumTransactionType.valueOf(transactionsCreateRequestDto.transactionType());
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(e);
         }
 
@@ -71,8 +71,18 @@ public class TransactionsServiceImpl implements TransactionsService {
                 .build();
         transactionsRepository.save(transactionModel);
         return new TransactionCreateResponseDto(transactionModel.getId(),
-                transactionsCreateRequestDto.transactionType(),transactionModel.getUnitPrice(),
-                transactionModel.getQuantity(),transactionModel.getCommission(),transactionModel.getPortfolio().getId());
+                transactionsCreateRequestDto.transactionType(), transactionModel.getUnitPrice(),
+                transactionModel.getQuantity(), transactionModel.getCommission(), transactionModel.getPortfolio().getId());
+    }
+
+    @Override
+    public void deleteTransaction(Long id) {
+
+        if (!transactionsRepository.existsById(id)) {
+            throw new IllegalArgumentException("La transacion con id " + id + " no existe");
+        }
+
+        transactionsRepository.deleteById(id);
     }
 
 

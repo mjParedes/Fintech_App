@@ -12,4 +12,5 @@ public interface WalletService {
 
     WalletResponseCreateDto createWallet(WalletCreateRequestDto walletCreateRequestDto);
 
+    void deleteWallet(Long id);
 }

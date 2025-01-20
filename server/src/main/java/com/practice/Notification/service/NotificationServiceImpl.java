@@ -72,4 +72,12 @@ public class NotificationServiceImpl implements NotificationService {
                 notificationModel.getId(), notificationCreateRequestDto.typeNotification(),
                 notificationModel.getMessage(), notificationModel.getIsRead(), notificationCreateRequestDto.idUser());
     }
+
+    @Override
+    public void deleteNotification(Long id) {
+        if(!notificationRepository.existsById(id)){
+            throw new IllegalArgumentException("La notification con id " + id + "no existe");
+        }
+        notificationRepository.deleteById(id);
+    }
 }
