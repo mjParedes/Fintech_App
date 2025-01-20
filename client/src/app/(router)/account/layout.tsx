@@ -10,7 +10,7 @@ const AccountLayout: React.FC<{ children: React.ReactNode }> = async ({ children
 
     const token = await isUserLogged(); 
     if (!(token === false)) {
-        redirect('/app');
+        redirect('/app/home');
         
     }
 
@@ -18,14 +18,10 @@ const AccountLayout: React.FC<{ children: React.ReactNode }> = async ({ children
         <div className='w-full  h-auto bg-white pt-10 px-4'>
             <div className='flex justify-center items-center flex-col'>
                 <Image src={logo} alt='Logo' width={200} height={200} />
-            </div>
-            
+            </div>  
             <main>
                 {children}
             </main>
-            
-
-            
             <footer className='flex justify-between p-4 border-t w-full fixed bottom-0 left-0 right-0 bg-white'>
                 <p className='text-sm text-start flex items-center'>© 2025 iUpi.</p>
                 <div className='flex flex-col text-end'>
