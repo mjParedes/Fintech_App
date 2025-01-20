@@ -1,4 +1,3 @@
-const apiUrl = process.env.BASE_URL;
 
 export  interface LoginUser {   
     email: string;

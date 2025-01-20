@@ -4,7 +4,6 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import Swal from 'sweetalert2';
 import { useRouter } from 'next/navigation'
-import Loader from '../../../../components/Loader';
 import Link from 'next/link';
 import { FaArrowLeft, FaArrowRight, FaEye, FaEyeSlash, } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
@@ -100,6 +99,7 @@ export default function RegisterForm() {
         return;
       } 
     } catch (error) {
+      console.log(error);
       Swal.fire({
         icon: 'error',
         title: 'Error',

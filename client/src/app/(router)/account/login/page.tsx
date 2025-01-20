@@ -3,7 +3,6 @@ import React, { useState} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useRouter } from 'next/navigation'
-import Loader from '../../../../components/Loader';
 import Link from 'next/link';
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
