@@ -88,8 +88,8 @@ public class SecurityConfig  {
         return new CorsFilter(source);
     }
 
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }
+//    @Bean
+//    public ModelMapper modelMapper() {
+//        return new ModelMapper();
+//    }
 }

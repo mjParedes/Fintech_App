@@ -8,7 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -25,14 +27,16 @@ public class PortfolioModel {
     @Column(name = "date_buy")
     private LocalDateTime dateBuy = LocalDateTime.now();
 
-    @OneToMany(mappedBy = "portfolio")
-    private Set<TransactionModel> transactionModels = new HashSet<>();
-    @ManyToOne
+    @OneToMany(mappedBy = "portfolio", targetEntity = TransactionModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<TransactionModel> transactionModels = new ArrayList<>();
+
+    @ManyToOne(targetEntity = UserModel.class)
     @JoinColumn(name = "user_id")
-    UserModel user;
-    @ManyToOne
+    private UserModel user;
+
+    @ManyToOne(targetEntity = InstrumentModel.class)
     @JoinColumn(name = "instrument_id")
-    InstrumentModel instrument;
+    private InstrumentModel instrument;
 
 
 }

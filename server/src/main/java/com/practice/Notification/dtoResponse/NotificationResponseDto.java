@@ -1,12 +1,15 @@
 package com.practice.Notification.dtoResponse;
 
-import com.practice.Notification.dtoRequest.NotificationRequestDto;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-import java.util.List;
+@Data
+@NoArgsConstructor
+public class NotificationResponseDto {
+    private Long id;
+    private String type;
+    private String message;
+    private Boolean isRead;
+    private NotificationUserRequestDto user;
 
-public record NotificationResponseDto(
-        List<NotificationRequestDto> notificationDtos,
-        int page, long totalElement
-) {
 }

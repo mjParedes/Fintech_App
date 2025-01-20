@@ -21,8 +21,8 @@ public class PortfolioMapper {
         dto.setId(portfolioModel.getId());
         dto.setQuantity(portfolioModel.getQuantity());
         dto.setPriceBuy(portfolioModel.getPriceBuy());
-        dto.setUserId(portfolioModel.getUser().getId().toString());
-        dto.setInstrumentId(portfolioModel.getInstrument().getId().toString());
+        dto.setUserId(portfolioModel.getUser().getId());
+        dto.setInstrumentId(portfolioModel.getInstrument().getId());
 //        dto.setTransactionModels(mapTransactions(new ArrayList<>(portfolioModel.getTransactionModels())));
         return dto;
     }

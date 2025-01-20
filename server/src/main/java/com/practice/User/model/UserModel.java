@@ -10,7 +10,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -54,18 +56,22 @@ public class UserModel {
 
     @OneToOne
     @JoinColumn(name = "financing_profile_id")
-    FinancingProfileModel financingProfile;
+    private FinancingProfileModel financingProfile;
 
-    @OneToMany(mappedBy = "user")
-    private Set<CostModel> costModel = new HashSet<>();
-    @OneToMany(mappedBy = "user")
-    private Set<WalletModel> walletModel = new HashSet<>();
-    @OneToMany(mappedBy = "user")
-    private Set<NotificationModel> notificationModel = new HashSet<>();
-    @OneToMany(mappedBy = "user")
-    private Set<RecommendationModel> recommendationModel = new HashSet<>();
-    @OneToMany(mappedBy = "user")
-    private Set<PortfolioModel> portfolioModel = new HashSet<>();
+    @OneToMany(mappedBy = "user", targetEntity = CostModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<CostModel> costModel = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", targetEntity = WalletModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<WalletModel> walletModel = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", targetEntity = NotificationModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<NotificationModel> notificationModel = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", targetEntity = RecommendationModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<RecommendationModel> recommendationModel = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", targetEntity = PortfolioModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PortfolioModel> portfolioModel = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = RoleModel.class)
     @JoinTable(name = "users_roles",

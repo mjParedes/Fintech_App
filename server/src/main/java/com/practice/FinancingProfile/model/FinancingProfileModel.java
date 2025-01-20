@@ -7,8 +7,10 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -36,6 +38,7 @@ public class FinancingProfileModel {
     private Double savingsTotal;
     @Column(name = "patrimony_total")
     private Double patrimonyTotal;
-    @OneToMany(mappedBy = "financingProfile")
-    private Set<ObjectiveModel> objectiveModels = new HashSet<>();
+
+    @OneToMany(mappedBy = "financingProfile", targetEntity = ObjectiveModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<ObjectiveModel> objectiveModels = new ArrayList<>();
 }

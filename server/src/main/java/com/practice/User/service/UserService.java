@@ -2,6 +2,7 @@ package com.practice.User.service;
 
 import com.practice.User.dtoRequest.UserRequestDto;
 import com.practice.User.dtoResponse.UserPageResponse;
+import com.practice.User.dtoResponse.UserResponseDto;
 import com.practice.User.mapper.UserMapper;
 import com.practice.User.model.UserModel;
 import com.practice.User.repository.UserRepository;
@@ -38,9 +39,12 @@ public class UserService {
         return new UserPageResponse(userDtos, usersPage.getTotalPages(), usersPage.getTotalElements());
     }
 
-    public UserModel getUserById(Long id) {
-        return userRepository.findById(id)
+    public UserResponseDto getUserById(Long id) {
+        UserModel user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("Usuario con ID " + id + " no encontrado."));
+
+        return userMapper.toDtoUser(user);
+
     }
 
     public UserModel updateUser(Long id, UserRequestDto updatedUserDto) {
