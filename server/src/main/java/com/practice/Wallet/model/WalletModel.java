@@ -15,7 +15,7 @@ public class WalletModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "user_id")
     UserModel user;
     @Column(name = "current_balance")

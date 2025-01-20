@@ -2,9 +2,12 @@ package com.practice.Transactions.dtoRequest;
 
 
 import com.practice.Portfolio.dtoRequest.PortfolioRequestDto;
+import com.practice.Transactions.dtoResponse.TransactionPortfolioInfoDto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -15,5 +18,5 @@ public class TransactionRequestDto {
     private Double unitPrice;
     private Integer quantity;
     private Double commission;
-    private PortfolioRequestDto portfolio;
+    private List<TransactionPortfolioInfoDto> portfolio;
 }
