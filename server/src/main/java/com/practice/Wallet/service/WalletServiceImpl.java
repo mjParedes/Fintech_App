@@ -2,6 +2,7 @@ package com.practice.Wallet.service;
 
 import com.practice.Wallet.dtoRequest.WalletRequestDto;
 import com.practice.Wallet.dtoResponse.WalletPageResponseDto;
+import com.practice.Wallet.dtoResponse.WalletResponseDto;
 import com.practice.Wallet.mappers.WalletMapper;
 import com.practice.Wallet.model.WalletModel;
 import com.practice.Wallet.repository.WalletRepository;
@@ -32,5 +33,14 @@ public class WalletServiceImpl implements WalletService {
 
 
         return new WalletPageResponseDto(walletDtos, walletPage.getTotalPages(), walletPage.getTotalElements());
+    }
+
+    @Override
+    public WalletResponseDto getWalletById(Long id) {
+        WalletModel wallet =
+                walletRepository.findById(id).orElseThrow(
+                        () -> new IllegalArgumentException("Wallet con ID no " +
+                                "encontrado"));
+        return walletMapper.toDtoWallet(wallet);
     }
 }

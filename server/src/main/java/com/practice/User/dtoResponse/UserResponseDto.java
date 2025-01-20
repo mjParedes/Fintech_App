@@ -1,17 +1,11 @@
 package com.practice.User.dtoResponse;
 
 import com.practice.Cost.dtoRequest.CostRequestDto;
-import com.practice.Cost.dtoResponse.CostPageResponseDto;
 import com.practice.FinancingProfile.dtoRequest.FinancingProfileRequestDto;
-import com.practice.FinancingProfile.dtoResponse.FinancingProfilePageResponse;
 import com.practice.Notification.dtoRequest.NotificationRequestDto;
-import com.practice.Notification.dtoResponse.NotificationResponseDto;
 import com.practice.Portfolio.dtoRequest.PortfolioRequestDto;
-import com.practice.Portfolio.dtoResponse.PortfolioPageResponseDto;
 import com.practice.Recommendation.dtoRequest.RecommendationRequestDto;
-import com.practice.Recommendation.dtoResponse.RecommendationPageResponseDto;
 import com.practice.Wallet.dtoRequest.WalletRequestDto;
-import com.practice.Wallet.dtoResponse.WalletPageResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

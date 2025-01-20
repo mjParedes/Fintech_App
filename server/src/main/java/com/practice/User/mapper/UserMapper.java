@@ -1,32 +1,16 @@
 package com.practice.User.mapper;
 
 import com.practice.Cost.dtoRequest.CostRequestDto;
-import com.practice.Cost.dtoResponse.CostPageResponseDto;
-import com.practice.Cost.model.CostModel;
-import com.practice.FinancingProfile.dtoRequest.FinancingProfileRequestDto;
-import com.practice.FinancingProfile.dtoResponse.FinancingProfilePageResponse;
-import com.practice.FinancingProfile.model.FinancingProfileModel;
 import com.practice.Notification.dtoRequest.NotificationRequestDto;
-import com.practice.Notification.dtoResponse.NotificationResponseDto;
-import com.practice.Notification.model.NotificationModel;
 import com.practice.Portfolio.dtoRequest.PortfolioRequestDto;
-import com.practice.Portfolio.dtoResponse.PortfolioPageResponseDto;
-import com.practice.Portfolio.model.PortfolioModel;
 import com.practice.Recommendation.dtoRequest.RecommendationRequestDto;
-import com.practice.Recommendation.dtoResponse.RecommendationPageResponseDto;
-import com.practice.Recommendation.model.RecommendationModel;
 import com.practice.User.dtoRequest.UserRequestDto;
 import com.practice.User.dtoResponse.UserResponseDto;
-import com.practice.User.model.RoleModel;
 import com.practice.User.model.UserModel;
 import com.practice.Wallet.dtoRequest.WalletRequestDto;
-import com.practice.Wallet.dtoResponse.WalletPageResponseDto;
-import com.practice.Wallet.model.WalletModel;
-import org.modelmapper.Converter;
 import org.springframework.stereotype.Component;
 import org.modelmapper.ModelMapper;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
