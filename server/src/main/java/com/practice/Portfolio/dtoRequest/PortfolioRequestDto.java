@@ -9,6 +9,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,13 +19,14 @@ import java.util.Set;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Schema(description = "")
 public class PortfolioRequestDto {
     private Long id;
     private Integer quantity;
     private Double priceBuy;
-    private List<TransactionRequestDto> transactionModels;
-    private String userId;
-    private String instrumentId;
+    //private List<TransactionRequestDto> transactionModels;
+    private Long userId;
+    private Long instrumentId;
 
 }

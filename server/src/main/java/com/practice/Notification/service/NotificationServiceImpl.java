@@ -1,7 +1,7 @@
 package com.practice.Notification.service;
 
-import com.practice.Notification.Enum.EnumTypeNotification;
 import com.practice.Notification.dtoRequest.NotificationRequestDto;
+import com.practice.Notification.dtoResponse.NotificationPageResponseDto;
 import com.practice.Notification.dtoResponse.NotificationResponseDto;
 import com.practice.Notification.mappers.NotificationMapper;
 import com.practice.Notification.model.NotificationModel;
@@ -12,7 +12,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +23,7 @@ public class NotificationServiceImpl implements NotificationService {
     private final NotificationMapper notificationMapper;
 
     @Override
-    public NotificationResponseDto findAllNotification(int page, int size) {
+    public NotificationPageResponseDto findAllNotification(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
 
         Page<NotificationModel> notificationPage = notificationRepository.findAll(pageable);
@@ -34,6 +33,12 @@ public class NotificationServiceImpl implements NotificationService {
                 .map(notificationMapper::toDto)
                 .collect(Collectors.toList());
 
-        return new NotificationResponseDto(notificationDtos, notificationPage.getTotalPages(), notificationPage.getTotalElements());
+        return new NotificationPageResponseDto(notificationDtos, notificationPage.getTotalPages(), notificationPage.getTotalElements());
+    }
+
+    @Override
+    public NotificationResponseDto getNotificationById(Long id) {
+        NotificationModel notificationModel = notificationRepository.findById(id).orElseThrow();
+        return notificationMapper.toDtoNotification(notificationModel);
     }
 }
