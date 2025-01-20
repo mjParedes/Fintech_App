@@ -13,7 +13,6 @@ import { fetchLoginUser } from '@/utils/FetchLoginUser';
 import Swal from 'sweetalert2';
 
 export default function LoginForm() {
-  const [showForm, setShowForm] = useState(true);
   const [loading, setLoading] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -36,6 +35,7 @@ export default function LoginForm() {
     },
     validationSchema,
     onSubmit: async  (values, {resetForm}) => {
+      setLoading(true);
 
       const { email, password } = values;
       if (rememberMe) {
@@ -72,7 +72,7 @@ export default function LoginForm() {
             sameSite: 'strict',
             expires: 7, // Duración de la cookie en días
           });
-
+          setLoading(false);
           resetForm();
           router.push("/app");
           return;
@@ -109,14 +109,12 @@ export default function LoginForm() {
               </div>
               </div>
       
-      {showForm && (
+      
         <form
           onSubmit={formik.handleSubmit}
-          className=' text-black  sm:p-6 md:p-8 lg:p-10'
+          className=' text-black  '
         >
-          {loading ? (
-            <Loader />
-          ) : (
+          
             <>
               <div className="mb-5">
                   <label htmlFor="email" className="block mb-4 text-sm font-medium text-gray-900">Correo</label>
@@ -179,8 +177,8 @@ export default function LoginForm() {
               </div>
                 </div>
 
-                <button   type="submit" className="w-full  text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:bg-primary400  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 ">
-                    Iniciar Sesión
+                  <button   type="submit" className="w-full  text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:bg-primary400  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 ">
+                    {!loading ? "Iniciar Sesión": "Cargando..."}
                   </button>
                   <div className="relative flex py-5 items-center">
                     <div className="flex-grow border-t border-gray-400"></div>
@@ -198,9 +196,8 @@ export default function LoginForm() {
                     </Link>
                   </div>
             </>
-          )}
+          
         </form>
-      )}
     </section>
   );
 }

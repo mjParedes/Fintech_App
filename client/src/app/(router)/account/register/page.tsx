@@ -65,6 +65,7 @@ export default function RegisterForm() {
     },
     validationSchema,
     onSubmit: async  (values, {resetForm}) => {
+      setLoading(true);
       const {name, lastName,email, password, phoneNumber, birthDate} = values;
 
       const dataForRegisterUser = {
@@ -94,6 +95,7 @@ export default function RegisterForm() {
           timer: 1500
         });
         resetForm();
+        setLoading(false);
         router.push("/account/login");
         return;
       } 
@@ -104,6 +106,7 @@ export default function RegisterForm() {
         text: 'Hubo un problema con el registro.',
         showConfirmButton: true,
       });
+      setLoading(false);
     }
     },
   });
@@ -150,9 +153,6 @@ export default function RegisterForm() {
     }
   };
   
-
-
-
   return (
     <div className='pb-20 sm:w-[400px] md:w-[400px] lg:w-[400px] xl:w-[400px] mx-auto bg-white  rounded-lg'>
             {step === 1 && (<>
@@ -179,12 +179,8 @@ export default function RegisterForm() {
         <form
           onSubmit={formik.handleSubmit}
           className=''
-        >
-          {loading ? (
-            <Loader />
-          ) : (
-            <>
-              {step === 1 && (
+        > 
+          {step === 1 && (
                 <div className="mb-5">
                   <label htmlFor="email" className="block mb-4 text-sm font-medium text-gray-900">Correo</label>
                   <input
@@ -440,14 +436,15 @@ export default function RegisterForm() {
                     ) : null}
                   </div>
                   <PasswordRequirements password={formik.values.password} />
-                  <button type="submit" className="w-full mt-5 mb-5 text-black bg-white hover:bg-blue-800 focus:outline-primary900 focus:ring-4 focus:bg-primary900 border border-primary900 focus:text-white  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 ">Siguiente</button>
+                  <button type="submit" className="w-full mt-5 mb-5  bg-white hover:text-black hover:bg-blue-800 focus:outline-primary900 focus:ring-4 focus:bg-primary900 border border-primary900 focus:text-white  font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 ">
+                    {!loading ? "Registrarse": "Cargando..."}
+                  </button>
 
                 </>
               )}
               
               
-            </>
-          )}
+          
         </form>
       
     </div>
