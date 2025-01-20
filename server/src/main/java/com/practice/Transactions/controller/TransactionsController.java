@@ -1,10 +1,13 @@
 package com.practice.Transactions.controller;
 
+import com.practice.Transactions.dtoRequest.TransactionsCreateRequestDto;
+import com.practice.Transactions.dtoResponse.TransactionCreateResponseDto;
 import com.practice.Transactions.dtoResponse.TransactionPageResponseDto;
 import com.practice.Transactions.dtoResponse.TransactionResponseDto;
 import com.practice.Transactions.service.TransactionsServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,4 +32,9 @@ public class TransactionsController {
         return ResponseEntity.ok(transactionResponse);
     }
 
+    @PostMapping("/create")
+    public ResponseEntity<TransactionCreateResponseDto> createTransaction(@RequestBody @Validated TransactionsCreateRequestDto transactionsCreateRequestDto){
+        TransactionCreateResponseDto response = transactionsServiceImpl.createTransaction(transactionsCreateRequestDto);
+        return  new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
 }

@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 @Table(name = "notifications")
 public class NotificationModel {
     @Id

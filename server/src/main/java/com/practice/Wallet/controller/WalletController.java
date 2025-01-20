@@ -1,12 +1,16 @@
 package com.practice.Wallet.controller;
 
+import com.practice.Wallet.dtoRequest.WalletCreateRequestDto;
 import com.practice.Wallet.dtoResponse.WalletPageResponseDto;
+import com.practice.Wallet.dtoResponse.WalletResponseCreateDto;
 import com.practice.Wallet.dtoResponse.WalletResponseDto;
 import com.practice.Wallet.service.WalletServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +36,12 @@ public class WalletController {
     public ResponseEntity<WalletResponseDto> getWalletById(@PathVariable Long id) {
         WalletResponseDto wallet = walletServiceImpl.getWalletById(id);
         return ResponseEntity.ok(wallet);
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<WalletResponseCreateDto> createWallet(@RequestBody WalletCreateRequestDto walletCreateRequestDto) {
+        WalletResponseCreateDto response = walletServiceImpl.createWallet(walletCreateRequestDto);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
 }

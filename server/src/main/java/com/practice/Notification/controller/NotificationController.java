@@ -1,5 +1,7 @@
 package com.practice.Notification.controller;
 
+import com.practice.Notification.dtoRequest.NotificationCreateRequestDto;
+import com.practice.Notification.dtoResponse.NotificationCreateResponseDto;
 import com.practice.Notification.dtoResponse.NotificationPageResponseDto;
 
 import com.practice.Notification.dtoResponse.NotificationResponseDto;
@@ -8,7 +10,9 @@ import com.practice.Notification.service.NotificationServiceImpl;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -33,4 +37,13 @@ public class NotificationController {
         NotificationResponseDto notification = notificationServiceImpl.getNotificationById(id);
         return ResponseEntity.ok(notification);
     }
+
+
+    @PostMapping("/create")
+    public ResponseEntity<NotificationCreateResponseDto> createNotification(@RequestBody @Validated NotificationCreateRequestDto notificationCreateRequestDto){
+        NotificationCreateResponseDto response =
+                notificationServiceImpl.createNotification(notificationCreateRequestDto);
+        return  new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
 }

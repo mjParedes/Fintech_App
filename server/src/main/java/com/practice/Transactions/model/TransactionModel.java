@@ -3,6 +3,8 @@ package com.practice.Transactions.model;
 import com.practice.Portfolio.model.PortfolioModel;
 import com.practice.Transactions.Enum.EnumTransactionType;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +13,8 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @Entity
+@Builder
+@AllArgsConstructor
 @Table(name = "transactions")
 public class TransactionModel {
     @Id
