@@ -16,43 +16,14 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class TransactionMapper {
-    private final ModelMapper modelMapper;
 
-    public TransactionRequestDto toDto(TransactionModel transactionModel) {
-        if (transactionModel == null) {
-            return null;
-        }
-//        TransactionRequestDto dto = modelMapper.map(transactionModel,TransactionRequestDto.class);
-        TransactionRequestDto dto = new TransactionRequestDto();
-        dto.setId(transactionModel.getId());
-        dto.setTransactionType(String.valueOf(transactionModel.getEnumTransactionType()));
-        dto.setUnitPrice(transactionModel.getUnitPrice());
-        dto.setQuantity(transactionModel.getQuantity());
-        dto.setCommission(transactionModel.getCommission());
 
-        TransactionPortfolioInfoDto portfolioInfo = toDtoTransactionPortfolio(transactionModel.getPortfolio());
-        List<TransactionPortfolioInfoDto> portfolioInfoList = Collections.singletonList(portfolioInfo);
-        dto.setPortfolio(portfolioInfoList);
-        return dto;
+    public static TransactionResponseDto toDtoTransaction(TransactionModel transactionModel, ModelMapper modelMapper) {
+        return modelMapper.map(transactionModel, TransactionResponseDto.class);
     }
 
 
-    public TransactionResponseDto toDtoTransaction(TransactionModel transactionModel) {
-        if (transactionModel == null) {
-            return null;
-        }
-
-        TransactionResponseDto dto = modelMapper.map(transactionModel, TransactionResponseDto.class);
-
-        dto.setPortfolio(toDtoTransactionPortfolio(transactionModel.getPortfolio()));
-        return dto;
-    }
-
-
-    private TransactionPortfolioInfoDto toDtoTransactionPortfolio(PortfolioModel portfolioModel) {
-        if (portfolioModel == null) {
-            return null;
-        }
-        return TransactionPortfolioInfoDto.builder().id(portfolioModel.getId()).quantity(portfolioModel.getQuantity()).priceBuy(portfolioModel.getPriceBuy()).build();
+    public static TransactionModel toEntity(TransactionRequestDto dto, ModelMapper modelMapper) {
+        return modelMapper.map(dto, TransactionModel.class);
     }
 }

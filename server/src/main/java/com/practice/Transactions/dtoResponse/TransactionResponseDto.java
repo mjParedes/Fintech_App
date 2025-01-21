@@ -13,5 +13,6 @@ public class TransactionResponseDto {
     private Double unitPrice;
     private Integer quantity;
     private Double commission;
-    private TransactionPortfolioInfoDto portfolio;
+    private Long portfolioId;
+    //private TransactionPortfolioInfoDto portfolio;
 }

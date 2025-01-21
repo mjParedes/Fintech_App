@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -22,10 +23,10 @@ public class PortfolioModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer quantity;
-    @Column(name = "price_buy")
-    private Double priceBuy;
-    @Column(name = "date_buy")
-    private LocalDateTime dateBuy = LocalDateTime.now();
+    @Column(name = "purchase_price")
+    private Double purchasePrice;
+    @Column(name = "purchase_date")
+    private LocalDate purchaseDate = LocalDate.now();
 
     @OneToMany(mappedBy = "portfolio", targetEntity = TransactionModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<TransactionModel> transactionModels = new ArrayList<>();

@@ -5,7 +5,7 @@ import com.practice.Transactions.dtoRequest.TransactionRequestDto;
 import java.util.List;
 
 public record TransactionPageResponseDto(
-        List<TransactionRequestDto> transactionDtos,
+        List<TransactionResponseDto> transactionDtos,
         int page,
         long totalElement
 ) {

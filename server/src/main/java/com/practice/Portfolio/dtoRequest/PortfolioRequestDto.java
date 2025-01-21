@@ -14,19 +14,41 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Schema(description = "")
+@Schema(description = "Detalles del portafolio")
 public class PortfolioRequestDto {
-    private Long id;
+    @Schema(
+            description = "Cantidad de unidades del instrumento a comprar",
+            example = "10",
+            requiredMode = Schema.RequiredMode.REQUIRED
+    )
     private Integer quantity;
-    private Double priceBuy;
-    //private List<TransactionRequestDto> transactionModels;
+
+    @Schema(
+            description = "Precio unitario de compra del instrumento",
+            example = "100.50",
+            requiredMode = Schema.RequiredMode.REQUIRED
+    )
+    private Double purchasePrice;
+
+    @Schema(
+            description = "Fecha de compra del instrumento",
+            example = "2024-01-20",
+            requiredMode = Schema.RequiredMode.REQUIRED
+    )
+    private LocalDate purchaseDate;
+
+    @Schema(
+            description = "ID del usuario dueño del portafolio",
+            example = "1",
+            requiredMode = Schema.RequiredMode.REQUIRED
+    )
     private Long userId;
-    private Long instrumentId;
 
 }
