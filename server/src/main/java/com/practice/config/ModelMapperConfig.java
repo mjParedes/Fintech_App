@@ -40,7 +40,6 @@ public class ModelMapperConfig {
         //Mapeo personalizado: TransactionResponseDto -> TransactionModel
         modelMapper.typeMap(TransactionResponseDto.class,TransactionModel.class).addMappings(mapper -> {
             mapper.skip(TransactionModel::setId);
-            mapper.skip((destination, value) -> destination.getPortfolio().setId((Long) value));
         });
 
 

@@ -25,7 +25,7 @@ public class TransactionRequestDto {
             example = "COMPRA",
             requiredMode = Schema.RequiredMode.REQUIRED
     )
-    private String transactionType;
+    private String enumTransactionType;
     @Schema(
             description = "Precio unitario de la operación",
             example = "105.75",
