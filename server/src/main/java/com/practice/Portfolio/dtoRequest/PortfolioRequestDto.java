@@ -9,6 +9,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +29,7 @@ public class PortfolioRequestDto {
             example = "10",
             requiredMode = Schema.RequiredMode.REQUIRED
     )
+    @NotNull(message = "La cantidad de unidades es obligatoria")
     private Integer quantity;
 
     @Schema(
@@ -35,6 +37,7 @@ public class PortfolioRequestDto {
             example = "100.50",
             requiredMode = Schema.RequiredMode.REQUIRED
     )
+    @NotNull(message = "El precio unitario es obligatorio")
     private Double purchasePrice;
 
     @Schema(
@@ -42,6 +45,7 @@ public class PortfolioRequestDto {
             example = "2024-01-20",
             requiredMode = Schema.RequiredMode.REQUIRED
     )
+    @NotNull(message = "La fecha de compra es obligatoria")
     private LocalDate purchaseDate;
 
     @Schema(
@@ -49,6 +53,7 @@ public class PortfolioRequestDto {
             example = "1",
             requiredMode = Schema.RequiredMode.REQUIRED
     )
+    @NotNull(message = "El ID del usuario es obligatorio")
     private Long userId;
 
 }

@@ -17,7 +17,7 @@ public class FinancingProfileRequestDto {
     private String knowledgeLevel;
     @Schema(description = "Perfil de riesgo del perfil")
     @NotBlank(message = "El perfil de riesgo es requerido")
-    private String riskProfile;
+    private String enumRiskProfile;
     @Schema(description = "Ingresos mensuales del perfil")
     @NotBlank(message = "Los gastos mensasules son requeridos")
     private Double incomeMonthly;
@@ -36,5 +36,9 @@ public class FinancingProfileRequestDto {
     @Schema(description = "Patrimonio total del perfil")
     @NotBlank(message = "El patrimonio total es requerido")
     private Double patrimonyTotal;
+
+    @Schema(description = "ID del usuario")
+    @NotBlank(message = "El ID del usuario es requerido")
+    private Long userId;
 
 }

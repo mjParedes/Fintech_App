@@ -3,7 +3,9 @@ package com.practice.FinancingProfile.model;
 import com.practice.FinancingProfile.Enum.EnumKnowledgeLevel;
 import com.practice.FinancingProfile.Enum.EnumRiskProfile;
 import com.practice.Objectives.model.ObjectiveModel;
+import com.practice.User.model.UserModel;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -24,8 +26,8 @@ public class FinancingProfileModel {
     @Enumerated(EnumType.STRING)
     private EnumKnowledgeLevel enumKnowledgeLevel;
     @Column(name = "risk_profile")
-    @Enumerated(value = EnumType.STRING)
-    private EnumRiskProfile enumRiskProfile;
+    //@Enumerated(value = EnumType.STRING)
+    private String enumRiskProfile;
     @Column(name = "income_monthly")
     private Double incomeMonthly;
     @Column(name = "expenses_monthly")
@@ -38,6 +40,9 @@ public class FinancingProfileModel {
     private Double savingsTotal;
     @Column(name = "patrimony_total")
     private Double patrimonyTotal;
+
+    @OneToOne(mappedBy = "financingProfile", targetEntity = UserModel.class, cascade = CascadeType.ALL)
+    private UserModel user;
 
     @OneToMany(mappedBy = "financingProfile", targetEntity = ObjectiveModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ObjectiveModel> objectiveModels = new ArrayList<>();
