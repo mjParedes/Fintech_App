@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,9 +35,13 @@ public class AuthController {
     @ApiResponse(responseCode = "200", description = "Autenticación exitosa")
     @ApiResponse(responseCode = "401", description = "Credenciales incorrectas")
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody @Valid AuthLoginRequestDto authDto) {
+    public ResponseEntity<AuthResponseDto> login(@RequestBody @Valid AuthLoginRequestDto authDto) {
         AuthResponseDto response = this.userDetailsServiceImpl.loginUser(authDto);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+
+        // Incluir el token en el encabezado "Authorization"
+        return ResponseEntity.ok()
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + response.token())
+                .body(response);
     }
 
 

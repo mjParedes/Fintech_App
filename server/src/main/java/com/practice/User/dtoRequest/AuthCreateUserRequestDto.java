@@ -27,6 +27,9 @@ public record AuthCreateUserRequestDto(String photoUrl,
                                        @NotNull(message = "El telefono es obligatorio")
                                        @Schema(description = "Telefono del usuario", required = true, example = "1234567890")
                                        Integer  phoneNumber,
+                                       @NotBlank(message = "El pais es obligatorio")
+                                       @Schema(description = "Pais del usuario", required = true, example = "Colombia")
+                                       String country,
                                        @NotNull(message = "La fecha de nacimiento es obligatoria")
                                        @Schema(description = "Fecha de nacimiento del usuario", required = true, example = "1990-01-01T00:00:00")
                                        LocalDateTime birthDate,
