@@ -45,8 +45,9 @@ public class SecurityConfig  {
                         .requestMatchers("/", "/login/**", "/oauth2/**").permitAll()
                         .anyRequest().permitAll()
                 )
+                //.oauth2Login(oauth2 -> oauth2.defaultSuccessUrl("/hello", true))
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 )
                 .addFilterBefore(new JwtTokenValidator(jwtUtils), BasicAuthenticationFilter.class)
 

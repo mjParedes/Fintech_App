@@ -122,17 +122,54 @@ public class GlobalExceptionController {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorResponse);
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
+    @ExceptionHandler(PortfolioNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handlePortfolioNotFoundException(PortfolioNotFoundException ex) {
         ErrorResponse errorResponse = new ErrorResponse(
-                "INTERNAL_SERVER_ERROR",
-                "Error interno del servidor",
-                Collections.singletonList("Por favor, contacta al equipo de soporte si el problema persiste")
+                "PORTFOLIO_ERROR",
+                "Ha ocurrido un error con el portafolio",
+                Collections.singletonList(ex.getMessage())
         );
 
-        log.error("Unexpected error occurred", ex);
+        log.warn("Portfolio not found: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+
+    @ExceptionHandler(TransactionNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleTransactionNotFoundException(TransactionNotFoundException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                "TRANSACTION_ERROR",
+                "Ha ocurrido un error con la transacción",
+                Collections.singletonList(ex.getMessage())
+        );
+
+        log.warn("Transaction not found: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+
+    @ExceptionHandler(FinancingProfileNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleFinancingProfileNotFoundException(FinancingProfileNotFoundException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                "FINANCING_PROFILE_ERROR",
+                "Ha ocurrido un error con el perfil financiero",
+                Collections.singletonList(ex.getMessage())
+        );
+
+        log.warn("Financing profile not found: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleException(Exception ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                "SERVER_ERROR",
+                "Ha ocurrido un error en el servidor",
+                Collections.singletonList(ex.getMessage())
+        );
+
+        log.error("Internal server error: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
     }
+
 
 
 }

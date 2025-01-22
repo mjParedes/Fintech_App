@@ -75,6 +75,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         Authentication authentication = this.authenticate(email, password);
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
+
         String token = jwtUtils.generateJwtToken(authentication);
         return new AuthResponseDto(id, email, "Usuario logeado exitosamente", token, true);
 
@@ -103,6 +105,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         String username = authCreateUserDto.name();
         String lastName = authCreateUserDto.lastName();
         int phoneNumber = authCreateUserDto.phoneNumber();
+        String country = authCreateUserDto.country();
         LocalDateTime birthDate = authCreateUserDto.birthDate();
 
         List<String> roles = authCreateUserDto.roleDto().roles();
@@ -122,6 +125,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .name(username)
                 .lastName(lastName)
                 .phoneNumber(phoneNumber)
+                .country(country)
                 .birthDate(birthDate)
                 .registerDate(LocalDateTime.now())
                 .lastLogin(LocalDateTime.now())
@@ -144,6 +148,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         String accessToken = jwtUtils.generateJwtToken(authentication);
 
 
-        return new AuthResponseRegisterDto(username,    "Usuario registrado exitosamente", accessToken, true);
+        return new AuthResponseRegisterDto(userCreated.getId(), username,    "Usuario registrado exitosamente", accessToken, true);
     }
 }
