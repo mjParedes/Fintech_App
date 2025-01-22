@@ -32,4 +32,9 @@ public class InstrumentServiceImpl implements InstrumentService {
 
         return new InstrumentPageResponseDto(instrumentDtos, instrumentPage.getTotalPages(), instrumentPage.getTotalElements());
     }
+
+    @Override
+    public double getCurrentPrice(Long id) {
+        return 0;
+    }
 }
