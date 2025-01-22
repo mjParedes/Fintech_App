@@ -11,8 +11,6 @@ import jakarta.validation.Valid;
 public interface TransactionsService {
     TransactionPageResponseDto findAllTransactions(int page , int size);
     TransactionResponseDto getTransactionById(Long id);
-    TransactionCreateResponseDto createTransaction(@Validated TransactionsCreateRequestDto transactionsCreateRequestDto);
-    void deleteTransaction(Long id);
 
     TransactionResponseDto saveTransaction(@Valid TransactionRequestDto dto);
 

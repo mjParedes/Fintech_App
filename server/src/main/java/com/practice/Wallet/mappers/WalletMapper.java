@@ -33,7 +33,7 @@ public class WalletMapper {
 
         WalletUserInfoDto userInfo = toWalletUserResponseDto(walletModel.getUser());
         List<WalletUserInfoDto> userInfoList = Collections.singletonList(userInfo);
-//        dto.setUser(userInfoList);
+        dto.setUser(userInfoList);
 
         return dto;
     }
