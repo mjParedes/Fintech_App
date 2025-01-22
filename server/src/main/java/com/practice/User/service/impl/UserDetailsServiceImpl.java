@@ -105,6 +105,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         String username = authCreateUserDto.name();
         String lastName = authCreateUserDto.lastName();
         int phoneNumber = authCreateUserDto.phoneNumber();
+        String country = authCreateUserDto.country();
         LocalDateTime birthDate = authCreateUserDto.birthDate();
 
         List<String> roles = authCreateUserDto.roleDto().roles();
@@ -124,6 +125,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .name(username)
                 .lastName(lastName)
                 .phoneNumber(phoneNumber)
+                .country(country)
                 .birthDate(birthDate)
                 .registerDate(LocalDateTime.now())
                 .lastLogin(LocalDateTime.now())
