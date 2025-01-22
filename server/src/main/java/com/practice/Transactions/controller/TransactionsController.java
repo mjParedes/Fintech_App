@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +40,7 @@ public class TransactionsController {
         return ResponseEntity.ok(transactionResponse);
     }
 
+
     @Operation(summary = "Guardar transacción", description = "Guarda una transacción o movimiento")
     @ApiResponse(responseCode = "200", description = "Transacción guardada correctamente")
     @ApiResponse(responseCode = "400", description = "Error al guardar la transacción")
@@ -65,5 +67,6 @@ public class TransactionsController {
         transactionsServiceImpl.deleteTransaction(id);
         return ResponseEntity.ok().build();
     }
+
 
 }

@@ -4,6 +4,8 @@ import com.practice.Portfolio.model.PortfolioModel;
 import com.practice.Portfolio.repository.PortfolioRepository;
 import com.practice.Transactions.Enum.EnumTransactionType;
 import com.practice.Transactions.dtoRequest.TransactionRequestDto;
+import com.practice.Transactions.dtoRequest.TransactionsCreateRequestDto;
+import com.practice.Transactions.dtoResponse.TransactionCreateResponseDto;
 import com.practice.Transactions.dtoResponse.TransactionPageResponseDto;
 import com.practice.Transactions.dtoResponse.TransactionResponseDto;
 import com.practice.Transactions.mappers.TransactionMapper;
@@ -19,6 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,6 +34,7 @@ public class TransactionsServiceImpl implements TransactionsService {
 
     private final TransactionsRepository transactionsRepository;
     private final ModelMapper modelMapper;
+
     private final PortfolioRepository portfolioRepository;
 
     @Override
@@ -83,6 +87,44 @@ public class TransactionsServiceImpl implements TransactionsService {
 
         TransactionModel updatedTransaction = transactionsRepository.save(transaction);
         return modelMapper.map(updatedTransaction, TransactionResponseDto.class);
+    }
+
+    @Override
+    public TransactionCreateResponseDto createTransaction(TransactionsCreateRequestDto transactionsCreateRequestDto) {
+
+        PortfolioModel portfolioModel = portfolioRepository.findById(transactionsCreateRequestDto.idPortfolio()).orElseThrow();
+        EnumTransactionType transactionType;
+
+        try {
+            transactionType = EnumTransactionType.valueOf(transactionsCreateRequestDto.transactionType());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(e);
+        }
+
+
+        TransactionModel transactionModel = TransactionModel
+                .builder()
+                .enumTransactionType(transactionType)
+                .unitPrice(transactionsCreateRequestDto.unitPrice())
+                .quantity(transactionsCreateRequestDto.quantity())
+                .commission(transactionsCreateRequestDto.commission())
+                .date(LocalDateTime.now())
+                .portfolio(portfolioModel)
+                .build();
+        transactionsRepository.save(transactionModel);
+        return new TransactionCreateResponseDto(transactionModel.getId(),
+                transactionsCreateRequestDto.transactionType(), transactionModel.getUnitPrice(),
+                transactionModel.getQuantity(), transactionModel.getCommission(), transactionModel.getPortfolio().getId());
+    }
+
+    @Override
+    public void deleteTransaction(Long id) {
+
+        if (!transactionsRepository.existsById(id)) {
+            throw new IllegalArgumentException("La transacion con id " + id + " no existe");
+        }
+
+        transactionsRepository.deleteById(id);
     }
 
 
