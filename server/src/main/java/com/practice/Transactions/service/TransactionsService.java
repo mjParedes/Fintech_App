@@ -7,6 +7,7 @@ import com.practice.Transactions.dtoResponse.TransactionResponseDto;
 import com.practice.Transactions.model.TransactionModel;
 import jakarta.validation.Valid;
 
+
 public interface TransactionsService {
     TransactionPageResponseDto findAllTransactions(int page , int size);
     TransactionResponseDto getTransactionById(Long id);

@@ -44,6 +44,8 @@ public class UserModel {
     @Column(name = "phone_number")
     private int phoneNumber;
 
+    private String country;
+
     @Column(name = "birth_date")
     private LocalDateTime birthDate;
 

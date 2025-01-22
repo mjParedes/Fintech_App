@@ -19,6 +19,4 @@ public class InstrumentMapper {
     public InstrumentRequestDto toDto(InstrumentModel instrumentModel) {
         return modelMapper.map(instrumentModel, InstrumentRequestDto.class);
     }
-
-
 }
