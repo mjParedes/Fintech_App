@@ -23,11 +23,10 @@ public class FinancingProfileModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "knowledge_level")
-    @Enumerated(EnumType.STRING)
-    private EnumKnowledgeLevel enumKnowledgeLevel;
+    private String knowledgeLevel;
     @Column(name = "risk_profile")
     //@Enumerated(value = EnumType.STRING)
-    private String enumRiskProfile;
+    private String riskProfile;
     @Column(name = "income_monthly")
     private Double incomeMonthly;
     @Column(name = "expenses_monthly")
@@ -41,7 +40,8 @@ public class FinancingProfileModel {
     @Column(name = "patrimony_total")
     private Double patrimonyTotal;
 
-    @OneToOne(mappedBy = "financingProfile", targetEntity = UserModel.class, cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "financingProfile", targetEntity = UserModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
     private UserModel user;
 
     @OneToMany(mappedBy = "financingProfile", targetEntity = ObjectiveModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)

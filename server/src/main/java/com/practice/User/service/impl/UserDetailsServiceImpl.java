@@ -146,6 +146,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         String accessToken = jwtUtils.generateJwtToken(authentication);
 
 
-        return new AuthResponseRegisterDto(username,    "Usuario registrado exitosamente", accessToken, true);
+        return new AuthResponseRegisterDto(userCreated.getId(), username,    "Usuario registrado exitosamente", accessToken, true);
     }
 }

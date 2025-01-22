@@ -20,5 +20,5 @@ public class FinancingProfileOnboardingDto {
 
     @Schema(description = "Nivel de conocimiento del perfil", example = "MODERADO", requiredMode = Schema.RequiredMode.REQUIRED)
     @NotBlank(message = "El nivel de riego es requerido")
-    private String enumRiskProfile;
+    private String riskProfile;
 }

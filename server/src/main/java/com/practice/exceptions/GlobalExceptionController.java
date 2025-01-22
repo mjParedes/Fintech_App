@@ -146,6 +146,18 @@ public class GlobalExceptionController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
+    @ExceptionHandler(FinancingProfileNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleFinancingProfileNotFoundException(FinancingProfileNotFoundException ex) {
+        ErrorResponse errorResponse = new ErrorResponse(
+                "FINANCING_PROFILE_ERROR",
+                "Ha ocurrido un error con el perfil financiero",
+                Collections.singletonList(ex.getMessage())
+        );
+
+        log.warn("Financing profile not found: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleException(Exception ex) {
         ErrorResponse errorResponse = new ErrorResponse(
