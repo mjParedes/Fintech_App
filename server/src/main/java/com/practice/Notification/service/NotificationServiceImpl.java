@@ -3,6 +3,7 @@ package com.practice.Notification.service;
 import com.practice.Notification.Enum.EnumTypeNotification;
 import com.practice.Notification.dtoRequest.NotificationCreateRequestDto;
 import com.practice.Notification.dtoRequest.NotificationRequestDto;
+import com.practice.Notification.dtoRequest.NotificationUpdateRequestDto;
 import com.practice.Notification.dtoResponse.NotificationCreateResponseDto;
 import com.practice.Notification.dtoResponse.NotificationPageResponseDto;
 import com.practice.Notification.dtoResponse.NotificationResponseDto;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,8 +57,9 @@ public class NotificationServiceImpl implements NotificationService {
         EnumTypeNotification typeNotification;
         try {
             typeNotification = EnumTypeNotification.valueOf(notificationCreateRequestDto.typeNotification());
-        }catch (IllegalArgumentException e){
-            throw  new IllegalArgumentException("Tipo de notification Invalido");
+        } catch (
+                IllegalArgumentException e) {
+            throw new IllegalArgumentException("Tipo de notification Invalido");
         }
 
         NotificationModel notificationModel = NotificationModel
@@ -74,8 +77,30 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    public NotificationResponseDto updateNotification(Long id, NotificationUpdateRequestDto notificationUpdateRequestDto) {
+        return notificationRepository.findById(id)
+                .map(notification -> {
+                    if(notificationUpdateRequestDto.getTypeNotification()!= null){
+                    EnumTypeNotification typeNotification = EnumTypeNotification.valueOf(notificationUpdateRequestDto.getTypeNotification());
+                    notification.setType(typeNotification);
+
+                    }
+                    notification.setMessage(notificationUpdateRequestDto.getMessage());
+                    notification.setIsRead(notificationUpdateRequestDto.getIsRead());
+                    if (notificationUpdateRequestDto.getIdUser() != null) {
+                        UserModel userUpdate = userRepository.findById(
+                                notificationUpdateRequestDto.getIdUser()
+                        ).orElseThrow();
+                        notification.setUser(userUpdate);
+                    }
+                    NotificationModel updateNotification = notificationRepository.save(notification);
+                    return notificationMapper.toDtoNotification(updateNotification);
+                }).orElseThrow(() -> new NoSuchElementException("Notification con id " + notificationUpdateRequestDto.getId() + "no se pudo encontrar"));
+    }
+
+    @Override
     public void deleteNotification(Long id) {
-        if(!notificationRepository.existsById(id)){
+        if (!notificationRepository.existsById(id)) {
             throw new IllegalArgumentException("La notification con id " + id + "no existe");
         }
         notificationRepository.deleteById(id);

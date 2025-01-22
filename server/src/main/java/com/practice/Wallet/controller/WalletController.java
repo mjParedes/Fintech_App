@@ -1,9 +1,12 @@
 package com.practice.Wallet.controller;
 
 import com.practice.Wallet.dtoRequest.WalletCreateRequestDto;
+import com.practice.Wallet.dtoRequest.WalletRequestDto;
+import com.practice.Wallet.dtoRequest.WalletUpdateRequestDto;
 import com.practice.Wallet.dtoResponse.WalletPageResponseDto;
 import com.practice.Wallet.dtoResponse.WalletResponseCreateDto;
 import com.practice.Wallet.dtoResponse.WalletResponseDto;
+import com.practice.Wallet.model.WalletModel;
 import com.practice.Wallet.service.WalletServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -45,9 +48,15 @@ public class WalletController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<WalletResponseDto> updateWallet(@PathVariable Long id, @Validated @RequestBody WalletUpdateRequestDto walletUpdateRequestDto) {
+        WalletResponseDto updateWallet = walletServiceImpl.updateWallet(id, walletUpdateRequestDto);
+        return new ResponseEntity<>(updateWallet, HttpStatus.OK);
+    }
+
     @Transactional
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteWallet(@PathVariable Long id){
+    public ResponseEntity<Void> deleteWallet(@PathVariable Long id) {
         walletServiceImpl.deleteWallet(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

@@ -4,6 +4,7 @@ import com.practice.User.model.UserModel;
 import com.practice.User.repository.UserRepository;
 import com.practice.Wallet.dtoRequest.WalletCreateRequestDto;
 import com.practice.Wallet.dtoRequest.WalletRequestDto;
+import com.practice.Wallet.dtoRequest.WalletUpdateRequestDto;
 import com.practice.Wallet.dtoResponse.WalletPageResponseDto;
 import com.practice.Wallet.dtoResponse.WalletResponseCreateDto;
 import com.practice.Wallet.dtoResponse.WalletResponseDto;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Service
@@ -63,12 +65,30 @@ public class WalletServiceImpl implements WalletService {
                 .dateLastUpdate(LocalDateTime.now())
                 .build();
         WalletModel walletCreated = walletRepository.save(walletModel);
-        return new WalletResponseCreateDto(walletCreated.getId(),currentBalance,idUser);
+        return new WalletResponseCreateDto(walletCreated.getId(), currentBalance, idUser);
+    }
+
+    @Override
+    public WalletResponseDto updateWallet(Long id, WalletUpdateRequestDto walletUpdateRequestDto) {
+        return walletRepository.findById(id)
+                .map(wallet -> {
+                    wallet.setCurrentBalance(walletUpdateRequestDto.getCurrentBalance());
+                    if (walletUpdateRequestDto.getIdUser() != null) {
+                        UserModel newUser = userRepository.findById(
+                                        walletUpdateRequestDto.getId())
+                                .orElseThrow(
+                                        () -> new NoSuchElementException("Usuario con id" + walletUpdateRequestDto.getIdUser() + "no encontrado"));
+                        wallet.setUser(newUser);
+                    }
+                    wallet.setDateLastUpdate(LocalDateTime.now());
+                    WalletModel updateWallet = walletRepository.save(wallet);
+                    return walletMapper.toDtoWallet(updateWallet);
+                }).orElseThrow(()-> new NoSuchElementException("Wallet con id"+walletUpdateRequestDto.getId()+"no existe"));
     }
 
     @Override
     public void deleteWallet(Long id) {
-        if(!walletRepository.existsById(id)){
+        if (!walletRepository.existsById(id)) {
             throw new IllegalArgumentException("Wallet con el id " + id + "no fue encontrado");
         }
         walletRepository.deleteById(id);

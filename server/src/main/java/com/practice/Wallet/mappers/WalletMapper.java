@@ -17,6 +17,11 @@ import java.util.List;
 public class WalletMapper {
     private final ModelMapper modelMapper;
 
+
+    public WalletModel toEntity(WalletRequestDto dto){
+        return modelMapper.map(dto,WalletModel.class);
+    }
+
     public WalletRequestDto toDto(WalletModel walletModel) {
         if (walletModel == null) {
             return null;
@@ -28,7 +33,7 @@ public class WalletMapper {
 
         WalletUserInfoDto userInfo = toWalletUserResponseDto(walletModel.getUser());
         List<WalletUserInfoDto> userInfoList = Collections.singletonList(userInfo);
-        dto.setUser(userInfoList);
+//        dto.setUser(userInfoList);
 
         return dto;
     }
