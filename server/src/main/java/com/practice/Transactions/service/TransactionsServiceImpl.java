@@ -2,11 +2,12 @@ package com.practice.Transactions.service;
 
 import com.practice.Portfolio.model.PortfolioModel;
 import com.practice.Portfolio.repository.PortfolioRepository;
-import com.practice.Transactions.Enum.EnumTransactionType;
+
 import com.practice.Transactions.dtoRequest.TransactionRequestDto;
+
 import com.practice.Transactions.dtoResponse.TransactionPageResponseDto;
 import com.practice.Transactions.dtoResponse.TransactionResponseDto;
-import com.practice.Transactions.mappers.TransactionMapper;
+
 import com.practice.Transactions.model.TransactionModel;
 import com.practice.Transactions.repository.TransactionsRepository;
 import com.practice.exceptions.TransactionNotFoundException;
@@ -31,6 +32,7 @@ public class TransactionsServiceImpl implements TransactionsService {
 
     private final TransactionsRepository transactionsRepository;
     private final ModelMapper modelMapper;
+
     private final PortfolioRepository portfolioRepository;
 
     @Override
@@ -85,15 +87,11 @@ public class TransactionsServiceImpl implements TransactionsService {
         return modelMapper.map(updatedTransaction, TransactionResponseDto.class);
     }
 
-
     @Override
     public void deleteTransaction(Long id) {
         TransactionModel transaction = transactionsRepository.findById(id)
                 .orElseThrow(() -> new TransactionNotFoundException(TRANSACTION_NOT_FOUND));
         transactionsRepository.delete(transaction);
     }
-
-
-
 
 }

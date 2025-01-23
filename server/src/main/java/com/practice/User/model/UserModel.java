@@ -44,6 +44,8 @@ public class UserModel {
     @Column(name = "phone_number")
     private int phoneNumber;
 
+    private String country;
+
     @Column(name = "birth_date")
     private LocalDateTime birthDate;
 
@@ -54,8 +56,7 @@ public class UserModel {
     private LocalDateTime lastLogin = LocalDateTime.now();
 
 
-    @OneToOne
-    @JoinColumn(name = "financing_profile_id")
+    @OneToOne(mappedBy = "user", targetEntity = FinancingProfileModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private FinancingProfileModel financingProfile;
 
     @OneToMany(mappedBy = "user", targetEntity = CostModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
