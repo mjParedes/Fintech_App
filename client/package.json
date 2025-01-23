@@ -19,6 +19,7 @@
     "formik": "^2.4.6",
     "js-cookie": "^3.0.5",
     "libphonenumber-js": "^1.11.17",
+    "lottie": "^0.0.1",
     "lottie-web": "^5.12.2",
     "next": "15.1.4",
     "react": "^19.0.0",

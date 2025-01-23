@@ -3,6 +3,7 @@ import { useUserStore } from "@/store/user/userStore";
 import Image from "next/image";
 import { Sembrador} from "@/assets";
 import Button from "@/components/ui/Button";
+import Onbording from "@/components/modal/Onbording/onbording";
 
 export default function Profile() {
 
@@ -39,6 +40,7 @@ export default function Profile() {
             <div className="flex items-center justify-center p-2 pt-5">
             <Button variant="solid" size="medium" >¿Quieres realizar nuevamente el test?</Button>
             </div>
+            <Onbording />
         </section>
 
         <section className="bg-white text-white900 h-[20vh] text-center rounded-lg">
