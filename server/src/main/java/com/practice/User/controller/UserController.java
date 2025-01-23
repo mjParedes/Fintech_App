@@ -3,6 +3,7 @@ package com.practice.User.controller;
 import com.practice.User.dtoRequest.AuthCreateUserRequestDto;
 import com.practice.User.dtoRequest.UserRequestDto;
 import com.practice.User.dtoResponse.UserPageResponse;
+import com.practice.User.dtoResponse.UserResponseDto;
 import com.practice.User.mapper.UserMapper;
 import com.practice.User.model.UserModel;
 import com.practice.User.service.UserService;
@@ -46,8 +47,8 @@ public class UserController {
     @ApiResponse(responseCode = "200", description = "Usuario obtenido exitosamente")
     @ApiResponse(responseCode = "404", description = "Usuario no encontrado")
     @GetMapping("/{id}")
-    public ResponseEntity<UserModel> getUserById(@PathVariable Long id) {
-        UserModel user = userService.getUserById(id);
+    public ResponseEntity<UserResponseDto> getUserById(@PathVariable Long id) {
+        UserResponseDto user = userService.getUserById(id);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

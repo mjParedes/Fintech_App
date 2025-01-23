@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 @Table(name = "notifications")
 public class NotificationModel {
     @Id
@@ -22,7 +24,8 @@ public class NotificationModel {
     private String message;
     private LocalDateTime dateCreate = LocalDateTime.now();
     private Boolean isRead;
-    @ManyToOne
+
+    @ManyToOne(targetEntity = UserModel.class)
     @JoinColumn(name = "user_id")
-    UserModel user;
+    private UserModel user;
 }

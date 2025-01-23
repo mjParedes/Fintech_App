@@ -15,9 +15,11 @@ public class CostModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
+
+    @ManyToOne(targetEntity = UserModel.class)
     @JoinColumn(name = "user_id")
-    UserModel user;
+    private UserModel user;
+
     private String type;
     private String description;
     private String category;

@@ -7,7 +7,9 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -29,9 +31,10 @@ public class InstrumentModel {
     private String divisa;
     private Boolean state;
 
-    @OneToMany(mappedBy = "instrument")
-    private Set<RecommendationModel> recommendationModel = new HashSet<>();
-    @OneToMany(mappedBy = "instrument")
-    private Set<PortfolioModel> portfolioModel = new HashSet<>();
+    @OneToMany(mappedBy = "instrument", targetEntity = RecommendationModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<RecommendationModel> recommendationModel = new ArrayList<>();
+
+    @OneToMany(mappedBy = "instrument", targetEntity = PortfolioModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<PortfolioModel> portfolioModel = new ArrayList<>();
 
 }
