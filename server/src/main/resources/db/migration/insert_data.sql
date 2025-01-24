@@ -1,9 +1,9 @@
 -- Tabla Financing_Profile
-insert into financing_profile_model (id, knowledge_level, risk_profile, expenses_monthly, income_monthly,
+insert into financing_profile_model (knowledge_level, risk_profile, expenses_monthly, income_monthly,
                                              patrimony_total, percentage_save, saving_total, total_debt)
-values (1, 'INTERMEDIO', 'CONSERVADOR', 200, 202.73, 100.88, 2.3, 200036, 1256),
-       (2, 'NOVATO', 'MODERADO', 145, 1896.12, 1239.698, 2.9, 124789, 1258.98),
-       (3, 'INTERMEDIO', 'ARRIESGADO', 4789, 1458.9, 1258.97, 12.89, 1258.96, 1258.14);
+values (1, 'INTERMEDIO', 12.5, 200, 202.73, 100.88, 2.3, 200036),
+       (2, 'NOVATO', 458.6, 145, 1896.12, 1239.698, 2.9, 124789),
+       (3, 'INTERMEDIO', 78.96, 4789, 1458.9, 1258.97, 12.89, 1258.96);
 
 -- Actualizar financing_profile id a Usuario
 UPDATE users
@@ -66,7 +66,7 @@ VALUES (1, 1, 'COMPRA', 'Alta proyección de crecimiento en el sector gubernamen
 
 
 --  Tabla Portafolio
-INSERT INTO portfolio (user_id, instrument_id, quantity, price_buy, date_buy)
+INSERT INTO portfolio (user_id, instrument_id, quantity, purchase_price, purchase_date)
 VALUES (1, 1, 100, 102.5, '2024-12-31'),
        (1, 3, 50, 150.75, '2025-01-02'),
        (2, 5, 200, 120.4, '2023-01-03'),
@@ -75,13 +75,13 @@ VALUES (1, 1, 100, 102.5, '2024-12-31'),
 
 
 -- Tabla Movimiento
-INSERT INTO transactions (portfolio_id, transaction_type, quantity, unit_price, commission, date)
-VALUES (1, 'COMPRA', 100, 150.75, 15.0, '2025-01-01'),
-       (2, 'VENTA', 50, 120.4, 12.0, '2025-01-02'),
-       (3, 'COMPRA', 200, 99.8, 20.0, '2025-01-03'),
-       (4, 'VENTA', 150, 250.0, 25.0, '2025-01-04'),
-       (1, 'COMPRA', 300, 85.3, 8.5, '2025-01-05'),
-       (2, 'VENTA', 75, 300.5, 30.0, '2025-01-06');
+INSERT INTO transactions (portfolio_id, transaction_type, quantity, unit_price, commission)
+VALUES (1, 'COMPRA', 100, 150.75, 15.),
+       (2, 'VENTA', 50, 120.4, 12.0),
+       (3, 'COMPRA', 200, 99.8, 20.0),
+       (4, 'VENTA', 150, 250.0, 25.0),
+       (1, 'COMPRA', 300, 85.3, 8.5),
+       (2, 'VENTA', 75, 300.5, 30.0);
 
 
 -- Tabla Gastos
