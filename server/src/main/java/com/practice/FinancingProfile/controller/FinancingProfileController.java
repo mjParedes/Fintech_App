@@ -82,5 +82,14 @@ public class FinancingProfileController {
         return new ResponseEntity<>("Perfil financiero eliminado correctamente", HttpStatus.OK);
     }
 
+    @GetMapping("/financing-profile/user/{userId}")
+    @Operation(summary = "Obtener perfil financiero por ID", description = "Devuelve el perfil financiero por el ID del usuario")
+    @ApiResponse(responseCode = "200", description = "Perfil financiero obtenido correctamente")
+    @ApiResponse(responseCode = "404", description = "Perfil financiero no obtenido")
+    public ResponseEntity<FinancingProfileResponseDto> findFinancingProfileByUserId(@PathVariable Long userId) {
+        FinancingProfileResponseDto response = financingProfileServiceImpl.findFinancingProfileByUserId(userId);
+        return ResponseEntity.ok(response);
+    }
+
 
 }
