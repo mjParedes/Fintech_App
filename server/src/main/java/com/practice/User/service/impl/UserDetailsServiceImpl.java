@@ -85,11 +85,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     public Authentication authenticate(String username, String password) {
         UserDetails userDetails = loadUserByUsername(username);
-        if(userDetails == null) {
+        if (userDetails == null) {
             throw new BadCredentialsException("Usuario no encontrado");
         }
 
-        if(!passwordEncoder.matches(password, userDetails.getPassword())) {
+        if (!passwordEncoder.matches(password, userDetails.getPassword())) {
             throw new BadCredentialsException("Contraseña incorrecta");
         }
 
@@ -114,7 +114,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Set<RoleModel> roleEntities = new HashSet<>(roleRepository.findRoleEntitiesByEnumRoleIn(roles));
 
 
-        if(roleEntities.isEmpty()){
+        if (roleEntities.isEmpty()) {
             throw new IllegalArgumentException("Los roles especificados no existen");
         }
 
@@ -124,7 +124,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .password(passwordEncoder.encode(password))
                 .name(username)
                 .lastName(lastName)
-                .phoneNumber(phoneNumber)
+                .phoneNumber((long) phoneNumber)
                 .country(country)
                 .birthDate(birthDate)
                 .registerDate(LocalDateTime.now())
@@ -148,6 +148,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         String accessToken = jwtUtils.generateJwtToken(authentication);
 
 
-        return new AuthResponseRegisterDto(userCreated.getId(), username,    "Usuario registrado exitosamente", accessToken, true);
+        return new AuthResponseRegisterDto(userCreated.getId(), username, "Usuario registrado exitosamente", accessToken, true);
     }
 }
