@@ -40,7 +40,7 @@ public class UserRequestDto {
 
     @Schema(description = "Telefono del usuario", example = "1234567890")
     @NotNull(message = "El telefono es obligatorio")
-    private Integer phoneNumber;
+    private Long phoneNumber;
 
     @Schema(description = "Fecha de nacimiento del usuario", example = "1990-01-01T00:00:00")
     @NotNull(message = "La fecha de nacimiento es obligatoria")

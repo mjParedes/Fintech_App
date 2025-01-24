@@ -18,6 +18,6 @@ public class NotificationUserRequestDto {
     private String email;
     private String name;
     private String lastName;
-    private int phoneNumber;
+    private Long phoneNumber;
     private LocalDateTime birthDate;
 }
