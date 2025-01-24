@@ -3,9 +3,24 @@ import { AccountBalance, ShoppingBag, Storage, LegendToggle } from '@mui/icons-m
 import BalanceCard from "@/components/cards/BalanceCard";
 import FinanceCard from "@/components/cards/FinanceCard";
 import GoalCard from "@/components/cards/GoalCard";
+import { useState, useEffect } from 'react';
+import { useFinancialProfileStore } from '@/store/user/userFinanceProfile';
 import RecommendationCard from '@/components/cards/RecommendationCard';
+import getUserProfile from '@/utils/financialProfile/getProfile';
+import Onbording from '@/components/modal/Onbording/onbording';
 
 export default function Home() {
+  const { financialProfile } = useFinancialProfileStore();
+  const [formFinanceProfile, setFormFinanceProfile] = useState(false);
+
+  // console.log(financialProfile)
+
+  useEffect(() => {
+    getUserProfile()
+    if (!financialProfile || financialProfile.riskProfile ==="MODERADO" || financialProfile.riskProfile !=="skip" ) {
+      setFormFinanceProfile(true);
+    }
+  }, [financialProfile]);
 
   const userGoals = [
     {
@@ -67,6 +82,7 @@ export default function Home() {
 
   return (
     <main className="px-4 pt-6 pb-24 space-y-4 w-full bg-primary300">
+      {formFinanceProfile && <Onbording />}
       <BalanceCard amount={0.00} />
 
       <FinanceCard title="Ingresos" items={incomeData} />

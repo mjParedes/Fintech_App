@@ -21,7 +21,7 @@ interface FinancialProfileStore {
 export const useFinancialProfileStore = create<FinancialProfileStore>((set) => ({
   financialProfile: {
     id: 0,
-    knowledgeLevel: '',
+    knowledgeLevel: "",
     riskProfile: '',
     incomeMonthly: 0,
     expensesMonthly: 0,

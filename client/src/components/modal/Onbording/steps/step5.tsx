@@ -1,7 +1,7 @@
 import { StepProps } from ".";
 import ProgressBar from "@/components/progressBar/bar";
 import Button from "@/components/ui/Button";
-import { sendProfileFinance } from "@/utils/financialProfile/financialProfile";
+import { sendProfileFinance } from "@/utils/financialProfile/sendfinancialProfile";
 import { ArrowLargeLeft } from "@/assets";
 import Image from "next/image";
 import { useState } from "react";

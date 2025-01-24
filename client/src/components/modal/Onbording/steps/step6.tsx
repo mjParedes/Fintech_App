@@ -24,7 +24,7 @@ export default function Step6({ nextStep }: StepProps) {
       setTimeout(() => setStage(2), 2000),
     ];
 
-    if (financialProfile.riskProfile !== "") {
+    if (financialProfile.riskProfile!=="") {
       timers.push(
         setTimeout(() => {
           nextStep();
