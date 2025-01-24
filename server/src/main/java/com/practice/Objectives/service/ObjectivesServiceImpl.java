@@ -50,8 +50,40 @@ public class ObjectivesServiceImpl implements ObjectivesService {
 
     @Override
     public ObjectivesResponseCreateDto createObjective(ObjectivesCreateRequestDto objectivesCreateRequestDto) {
+        FinancingProfileModel financingProfileEntity = financingProfileRepository.findById(objectivesCreateRequestDto.idFinancingProfile()).orElseThrow();
+        EnumPriority priority;
+        EnumObjectiveType objectiveType;
+        EnumFrequency frequency;
+        try {
+            priority = EnumPriority.valueOf(objectivesCreateRequestDto.priority());
+            objectiveType = EnumObjectiveType.valueOf(objectivesCreateRequestDto.objectiveType());
+            frequency = EnumFrequency.valueOf(objectivesCreateRequestDto.frequency());
 
-        return null;
+        } catch (
+                IllegalArgumentException e) {
+            throw new IllegalArgumentException("Tipo de notification Invalido");
+        }
+        ObjectiveModel objectiveModel = ObjectiveModel
+                .builder()
+                .description(objectivesCreateRequestDto.description())
+                .enumObjectiveType(objectiveType)
+                .amountObjective(objectivesCreateRequestDto.amountObjective())
+                .annualProgress(objectivesCreateRequestDto.annualProgress())
+                .enumPriority(priority)
+                .enumFrequency(frequency)
+                .financingProfile(financingProfileEntity)
+                .build();
+        objectiveRepository.save(objectiveModel);
+
+        return new ObjectivesResponseCreateDto(
+                objectiveModel.getId(), objectiveModel.getDescription(),
+                objectivesCreateRequestDto.objectiveType(),
+                objectiveModel.getAmountObjective(),
+                objectiveModel.getAnnualProgress(),
+                objectivesCreateRequestDto.priority(),
+                objectivesCreateRequestDto.frequency(),
+                objectivesCreateRequestDto.idFinancingProfile()
+        );
     }
 
     @Override
@@ -59,15 +91,16 @@ public class ObjectivesServiceImpl implements ObjectivesService {
         return objectiveRepository.findById(id)
                 .map(objective -> {
                     if (objectivesUpdateRequestDto.getObjectiveType() != null) {
+                        System.out.println("Objective Type recibido :" + objectivesUpdateRequestDto.getObjectiveType());
                         EnumObjectiveType objectiveType = EnumObjectiveType.valueOf(objectivesUpdateRequestDto.getObjectiveType());
                         objective.setEnumObjectiveType(objectiveType);
                     }
-                    if (objectivesUpdateRequestDto.getEnumPriority() != null) {
-                        EnumPriority priority = EnumPriority.valueOf(String.valueOf(objectivesUpdateRequestDto.getEnumPriority()));
+                    if (objectivesUpdateRequestDto.getPriority() != null) {
+                        EnumPriority priority = EnumPriority.valueOf(objectivesUpdateRequestDto.getPriority());
                         objective.setEnumPriority(priority);
                     }
-                    if (objectivesUpdateRequestDto.getEnumFrequency() != null) {
-                        EnumFrequency frequency = EnumFrequency.valueOf(String.valueOf(objectivesUpdateRequestDto.getEnumFrequency()));
+                    if (objectivesUpdateRequestDto.getFrequency() != null) {
+                        EnumFrequency frequency = EnumFrequency.valueOf(objectivesUpdateRequestDto.getFrequency());
                         objective.setEnumFrequency(frequency);
                     }
                     if (objectivesUpdateRequestDto.getIdFinancingProfile() != null) {
@@ -80,9 +113,9 @@ public class ObjectivesServiceImpl implements ObjectivesService {
                     objective.setDescription(objectivesUpdateRequestDto.getDescription());
                     objective.setAmountObjective(objectivesUpdateRequestDto.getAmountObjective());
                     objective.setAnnualProgress(objectivesUpdateRequestDto.getAnnualProgress());
-                    ObjectiveModel updateObjective  = objectiveRepository.save(objective);
+                    ObjectiveModel updateObjective = objectiveRepository.save(objective);
                     return objectiveMapper.toDtoObjective(updateObjective);
-                }).orElseThrow();
+                }).orElseThrow(() -> new IllegalArgumentException("No se encontro el objetivo con id" + objectivesUpdateRequestDto.getId()));
     }
 
     @Override

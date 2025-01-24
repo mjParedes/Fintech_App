@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ObjectivesResponseDto {
     private Long id;
-
     private String description;
     private String objectiveType;
     private Double amountObjective;

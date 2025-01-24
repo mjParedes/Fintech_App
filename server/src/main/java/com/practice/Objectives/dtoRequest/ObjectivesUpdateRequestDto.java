@@ -1,11 +1,8 @@
 package com.practice.Objectives.dtoRequest;
 
-import com.practice.Objectives.Enum.EnumFrequency;
-import com.practice.Objectives.Enum.EnumPriority;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 
 @Data
@@ -17,10 +14,10 @@ public class ObjectivesUpdateRequestDto {
     private String objectiveType;
     private Double amountObjective;
     private Double annualProgress;
-    private EnumPriority enumPriority;
-    private EnumFrequency enumFrequency;
+    private String priority;
+    private String frequency;
     private LocalDateTime startDate = LocalDateTime.now();
     private LocalDateTime targetDate = LocalDateTime.now();
-    private Long  idFinancingProfile;
+    private Long idFinancingProfile;
 
 }
