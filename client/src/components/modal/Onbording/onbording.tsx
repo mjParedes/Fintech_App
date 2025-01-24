@@ -1,8 +1,7 @@
 "use client";
 import { useState } from "react";
-import { useUserStore } from "@/store/user/userStore";
 import { TestData, ErrorData ,Step0, Step1, Step2, Step3, Step4, Step5, Step6, Step7 } from "./steps";
-import { skipProfileFinance } from "@/utils/financialProfile/financialProfile";
+import { skipProfileFinance } from "@/utils/financialProfile/sendfinancialProfile";
 import Swal from 'sweetalert2';
 import { useRouter } from "next/navigation"
 
@@ -10,8 +9,6 @@ const Onbording = () => {
 
     const [step, setStep] = useState(0);
     const totalSteps = 8;
-    const user = useUserStore((state) => state.user);
-    const userId = user?.id || 0;
     
     const router = useRouter();
     const [test, setTest] = useState<TestData>({
@@ -59,7 +56,7 @@ const Onbording = () => {
           reverseButtons: true, 
         }).then((result) => {
           if (result.isConfirmed) {
-            skipProfileFinance(userId);
+             skipProfileFinance();
             router.push("/");
           }
         });
