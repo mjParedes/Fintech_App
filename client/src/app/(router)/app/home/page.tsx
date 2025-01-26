@@ -13,14 +13,15 @@ export default function Home() {
   const { financialProfile } = useFinancialProfileStore();
   const [formFinanceProfile, setFormFinanceProfile] = useState(false);
 
-  // console.log(financialProfile)
 
-  useEffect(() => {
-    getUserProfile()
-    if (!financialProfile || financialProfile.riskProfile ==="MODERADO" || financialProfile.riskProfile !=="skip" ) {
-      setFormFinanceProfile(true);
-    }
-  }, [financialProfile]);
+useEffect(() => {
+  getUserProfile();
+  if (!financialProfile) {
+    setFormFinanceProfile(true); 
+  } else {
+    setFormFinanceProfile(false); 
+  }
+}, [financialProfile]);
 
   const userGoals = [
     {

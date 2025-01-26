@@ -8,9 +8,8 @@ export const getUserProfile = async () => {
   const userLogged = JSON.parse(Cookies.get('userLogged') || '{}');
   const userId = userLogged.userId;
 
-
   try {
-    const profileResponse = await axios.get(`${URL}/financing-profile/${userId}?id=${userId}`);
+    const profileResponse = await axios.get(`${URL}/financing-profile/user/${userId}`);
     const profileData = profileResponse.data;
 
     const { setFinancialProfile } = useFinancialProfileStore.getState();
@@ -29,7 +28,8 @@ export const getUserProfile = async () => {
     return { profileData };
 
     } catch (error) {
-          if(error == "response status is 404") 
+    // Aclaracion: El error esta bien , significa que el user no tiene perfil
+          if(error)
           return { profileData: null }; 
     }
 }

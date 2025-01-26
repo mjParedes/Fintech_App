@@ -12,8 +12,6 @@ export const getUserData = async () => {
     const userResponse = await axios.get(`${URL}/user/${userId}`);
     const userData = userResponse.data;
 
-    console.log("traigo la info del user",userData)
-
     const { setUser } = useUserStore.getState();
     setUser({
       id: userId,
@@ -23,6 +21,7 @@ export const getUserData = async () => {
       photoUrl: userData.photoUrl,
       phoneNumber: userData.phoneNumber,
       birthDate: userData.birthDate,
+      registerDate: userData.registerDate,
       roles: userData.roles,
     });
 
