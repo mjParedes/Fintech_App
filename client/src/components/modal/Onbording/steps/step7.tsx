@@ -1,23 +1,37 @@
-import Link from "next/link";
 import Button from "@/components/ui/Button";
 import { useFinancialProfileStore } from "@/store/user/userFinanceProfile";
 import Image from "next/image";
 import { Sembrador, Cazador, Explorador, WarningBlue } from "@/assets";
+import { redirect } from 'next/navigation';
+import { useEffect } from "react";
 
 export default function Step7() {
   const { financialProfile } = useFinancialProfileStore();
   let message = "";
   let img = "";
 
-  if (financialProfile.riskProfile === "Sembrador de oportunidades") {
+  const handleHome = () =>{
+    redirect("/")
+  }
+  const handleProfile = () => {
+    redirect("/app/profile"); 
+  };
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.pathname === "/app/profile") {
+      window.location.reload();
+    }
+  }, []); 
+
+  if (financialProfile?.riskProfile === "Sembrador de oportunidades") {
     message =
       "Sueles priorizar la preservación del capital y tratar de minimizar el riesgo. Estos inversores prefieren inversiones estables y de baja volatilidad, como bonos o acciones de primera línea.";
     img = Sembrador;
-  } else if (financialProfile.riskProfile === "Explorador de nuevos caminos") {
+  } else if (financialProfile?.riskProfile === "Explorador de nuevos caminos") {
     message =
       "Prefieres activos que ofrezcan estabilidad pero también cierto riesgo, como bonos de calidad y acciones de empresas consolidadas, buscando un crecimiento sostenido con una volatilidad controlada.";
     img = Explorador;
-  } else if (financialProfile.riskProfile === "Cazador de inversiones") {
+  } else if (financialProfile?.riskProfile === "Cazador de inversiones") {
     message =
       "Prefieres acciones emergentes, startups innovadoras y otros activos que puedan ofrecer un crecimiento significativo, a menudo a costa de una mayor incertidumbre.";
     img = Cazador;
@@ -34,16 +48,16 @@ export default function Step7() {
           Intenta realizar el Test nuevamente
         </p>
         <br></br>
-        <div className="flex flex-col w-[95%]  m-auto lg:w-[25em]">
-          <Link href="/">
-            <Button variant="solid" size="small">
+        <div  className="flex flex-col w-[95%]  m-auto lg:w-[25em]">
+            <Button variant="solid" size="small" onClick={handleHome}>
               Reiniciar
             </Button>
-          </Link>
+
         </div>
       </div>
     );
   }
+
 
   return (
     <div className="flex flex-col items-center justify-center text-center w-[94%] m-auto lg:w-[25em]">
@@ -55,17 +69,15 @@ export default function Step7() {
       <p className="text-p2-regular text-white900 w-[90%] py-4">{message}</p>
 
       <div className="flex flex-col gap-3 w-[90%]  m-auto lg:w-[25em]">
-        <Link href="/">
-          <Button variant="solid" size="small">
+
+          <Button variant="solid" size="small" onClick={handleHome}>
             Empecemos la aventura
           </Button>
-        </Link>
 
-        <Link href="/app/profile">
-          <Button variant="basic" size="small">
+          <Button variant="basic" size="small" onClick={handleProfile}>
             Desglose de resultados
           </Button>
-        </Link>
+
       </div>
     </div>
   );

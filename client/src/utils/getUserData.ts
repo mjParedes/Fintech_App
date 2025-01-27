@@ -2,7 +2,7 @@ import { useUserStore } from "@/store/user/userStore";
 import Cookies from "js-cookie";
 import axios from 'axios';
 
-const URL = "https://fintech-ggjf.onrender.com"
+const URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const getUserData = async () => {
   const userLogged = JSON.parse(Cookies.get('userLogged') || '{}');
@@ -11,8 +11,6 @@ export const getUserData = async () => {
   try {
     const userResponse = await axios.get(`${URL}/user/${userId}`);
     const userData = userResponse.data;
-
-    console.log("traigo la info del user",userData)
 
     const { setUser } = useUserStore.getState();
     setUser({
@@ -23,6 +21,7 @@ export const getUserData = async () => {
       photoUrl: userData.photoUrl,
       phoneNumber: userData.phoneNumber,
       birthDate: userData.birthDate,
+      registerDate: userData.registerDate,
       roles: userData.roles,
     });
 

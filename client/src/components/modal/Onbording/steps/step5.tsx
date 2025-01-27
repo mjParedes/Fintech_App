@@ -1,12 +1,10 @@
 import { StepProps } from ".";
 import ProgressBar from "@/components/progressBar/bar";
 import Button from "@/components/ui/Button";
-import { sendProfileFinance } from "@/utils/financialProfile/sendfinancialProfile";
 import { ArrowLargeLeft } from "@/assets";
 import Image from "next/image";
 import { useState } from "react";
 import { BlueNoti } from "@/components/notifications/blueNotif";
-import { useUserStore } from "@/store/user/userStore";
 
 export default function Step5({
   nextStep,
@@ -19,8 +17,6 @@ export default function Step5({
 }: StepProps) {
 
   const [noti, setNoti] = useState(false);
-  const user = useUserStore((state) => state.user)
-  const userId = user?.id || 0;
 
   const handleValidation = () => {
     if (test.objective === "") {
@@ -44,7 +40,6 @@ export default function Step5({
 
   const handleSendTest = () => {
     if (handleValidation()) {
-      sendProfileFinance(test, userId)
       nextStep();
     }
   };
