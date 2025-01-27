@@ -3,6 +3,7 @@ import { useFinancialProfileStore } from "@/store/user/userFinanceProfile";
 import Image from "next/image";
 import { Sembrador, Cazador, Explorador, WarningBlue } from "@/assets";
 import { redirect } from 'next/navigation';
+import { useEffect } from "react";
 
 export default function Step7() {
   const { financialProfile } = useFinancialProfileStore();
@@ -12,9 +13,15 @@ export default function Step7() {
   const handleHome = () =>{
     redirect("/")
   }
-  const handleProfile = ()=>{
-    redirect("/app/profile")
-  }
+  const handleProfile = () => {
+    redirect("/app/profile"); 
+  };
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.pathname === "/app/profile") {
+      window.location.reload();
+    }
+  }, []); 
 
   if (financialProfile?.riskProfile === "Sembrador de oportunidades") {
     message =

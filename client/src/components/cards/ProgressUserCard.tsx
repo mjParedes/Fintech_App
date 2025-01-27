@@ -13,7 +13,7 @@ export const ProgressUser = () =>{
             <h1 className="text-white900 text-h6-bold">Recomendaciones</h1>
             <h1 className="text-white900 text-h6-semibold">Ver todo</h1>
         </div>
-        <div className="bg-primary200">
+        <div className="h-[23em]">
             <CarrouselRecommends/>
         </div>
     </div>
