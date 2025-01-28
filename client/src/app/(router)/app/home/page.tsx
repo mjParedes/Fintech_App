@@ -9,11 +9,16 @@ import RecommendationCard from '@/components/cards/RecommendationCard';
 import getUserProfile from '@/utils/financialProfile/getProfile';
 import Onbording from '@/components/modal/Onbording/onbording';
 import FinancialSampleCard from '@/components/cards/FinancialSampleCard';
+import marketStore from "@/store/market/dataBCRA";
 
 export default function Home() {
   const { financialProfile } = useFinancialProfileStore();
   const [formFinanceProfile, setFormFinanceProfile] = useState(false);
+  const loadAllVariablesData = marketStore(state => state.loadAllVariablesData);
+  // const allData = marketStore(state => state);
 
+  // console.log(allData)
+  
 useEffect(() => {
   getUserProfile();
   if (!financialProfile) {
@@ -21,7 +26,9 @@ useEffect(() => {
   } else {
     setFormFinanceProfile(false); 
   }
-}, [financialProfile]);
+  loadAllVariablesData();
+  
+}, [financialProfile, loadAllVariablesData]);
 
 
   const userGoals = [
@@ -117,3 +124,7 @@ useEffect(() => {
     </main>
   );
 }
+
+
+
+
