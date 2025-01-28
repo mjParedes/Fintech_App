@@ -1,6 +1,6 @@
 # Nombre del Proyecto
 # IUPI Ahorro e Inversiones
-![Descripción de la imagen](./public/Logo azul completo.png)
+![Descripción de la imagen](https://github.com/No-Country-simulation/h4-04-fintech/blob/feat/notificaciones/client/public/Logo%20azul%20completo.png)
 
 ## Industria o Rubro
 [Especificar aquí el sector o industria al que pertenece el proyecto, por ejemplo, "Tecnología Financiera" o "E-Commerce"]
