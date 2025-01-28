@@ -5,6 +5,25 @@
 [Especificar aquí el sector o industria al que pertenece el proyecto, por ejemplo, "Tecnología Financiera" o "E-Commerce"]
 
 ## Breve Descripción del Proyecto
+Incluir financieramente a la población argentina en un contexto económico complejo
+y cambiante, brindando herramientas que faciliten el ahorro e inversión a personas
+de diferentes edades y niveles de experiencia.
+iUpi es una aplicación financiera diseñada para empoderar a los usuarios en la
+gestión y crecimiento de su patrimonio. La plataforma permite definir objetivos
+personales, como la planificación de unas vacaciones, la compra de bienes como un
+automóvil o un departamento o la financiación de proyectos a largo plazo. Basándose
+en estos objetivos, iUpi asigna un portafolio de inversiones personalizado, adaptado
+al perfil del usuario y a las dinámicas del mercado. Además, la app aprende del
+comportamiento de cada usuario y ofrece recomendaciones de inversión cada vez
+más precisas y alineadas con sus metas.
+
+## Colaboradores 
+# IUPI Ahorro e Inversiones
+
+## Industria o Rubro
+[Especificar aquí el sector o industria al que pertenece el proyecto, por ejemplo, "Tecnología Financiera" o "E-Commerce"]
+
+## Breve Descripción del Proyecto
 [Incluir financieramente a la población argentina en un contexto económico complejo
 y cambiante, brindando herramientas que faciliten el ahorro e inversión a personas
 de diferentes edades y niveles de experiencia.
@@ -18,14 +37,14 @@ comportamiento de cada usuario y ofrece recomendaciones de inversión cada vez
 más precisas y alineadas con sus metas.]
 
 ## Colaboradores
-| Nombre | Rol | LinkedIn | GitHub |
-|--------|-----|----------|--------|
-| Isaac Urdaneta | Frontend Developer | [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/isaac-urdaneta) | [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?&logo=github&logoColor=white)](https://github.com/IducDev) |
-| Raydberg Gabriel | Fullstack Developer | [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/raydbergchuquival/) | [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?&logo=github&logoColor=white)](https://github.com/Raydberg) |
-| Bárbara Espinola | Fullstack Developer | [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/baesp/) | [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?&logo=github&logoColor=white)](https://github.com/BaEsp1) |
-| Matias Javier Paredes | Fullstack Developer | [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/matias-paredes-m8j5/) | [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?&logo=github&logoColor=white)](https://github.com/mjParedes) |
-| Jefferson Serrano | Data Science | [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jefferson-serrano-mendez/) | [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?&logo=github&logoColor=white)](https://github.com/jserranom27) |
-| Walkiria Arteaga | UI/UX Designer | [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/walkiria-arteaga-10501925b/) | [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?&logo=github&logoColor=white)](https://github.com/wlkrtg) |
+| Foto | Nombre | Rol | LinkedIn | GitHub |
+|------|--------|-----|----------|--------|
+| ![Isaac Urdaneta](https://avatars.githubusercontent.com/IducDev?s=100) | Isaac Urdaneta | Frontend Developer | [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/isaac-urdaneta) | [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?&logo=github&logoColor=white)](https://github.com/IducDev) |
+| ![Raydberg Gabriel](https://avatars.githubusercontent.com/Raydberg?s=100) | Raydberg Gabriel | Fullstack Developer | [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/raydbergchuquival/) | [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?&logo=github&logoColor=white)](https://github.com/Raydberg) |
+| ![Bárbara Espinola](https://avatars.githubusercontent.com/BaEsp1?s=100) | Bárbara Espinola | Fullstack Developer | [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/baesp/) | [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?&logo=github&logoColor=white)](https://github.com/BaEsp1) |
+| ![Matias Javier Paredes](https://avatars.githubusercontent.com/mjParedes?s=100) | Matias Javier Paredes | Fullstack Developer | [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/matias-paredes-m8j5/) | [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?&logo=github&logoColor=white)](https://github.com/mjParedes) |
+| ![Jefferson Serrano](https://avatars.githubusercontent.com/jserranom27?s=100) | Jefferson Serrano | Data Science | [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jefferson-serrano-mendez/) | [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?&logo=github&logoColor=white)](https://github.com/jserranom27) |
+| ![Walkiria Arteaga](https://avatars.githubusercontent.com/wlkrtg?s=100) | Walkiria Arteaga | UI/UX Designer | [![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/walkiria-arteaga-10501925b/) | [![GitHub](https://img.shields.io/badge/GitHub-%23121011.svg?&logo=github&logoColor=white)](https://github.com/wlkrtg) |
 
 ## Instrucciones para Instalar y Ejecutar el Proyecto Localmente
 
