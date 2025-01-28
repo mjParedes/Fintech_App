@@ -1,5 +1,5 @@
 # IUPI Ahorro e Inversiones
-![Descripción de la imagen](https://github.com/No-Country-simulation/h4-04-fintech/blob/feat/notificaciones/client/public/Property%201%3DLogo%20con%20fondo.png)
+![Descripción de la imagen](https://raw.githubusercontent.com/No-Country-simulation/h4-04-fintech/refs/heads/dev/client/public/Property%201%3DLogo%20con%20fondo.png?token=GHSAT0AAAAAAC4WWQDOSZL7M77UBJX5N5IKZ4ZGKSA)
 
 ## Industria o Rubro
 La industria fintech se enfoca en la innovación tecnológica aplicada a los servicios financieros. Este proyecto se enmarca en este sector, ofreciendo soluciones digitales que facilitan el ahorro y la inversión, mejorando la inclusión financiera y proporcionando herramientas avanzadas para la gestión del patrimonio personal.
