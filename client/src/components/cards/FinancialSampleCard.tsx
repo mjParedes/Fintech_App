@@ -23,8 +23,8 @@ export default function FinancialSampleCard({ title, icon, value, path }: Financ
 						{title === 'Capacidad de ahorro'
 							? `% ${value}`
 							: title === 'Total de deudas'
-								? `$ ${value}`
-								: `$ ${value} por mes`}
+								? `$ ${value.toLocaleString()}`
+								: `$ ${value.toLocaleString()} por mes`}
 					</p>
 				</div>
 				<div>

@@ -18,7 +18,7 @@ export default function BalanceCard({ title, amount, earning }: BalanceCardProps
 				</div>
 				{/* Content */}
 				<div className='space-y-3'>
-					<h3 className='text-h3-bold'>$ {amount} </h3>
+					<h3 className='text-h3-bold'>$ {amount.toLocaleString()} </h3>
 					<p className='text-p1-regular text-white600'>
 						<span className='text-success700'> + $ {earning}</span> en 12 meses
 					</p>

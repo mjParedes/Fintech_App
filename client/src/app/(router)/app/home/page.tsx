@@ -1,7 +1,5 @@
 "use client"
-import { AccountBalance, ShoppingBag, Storage, LegendToggle } from '@mui/icons-material'
 import BalanceCard from "@/components/cards/BalanceCard";
-import FinanceCard from "@/components/cards/FinanceCard";
 import GoalCard from "@/components/cards/GoalCard";
 import { useState, useEffect } from 'react';
 import { useFinancialProfileStore } from '@/store/user/userFinanceProfile';
