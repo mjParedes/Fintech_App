@@ -48,17 +48,14 @@ más precisas y alineadas con sus metas.]
 
 ## Instrucciones para Instalar y Ejecutar el Proyecto Localmente
 
+## Instrucciones para Instalar y Ejecutar el Proyecto Localmente
+
 1. **Clonar el repositorio:**
    ```bash
    git clone https://github.com/No-Country-simulation/h4-04-fintech.git
    ```
 
-2. **Entrar al directorio del proyecto:**
-   ```bash
-   cd proyecto
-   ```
-
-3. **Instalar dependencias:**
+2. **Instalar dependencias:**
    - **Backend:**
      ```bash
      cd server
@@ -70,11 +67,11 @@ más precisas y alineadas con sus metas.]
      npm install
      ```
 
-4. **Configurar las variables de entorno:**
+3. **Configurar las variables de entorno:**
    - Crear un archivo `.env` en la carpeta `server` con las credenciales para la base de datos.
    - Crear un archivo `.env.local` en la carpeta `client` con las variables necesarias para el frontend.
 
-5. **Ejecutar el proyecto:**
+4. **Ejecutar el proyecto:**
    - **Backend:**
      ```bash
      cd server
@@ -86,9 +83,10 @@ más precisas y alineadas con sus metas.]
      npm run dev
      ```
 
-6. **Abrir el proyecto:**
+5. **Abrir el proyecto:**
    - Backend API estará disponible en `http://localhost:8080`.
    - Frontend estará disponible en `http://localhost:3000`.
+
 
 ## Tecnologías Utilizadas
 
