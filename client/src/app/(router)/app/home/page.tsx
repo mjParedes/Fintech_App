@@ -12,14 +12,15 @@ export default function Home() {
   const { financialProfile } = useFinancialProfileStore();
   const [formFinanceProfile, setFormFinanceProfile] = useState(false);
 
-  // console.log(financialProfile)
+useEffect(() => {
+  getUserProfile();
+  if (!financialProfile) {
+    setFormFinanceProfile(true);
+  } else {
+    setFormFinanceProfile(false);
+  }
+}, [financialProfile]);
 
-  useEffect(() => {
-    getUserProfile()
-    if (!financialProfile || financialProfile.riskProfile === "MODERADO" || financialProfile.riskProfile !== "skip") {
-      setFormFinanceProfile(true);
-    }
-  }, [financialProfile]);
 
   const userGoals = [
     {
@@ -92,7 +93,7 @@ export default function Home() {
 
   return (
     <main className="px-4 pt-6 pb-24 space-y-4 w-full bg-primary300">
-      {/* {formFinanceProfile && <Onbording />} */}
+      {formFinanceProfile && <Onbording />}
       <BalanceCard title="Tus rendimientos" amount={10250.45} earning={871.29} />
 
       {/* Financial samples */}

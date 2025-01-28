@@ -12,19 +12,25 @@ const Onbording = () => {
     
     const router = useRouter();
     const [test, setTest] = useState<TestData>({
-        age: "",
-        experience: "",
+        finance: "",
+        objective: "",
         time: "",
         lost: "",
-        objective: ""
+        income:"",
+        expenses: "",
+        savings:"",
+
     });
     
     const [error, setError] = useState<ErrorData>({
-        age: "",
-        experience: "",
+        finance: "",
+        objective: "",
         time: "",
         lost: "",
-        objective: ""
+        income:"",
+        expenses:"",
+        savings: ""
+
     });
 
     const nextStep = () => {
@@ -57,7 +63,7 @@ const Onbording = () => {
         }).then((result) => {
           if (result.isConfirmed) {
              skipProfileFinance();
-            router.push("/");
+            router.push("/app/home");
           }
         });
       };
