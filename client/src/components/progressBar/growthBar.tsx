@@ -11,9 +11,9 @@ export const GrowthProgressBar: React.FC<ProgressBarProps> = ({ currentStep, tot
   const progress = (currentStep / totalSteps) * 100;
 
   return (
-    <div className="w-[97%] flex gap-4 justify-center items-center">
+    <div className="flex gap-4 justify-center items-center">
 
-            <h2 className= "text-p2-regular text-white600">Crecimiento 💼 </h2>
+    <h2 className= "text-p2-regular text-white600">Crecimiento 💼</h2>
 
 
         <div className="w-[12.5em] bg-primary300 h-[4px] dark:bg-gray-300">

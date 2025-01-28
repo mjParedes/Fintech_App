@@ -11,12 +11,19 @@ async function sendProfileFinance(test: TestData): Promise<void> {
   const userId = userLogged.userId;
 
   const riskProfile = assignProfileFinance(test);
+  const income = test.income
+  const expenses = test.expenses
+  const savings = test.savings
+
   const updateStore = useFinancialProfileStore.getState().setFinancialProfile;
 
   try {
     const response = await axios.post(`${URL}/onboarding`, {
       userId,
       riskProfile,
+      incomeMonthly:income ,
+      expensesMonthly:expenses,
+      percentageSave: savings,
     });
 
     const profileData = response.data;
@@ -37,9 +44,9 @@ async function sendProfileFinance(test: TestData): Promise<void> {
       const updatedProfile = {
         knowledgeLevel: financialData.knowledgeLevel || "",
         riskProfile,
-        incomeMonthly: financialData.incomeMonthly ?? 0.1,
-        expensesMonthly: financialData.expensesMonthly ?? 0.1,
-        percentageSave: financialData.percentageSave ?? 0.1,
+        incomeMonthly: income ,
+        expensesMonthly: expenses ,
+        percentageSave: savings ,
         totalDebt: financialData.totalDebt ?? 0.1,
         savingsTotal: financialData.savingsTotal ?? 0.1,
         patrimonyTotal: financialData.patrimonyTotal ?? 0.1,
@@ -79,12 +86,19 @@ async function skipProfileFinance(): Promise<void> {
   const userLogged = JSON.parse(Cookies.get("userLogged") || "{}");
   const userId = userLogged.userId;
 
+  const income = 0
+  const expenses = 0
+  const savings = 0
+  
   try {
     const riskProfile = "SKIP";
 
     const response = await axios.post(`${URL}/onboarding`, {
       userId,
       riskProfile,
+      incomeMonthly:income ,
+      expensesMonthly:expenses,
+      percentageSave: savings,
     });
 
     const profileData = response.data;

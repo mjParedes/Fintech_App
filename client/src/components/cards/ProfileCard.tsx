@@ -23,7 +23,7 @@ export const ProfileUser = () =>{
 
     return (
         <>
-            <div className="flex items-center justify-center p-2 relative">
+            <div className="flex flex-col lg:[flex-row] items-center justify-center p-2 relative">
             <Image src={userPhoto} alt="" className="h-[7.5em] w-[7.5em] rounded-full" />
             
             {financialProfile?.riskProfile !== "SKIP" && (
@@ -31,7 +31,7 @@ export const ProfileUser = () =>{
                 src={icon} 
                 alt="icon" 
                 className="absolute"
-                style={{ top: '6.5em', left: '17em'}} 
+                style={{ top: '6.5em', left: '13em'}} 
                 />
             )}
             </div>
