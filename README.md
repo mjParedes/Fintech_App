@@ -1,9 +1,8 @@
-# Nombre del Proyecto
 # IUPI Ahorro e Inversiones
 ![Descripción de la imagen](https://github.com/No-Country-simulation/h4-04-fintech/blob/feat/notificaciones/client/public/Property%201%3DLogo%20con%20fondo.png)
 
 ## Industria o Rubro
-[Especificar aquí el sector o industria al que pertenece el proyecto, por ejemplo, "Tecnología Financiera" o "E-Commerce"]
+La industria fintech se enfoca en la innovación tecnológica aplicada a los servicios financieros. Este proyecto se enmarca en este sector, ofreciendo soluciones digitales que facilitan el ahorro y la inversión, mejorando la inclusión financiera y proporcionando herramientas avanzadas para la gestión del patrimonio personal.
 
 ## Breve Descripción del Proyecto
 Incluir financieramente a la población argentina en un contexto económico complejo
@@ -18,24 +17,7 @@ al perfil del usuario y a las dinámicas del mercado. Además, la app aprende de
 comportamiento de cada usuario y ofrece recomendaciones de inversión cada vez
 más precisas y alineadas con sus metas.
 
-## Colaboradores 
-# IUPI Ahorro e Inversiones
 
-## Industria o Rubro
-[Especificar aquí el sector o industria al que pertenece el proyecto, por ejemplo, "Tecnología Financiera" o "E-Commerce"]
-
-## Breve Descripción del Proyecto
-[Incluir financieramente a la población argentina en un contexto económico complejo
-y cambiante, brindando herramientas que faciliten el ahorro e inversión a personas
-de diferentes edades y niveles de experiencia.
-iUpi es una aplicación financiera diseñada para empoderar a los usuarios en la
-gestión y crecimiento de su patrimonio. La plataforma permite definir objetivos
-personales, como la planificación de unas vacaciones, la compra de bienes como un
-automóvil o un departamento o la financiación de proyectos a largo plazo. Basándose
-en estos objetivos, iUpi asigna un portafolio de inversiones personalizado, adaptado
-al perfil del usuario y a las dinámicas del mercado. Además, la app aprende del
-comportamiento de cada usuario y ofrece recomendaciones de inversión cada vez
-más precisas y alineadas con sus metas.]
 
 ## Colaboradores
 | Foto | Nombre | Rol | LinkedIn | GitHub |
