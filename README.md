@@ -72,18 +72,19 @@ más precisas y alineadas con sus metas.
 
 
 ## Tecnologías Utilizadas
-
 ### Backend
-- **Java**
-- **Spring Boot**
-- **PostgreSQL / MySQL**
-- **Hibernate ORM**
+- ![Java](https://img.shields.io/badge/Java-%23ED8B00.svg?&logo=java&logoColor=white) **Java**
+- ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-%236DB33F.svg?&logo=spring-boot&logoColor=white) **Spring Boot**
+- ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-%23336791.svg?&logo=postgresql&logoColor=white) **PostgreSQL / MySQL**
+- ![Hibernate](https://img.shields.io/badge/Hibernate-%23958B8B.svg?&logo=hibernate&logoColor=white) **Hibernate ORM**
 
 ### Frontend
-- **React (Next.js)**
-- **TypeScript**
-- **Tailwind CSS**
-- **Zustand**
+- ![React](https://img.shields.io/badge/React-%2361DAFB.svg?&logo=react&logoColor=white) **React (Next.js)**
+- ![TypeScript](https://img.shields.io/badge/TypeScript-%23007ACC.svg?&logo=typescript&logoColor=white) **TypeScript**
+- ![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-%2338B2AC.svg?&logo=tailwind-css&logoColor=white) **Tailwind CSS**
+- ![Zustand](https://img.shields.io/badge/Zustand-%23000000.svg?&logo=zustand&logoColor=white) **Zustand**
+
+
 
 ## Enlaces Relevantes
 - [![Documentación de calidad](https://img.shields.io/badge/📄-Documentación-blue)](enlace_documentacion)
