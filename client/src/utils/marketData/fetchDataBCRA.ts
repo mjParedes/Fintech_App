@@ -1,4 +1,4 @@
-
+const URL_BCRA = process.env.NEXT_PUBLIC_URL_BCRA;
 
 export const fetchVariableData = async (variable: string) => {
   const variablesMap: { [key: string]: number } = {
@@ -21,7 +21,7 @@ export const fetchVariableData = async (variable: string) => {
     return [];
   }
 
-  const url = `https://api.bcra.gob.ar/estadisticas/v3.0/monetarias/${idVariable}?limit=10&offset=0`;
+  const url = `${URL_BCRA}/${idVariable}?limit=10&offset=0`;
 
   try {
     const response = await fetch(url, {
