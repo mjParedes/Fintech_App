@@ -97,7 +97,7 @@ useEffect(() => {
       <BalanceCard title="Tus rendimientos" amount={10250.45} earning={871.29} />
 
       {/* Financial samples */}
-      <div className='flex flex-wrap gap-4 lg:w-[80%] lg:mx-auto'>
+      <div className='flex flex-wrap gap-4 lg:w-[90%] lg:mx-auto'>
         {financialData.map((data, index) => (
           <FinancialSampleCard
             key={index}
