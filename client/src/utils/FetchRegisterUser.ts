@@ -1,4 +1,4 @@
-const URL = "https://fintech-ggjf.onrender.com"
+const URL = process.env.NEXT_PUBLIC_API_URL 
 export interface RegisterUser {
     name: string;
     lastName: string;

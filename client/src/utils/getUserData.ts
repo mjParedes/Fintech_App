@@ -2,7 +2,7 @@ import { useUserStore } from "@/store/user/userStore";
 import Cookies from "js-cookie";
 import axios from 'axios';
 
-const URL = "https://fintech-ggjf.onrender.com"
+const URL = process.env.NEXT_PUBLIC_API_URL 
 
 export const getUserData = async () => {
   const userLogged = JSON.parse(Cookies.get('userLogged') || '{}');
