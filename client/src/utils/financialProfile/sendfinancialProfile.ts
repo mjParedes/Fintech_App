@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 import assignProfileFinance from "@/lib/testOnbording";
 import { useFinancialProfileStore } from "@/store/user/userFinanceProfile";
 
-const URL = process.env.NEXT_PUBLIC_API_URL || "https://fintech-ggjf.onrender.com"
+const URL = "https://fintech-ggjf.onrender.com"
 
 async function sendProfileFinance(test: TestData): Promise<void> {
   const userLogged = JSON.parse(Cookies.get("userLogged") || "{}");
