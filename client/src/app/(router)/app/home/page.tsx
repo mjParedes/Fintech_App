@@ -1,25 +1,34 @@
 "use client"
 import BalanceCard from "@/components/cards/BalanceCard";
 import GoalCard from "@/components/cards/GoalCard";
-import { useState, useEffect } from 'react';
+import { useEffect , useRef} from 'react';
 import { useFinancialProfileStore } from '@/store/user/userFinanceProfile';
 import RecommendationCard from '@/components/cards/RecommendationCard';
 import getUserProfile from '@/utils/financialProfile/getProfile';
 import Onbording from '@/components/modal/Onbording/onbording';
 import FinancialSampleCard from '@/components/cards/FinancialSampleCard';
+import getUserData from "@/utils/getUserData";
+import { useModalStore } from "@/store/onBording/modal";
 
 export default function Home() {
   const { financialProfile } = useFinancialProfileStore();
-  const [formFinanceProfile, setFormFinanceProfile] = useState(false);
+  const { modalState, openModal } = useModalStore();
 
-useEffect(() => {
-  getUserProfile();
-  if (!financialProfile) {
-    setFormFinanceProfile(true);
-  } else {
-    setFormFinanceProfile(false);
-  }
-}, [financialProfile]);
+  const hasFetchedProfile = useRef(false)
+  
+  useEffect(() => {
+
+    if (!hasFetchedProfile.current) {
+      hasFetchedProfile.current = true; 
+      getUserProfile(); 
+    }
+
+    if (!financialProfile && modalState !== "Abierto") {
+      openModal();
+    }
+
+      getUserData()
+  }, [financialProfile, modalState] );
 
 
   const userGoals = [
@@ -93,7 +102,7 @@ useEffect(() => {
 
   return (
     <main className="px-4 pt-6 pb-24 space-y-4 w-full bg-primary300">
-      {formFinanceProfile && <Onbording />}
+      {modalState === "Abierto" && <Onbording />}
       <BalanceCard title="Tus rendimientos" amount={10250.45} earning={871.29} />
 
       {/* Financial samples */}
