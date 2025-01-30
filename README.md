@@ -95,6 +95,7 @@ más precisas y alineadas con sus metas.
 - ![Spring Security](https://img.shields.io/badge/Spring%20Security-%236DB33F.svg?&logo=spring-security&logoColor=white) **Spring Security**
 - ![JWT](https://img.shields.io/badge/JWT-%23000000.svg?&logo=JSON%20web%20tokens&logoColor=white) **JWT**
 - ![Cloudinary](https://img.shields.io/badge/Cloudinary-%23000000.svg?&logo=cloudinary&logoColor=white) **Cloudinary**
+- ![OAuth2](https://img.shields.io/badge/OAuth2-%23000000.svg?&logo=oauth&logoColor=white) **OAuth2**
 
 ### Model AI
 - ![Python](https://img.shields.io/badge/Python-%233776AB.svg?&logo=python&logoColor=white) **Python**
