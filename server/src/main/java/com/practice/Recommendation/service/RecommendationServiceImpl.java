@@ -25,7 +25,6 @@ public class RecommendationServiceImpl implements RecommendationService {
     private final RecommendationRepository recommendationRepository;
     private final RecommendationMapper recommendationMapper;
     private final UserRepository userRepository;
-    private final RestTemplate restTemplate;
 
 //    @Value("${django.server.url}") // URL del servidor de Django (se configura en application.properties)
 //    private String djangoServerUrl;

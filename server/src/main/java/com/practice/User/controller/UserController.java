@@ -16,10 +16,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestController
@@ -71,4 +75,24 @@ public class UserController {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @Operation(summary = "Obtener información del usuario", description = "Devuelve la información del usuario autenticado.")
+    @ApiResponse(responseCode = "200", description = "Información del usuario obtenida exitosamente")
+    @ApiResponse(responseCode = "401", description = "Usuario no autenticado")
+    @GetMapping("/user-info")
+    public ResponseEntity<?> user(@AuthenticationPrincipal OAuth2User principal) {
+        if (principal == null) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Usuario no autenticado"));
+        }
+
+        Map<String, Object> filteredUserInfo = Map.of(
+                "id", Objects.requireNonNull(principal.getAttribute("sub")),
+                "email", Objects.requireNonNull(principal.getAttribute("email")),
+                "name", Objects.requireNonNull(principal.getAttribute("name")),
+                "picture", Objects.requireNonNull(principal.getAttribute("picture"))
+        );
+
+        return ResponseEntity.ok(filteredUserInfo);
+    }
+
 }

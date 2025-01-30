@@ -44,7 +44,7 @@ public class SecurityConfig  {
                 .csrf(AbstractHttpConfigurer::disable) // Deshabilitar CSRF completamente
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/", "/login/**", "/oauth2/**").permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2.defaultSuccessUrl("/hello", true))
                 .sessionManagement(session -> session
@@ -88,10 +88,5 @@ public class SecurityConfig  {
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
-    }
-
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
     }
 }
