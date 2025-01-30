@@ -242,5 +242,4 @@ public class PortfolioServiceImpl implements PortfolioService {
         // Calcular el nuevo precio promedio: (valor total) / (cantidad total)
         return (oldPosition + newPosition) / totalQuantity;
     }
-
 }

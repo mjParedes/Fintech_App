@@ -7,6 +7,7 @@ import com.practice.Portfolio.dtoResponse.PortfolioPageResponseDto;
 import com.practice.Portfolio.dtoResponse.PortfolioResponseDto;
 import com.practice.Portfolio.dtoResponse.PortfolioValueResponseDto;
 import com.practice.Portfolio.service.PortfolioServiceImpl;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -123,7 +124,7 @@ public class PortfolioController {
             summary = "Agregar o actualizar una inversión para un usuario",
             description = """
         Este endpoint permite agregar una nueva inversión o actualizar una existente para un usuario.
-        
+
         ### Reglas de negocio:
         - Si el usuario no existe, se devuelve un error 404.
         - Si el instrumento no existe, se devuelve un error 404.
@@ -131,12 +132,12 @@ public class PortfolioController {
           - **Si es una compra:** Se recalcula el precio promedio ponderado.
           - **Si es una venta:** Se reduce la cantidad disponible, validando que haya suficiente cantidad para vender.
         - Si el portafolio no tiene este instrumento, se crea una nueva entrada para él.
-        
+
         ### Ejemplo:
         #### Escenario:
         - Un usuario tiene 100 acciones de un instrumento con un precio promedio de $10 cada una.
         - Compra 50 acciones más a $12 cada una.
-        
+
         #### Cálculo:
         - Precio promedio anterior: $10
         - Cantidad anterior: 100
