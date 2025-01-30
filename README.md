@@ -50,6 +50,11 @@ más precisas y alineadas con sus metas.
      cd client
      npm install
      ```
+   - **Model AI:**
+     ```bash
+       cd model-ia
+       pip install -r requirements.txt
+      ```
 
 3. **Configurar las variables de entorno:**
    - Crear un archivo `.env` en la carpeta `server` con las credenciales para la base de datos.
@@ -66,10 +71,16 @@ más precisas y alineadas con sus metas.
      cd client
      npm run dev
      ```
+   - **Model AI**
+      ```bash
+      cd model-ia
+      python manage.py runserver
+      ```
 
 5. **Abrir el proyecto:**
    - Backend API estará disponible en `http://localhost:8080`.
    - Frontend estará disponible en `http://localhost:3000`.
+   - Model AI estará disponible en `http://127.0.0.1:8000/api`.
 
 
 ## Tecnologías Utilizadas
@@ -78,6 +89,23 @@ más precisas y alineadas con sus metas.
 - ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-%236DB33F.svg?&logo=spring-boot&logoColor=white) **Spring Boot**
 - ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-%23336791.svg?&logo=postgresql&logoColor=white) **PostgreSQL / MySQL**
 - ![Hibernate](https://img.shields.io/badge/Hibernate-%23958B8B.svg?&logo=hibernate&logoColor=white) **Hibernate ORM**
+- ![Maven](https://img.shields.io/badge/Maven-%23C71A36.svg?&logo=apache-maven&logoColor=white) **Maven**
+- ![Lombok](https://img.shields.io/badge/Lombok-%230A0A0A.svg?&logo=lombok&logoColor=white) **Lombok**
+- ![Swagger](https://img.shields.io/badge/Swagger-%2385EA2D.svg?&logo=swagger&logoColor=white) **Swagger**
+- ![JUnit](https://img.shields.io/badge/JUnit-%23E57321.svg?&logo=junit5&logoColor=white) **JUnit**
+- ![Spring Security](https://img.shields.io/badge/Spring%20Security-%236DB33F.svg?&logo=spring-security&logoColor=white) **Spring Security**
+- ![JWT](https://img.shields.io/badge/JWT-%23000000.svg?&logo=JSON%20web%20tokens&logoColor=white) **JWT**
+- ![Cloudinary](https://img.shields.io/badge/Cloudinary-%23000000.svg?&logo=cloudinary&logoColor=white) **Cloudinary**
+
+### Model AI
+- ![Python](https://img.shields.io/badge/Python-%233776AB.svg?&logo=python&logoColor=white) **Python**
+- ![Django](https://img.shields.io/badge/Django-%23092E20.svg?&logo=django&logoColor=white) **Django**
+- ![Scikit-learn](https://img.shields.io/badge/Scikit%20Learn-%23F7931E.svg?&logo=scikit-learn&logoColor=white) **Scikit-learn**
+- ![Pandas](https://img.shields.io/badge/Pandas-%23150458.svg?&logo=pandas&logoColor=white) **Pandas**
+- ![Numpy](https://img.shields.io/badge/Numpy-%23013243.svg?&logo=numpy&logoColor=white) **Numpy**
+- ![Jupyter](https://img.shields.io/badge/Jupyter-%23F37626.svg?&logo=jupyter&logoColor=white) **Jupyter**
+
+
 
 ### Frontend
 - ![React](https://img.shields.io/badge/React-%2361DAFB.svg?&logo=react&logoColor=white) **React (Next.js)**
