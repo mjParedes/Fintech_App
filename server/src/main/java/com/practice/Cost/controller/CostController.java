@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("")
+@RequestMapping("/cost")
 @Tag(name = "Gastos", description = "Gastos API")
 @Validated
 public class CostController {
     private final CostServiceImpl costServiceImpl;
 
-    @GetMapping("/cost")
+    @GetMapping("/")
     public ResponseEntity<CostPageResponseDto> findAllCost(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
