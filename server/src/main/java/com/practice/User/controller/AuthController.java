@@ -29,7 +29,7 @@ import java.io.IOException;
 public class AuthController {
 
     private final UserDetailsServiceImpl userDetailsServiceImpl;
-    private final CloudinaryService cloudinaryService;
+//    private final CloudinaryService cloudinaryService;
 
     @Operation(summary = "Iniciar sesión", description = "Inicia sesión y obtiene un token de autenticación.")
     @ApiResponse(responseCode = "200", description = "Autenticación exitosa")
@@ -46,19 +46,19 @@ public class AuthController {
 
 
 
-    @Operation(summary = "Subir foto de usuario", description = "Sube una foto de perfil para el usuario autenticado, " +
-            "la foto debe ser una imagen (jpg, png, gif, bmp, webp).")
-    @ApiResponse(responseCode = "200", description = "Url de la foto subida exitosamente")
-    @ApiResponse(responseCode = "500", description = "Error al subir la foto")
-    @PostMapping(value = "/upload-photo", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> uploadPhoto(@RequestParam("photo") MultipartFile photo) {
-        try {
-            String photoUrl = cloudinaryService.uploadImage(photo);
-            return ResponseEntity.ok(photoUrl);
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error uploading image");
-        }
-    }
+//    @Operation(summary = "Subir foto de usuario", description = "Sube una foto de perfil para el usuario autenticado, " +
+//            "la foto debe ser una imagen (jpg, png, gif, bmp, webp).")
+//    @ApiResponse(responseCode = "200", description = "Url de la foto subida exitosamente")
+//    @ApiResponse(responseCode = "500", description = "Error al subir la foto")
+//    @PostMapping(value = "/upload-photo", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//    public ResponseEntity<String> uploadPhoto(@RequestParam("photo") MultipartFile photo) {
+//        try {
+//            String photoUrl = cloudinaryService.uploadImage(photo);
+//            return ResponseEntity.ok(photoUrl);
+//        } catch (IOException e) {
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error uploading image");
+//        }
+//    }
 
 
     @Operation(summary = "Registrar nuevo usuario", description = """

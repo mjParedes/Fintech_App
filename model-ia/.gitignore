@@ -1,0 +1,50 @@
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Django
+*.log
+*.pot
+*.pyc
+db.sqlite3
+media/
+static/
+
+# Local development settings
+.env
+local_settings.py
+
+# IDE specific files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Machine Learning models
+*.joblib
+*.pkl
+*.h5
+
+# Dataset files
+*.csv
+*.xlsx
+*.xls
+
+# System Files
+.DS_Store
+Thumbs.db
