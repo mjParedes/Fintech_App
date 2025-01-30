@@ -22,6 +22,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -45,7 +46,7 @@ public class SecurityConfig  {
                         .requestMatchers("/", "/login/**", "/oauth2/**").permitAll()
                         .anyRequest().permitAll()
                 )
-                //.oauth2Login(oauth2 -> oauth2.defaultSuccessUrl("/hello", true))
+                .oauth2Login(oauth2 -> oauth2.defaultSuccessUrl("/hello", true))
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 )
@@ -88,9 +89,4 @@ public class SecurityConfig  {
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
-
-//    @Bean
-//    public ModelMapper modelMapper() {
-//        return new ModelMapper();
-//    }
 }
