@@ -3,10 +3,11 @@ import { ArrowBackIos, SettingsSuggest } from '@mui/icons-material'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import InvestmentCard from './components/InvestmentCard'
-import TimeChart from './components/TimeChart'
-import TabLayout from './components/TabLayout'
 import Button from '@/components/ui/Button'
 import CollapsibleSection from './components/CollapsibleSection'
+import AssetList from './components/AssetList'
+import MarketSection from './components/MarketSection'
+import OperationsHistory from './components/OperationsHistory'
 
 export default function Portfolio() {
 
@@ -33,6 +34,20 @@ export default function Portfolio() {
 		}
 	]
 
+	const assets = [
+		{ name: 'Apple Inc.', price: '$15.09', change: '+1.2%', trend: 'positive' },
+		{ name: 'Tesla Inc.', price: '$688.99', change: '-0.8%', trend: 'negative' },
+		{ name: 'Amazon Inc.', price: '$3,334.69', change: '+2.8%', trend: 'positive' },
+		{ name: 'Alphabet Inc.', price: '$2,450.00', change: '+0.7%', trend: 'positive' },
+		{ name: 'Microsoft Corp.', price: '$299.35', change: '+1.5%', trend: 'positive' },
+		{ name: 'Netflix Inc.', price: '$549.57', change: '-0.3%', trend: 'negative' },
+		{ name: 'Meta Platforms Inc.', price: '$320.45', change: '+0.9%', trend: 'positive' },
+		{ name: 'Nvidia Corp.', price: '$1,200.00', change: '-1.2%', trend: 'negative' },
+		{ name: 'Oracle Corp.', price: '$88.75', change: '+1.0%', trend: 'positive' },
+		{ name: 'Intel Corp.', price: '$88.75', change: '+1.0%', trend: 'positive' },
+		{ name: 'IBM Corp.', price: '$88.75', change: '+1.0%', trend: 'positive' },
+		{ name: 'Alibaba Holding.', price: '$88.75', change: '+1.0%', trend: 'positive' },
+	];
 
 
 	return (
@@ -89,9 +104,22 @@ export default function Portfolio() {
 								))}
 							</div>
 
+							<AssetList assets={assets} />
+
+							<MarketSection />
+
 						</div>
 
 					)}
+
+					{/* Movements Content */}
+					{activeTab === 'movements' && (
+						<div>
+							<OperationsHistory />
+						</div>
+
+					)}
+
 				</div>
 
 
