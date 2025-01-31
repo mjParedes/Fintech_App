@@ -38,7 +38,8 @@ import CreditCardIcon from "./icons/CreditCard.svg";
 import GlobalNews from "./images/globalNews.svg";
 import MedicineNews from "./images/MedicineNews.svg";
 import CriptosNews from "./images/criptosNews.svg";
-import CarsNews from "./images/carsNews.svg"
+import CarsNews from "./images/carsNews.svg";
+import EducationActiveLarge from "./icons/educationActiveLarge.svg"
 
 
 export {
@@ -82,5 +83,6 @@ export {
     GlobalNews,
     MedicineNews,
     CriptosNews,
-    CarsNews
+    CarsNews,
+    EducationActiveLarge
 }

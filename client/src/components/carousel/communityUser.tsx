@@ -6,8 +6,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import useEducationStore from "@/store/community/education";
-import { useState } from "react";
-import { GameCard } from "../cards/GameCard";
+import Link from "next/link";
 
 type ImgType = 'book' | 'padlock' | 'Sum' | "CreditCard" | "Clock";
 
@@ -21,23 +20,10 @@ const imageMap: Record<ImgType, string> = {
 
 export const CarouselComunnity = () => {
   const { items } = useEducationStore();
-  const [game, setGame] = useState(false)
-  const [idGame , setIdGame] = useState(0)
-
     let icon = ""
-
-    const handleGame = (id:number) =>{
-      setGame(true)
-      setIdGame(id)
-    }
-
-    const handleCloseGame = () =>{
-      setGame(false)
-    }
 
   return (
     <div className="h-[33em] pt-4">
-      {game && <GameCard id={idGame} onClose={handleCloseGame}/>}
       <div className=" w-[23.5em] mx-auto">
         <Swiper
           modules={[Autoplay]}
@@ -61,7 +47,7 @@ export const CarouselComunnity = () => {
 
             return (
               <SwiperSlide key={id}>
-                <button onClick={() =>handleGame(Number(id))}>
+                <Link href={`/app/community/game/${id}`}>
                 <div
                   className={`bg-primary100 flex flex-col w-[10em] h-[22em] gap-4 rounded-3xl justify-center p-4`}
                 >
@@ -79,7 +65,7 @@ export const CarouselComunnity = () => {
                   />
                   <label className="text-white900 text-p3-medium mt-[-2em] ml-9">{levels + " · " }{levelUser}</label>
                 </div>
-                </button>
+                </Link>
               </SwiperSlide>
             );
           })}
