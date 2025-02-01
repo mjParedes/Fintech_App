@@ -39,7 +39,10 @@ import GlobalNews from "./images/globalNews.svg";
 import MedicineNews from "./images/MedicineNews.svg";
 import CriptosNews from "./images/criptosNews.svg";
 import CarsNews from "./images/carsNews.svg";
-import EducationActiveLarge from "./icons/educationActiveLarge.svg"
+import EducationActiveLarge from "./icons/educationActiveLarge.svg";
+import SuccessGame from "./images/SuccessGame.svg";
+import ShieldOn from "./icons/shieldOn.svg";
+import CrownOn from "./icons/CrownOn.svg"
 
 
 export {
@@ -84,5 +87,8 @@ export {
     MedicineNews,
     CriptosNews,
     CarsNews,
-    EducationActiveLarge
+    EducationActiveLarge, 
+    SuccessGame,
+    ShieldOn,
+    CrownOn
 }
