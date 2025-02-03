@@ -76,7 +76,10 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @Operation(summary = "Obtener información del usuario", description = "Devuelve la información del usuario autenticado.")
+    @Operation(
+            summary = "Obtener información del usuario de Google",
+            description = "Este endpoint devuelve la información del usuario actualmente autenticado a través de Google. La información proporcionada incluye detalles como el ID de usuario, el correo electrónico, el nombre y la foto del perfil. Este endpoint está diseñado para obtener datos solo del usuario que ha iniciado sesión en la sesión actual."
+    )
     @ApiResponse(responseCode = "200", description = "Información del usuario obtenida exitosamente")
     @ApiResponse(responseCode = "401", description = "Usuario no autenticado")
     @GetMapping("/user-info")
@@ -84,6 +87,8 @@ public class UserController {
         if (principal == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Usuario no autenticado"));
         }
+
+        userService.processGoogleUser(principal);
 
         Map<String, Object> filteredUserInfo = Map.of(
                 "id", Objects.requireNonNull(principal.getAttribute("sub")),

@@ -31,6 +31,9 @@ public class UserModel {
     @Column(name = "photo_url")
     private String photoUrl;
 
+    @Column(name = "google_id")
+    private String googleId;
+
     @Column(unique = true)
     private String email;
 
