@@ -47,7 +47,8 @@ export const CarouselComunnity = () => {
 
             return (
               <SwiperSlide key={id}>
-                <Link href={`/app/community/game/${id}`}>
+              {/* <Link href={`/app/community/game/${id}`}></Link> */}
+                <Link href={`/app/community/game/1`}>
                 <div
                   className={`bg-primary100 flex flex-col w-[10em] h-[22em] gap-4 rounded-3xl justify-center p-4`}
                 >

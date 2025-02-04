@@ -42,7 +42,8 @@ import CarsNews from "./images/carsNews.svg";
 import EducationActiveLarge from "./icons/educationActiveLarge.svg";
 import SuccessGame from "./images/SuccessGame.svg";
 import ShieldOn from "./icons/shieldOn.svg";
-import CrownOn from "./icons/CrownOn.svg"
+import CrownOn from "./icons/CrownOn.svg";
+import LoserGame from "./images/LoserGame.svg"
 
 
 export {
@@ -90,5 +91,6 @@ export {
     EducationActiveLarge, 
     SuccessGame,
     ShieldOn,
-    CrownOn
+    CrownOn, 
+    LoserGame
 }
