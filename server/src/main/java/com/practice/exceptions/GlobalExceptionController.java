@@ -1,5 +1,6 @@
 package com.practice.exceptions;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
@@ -159,16 +160,21 @@ public class GlobalExceptionController {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleException(Exception ex) {
+    public ResponseEntity<ErrorResponse> handleException(Exception ex, HttpServletRequest request) {
+        String path = request.getRequestURI();
+        String exceptionType = ex.getClass().getSimpleName();
+
         ErrorResponse errorResponse = new ErrorResponse(
                 "SERVER_ERROR",
                 "Ha ocurrido un error en el servidor",
-                Collections.singletonList(ex.getMessage())
+                List.of("Error: " + ex.getMessage(), "Ruta: " + path, "Tipo: " + exceptionType)
         );
 
-        log.error("Internal server error: {}", ex.getMessage());
+        log.error("🚨 Error en la ruta [{}]: {} - {}", path, exceptionType, ex.getMessage(), ex);
+
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(errorResponse);
     }
+
 
 
 
