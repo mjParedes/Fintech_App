@@ -15,7 +15,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -72,23 +74,31 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public UserModel processGoogleUser(OAuth2User principal) {
-        String googleId = principal.getAttribute("sub");
-        String email = principal.getAttribute("email");
+    public Map<String, Object> processUser(OAuth2User oauthUser) {
+        String email = oauthUser.getAttribute("email");
+        String name = oauthUser.getAttribute("name");
+        String picture = oauthUser.getAttribute("picture");
 
-        Optional<UserModel> existingUser = userRepository.findByEmail(email);
+        // Buscar usuario en la BD o crearlo si no existe
+        UserModel user = userRepository.findByEmail(email)
+                .orElseGet(() -> {
+                    UserModel newUser = new UserModel();
+                    newUser.setEmail(email);
+                    newUser.setName(name);
+                    newUser.setPhotoUrl(picture);
+                    return userRepository.save(newUser); // Guarda en BD
+                });
 
-        if (existingUser.isPresent()) {
-            return existingUser.get();
+        // Construir la respuesta con los datos del usuario
+        Map<String, Object> userInfo = new HashMap<>();
+        userInfo.put("id", user.getId());
+        userInfo.put("email", user.getEmail());
+        userInfo.put("name", user.getName());
+
+        if (user.getPhotoUrl() != null) {
+            userInfo.put("picture", user.getPhotoUrl());
         }
 
-        // Crear un nuevo usuario si no existe
-        UserModel newUser = new UserModel();
-        newUser.setGoogleId(googleId);
-        newUser.setEmail(email);
-        newUser.setName(principal.getAttribute("name"));
-        newUser.setPhotoUrl(principal.getAttribute("picture"));
-
-        return userRepository.save(newUser);
+        return userInfo;
     }
 }

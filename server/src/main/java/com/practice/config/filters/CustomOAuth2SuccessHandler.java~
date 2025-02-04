@@ -33,12 +33,5 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
         response.addCookie(cookie);
         response.setStatus(HttpServletResponse.SC_OK);
-
-        String frontendUrl = "https://iupi-six.vercel.app/app/home"; // Producción
-        if ("localhost".equals(request.getServerName())) {
-            frontendUrl = "http://localhost:3000/app/home"; // Desarrollo
-        }
-
-        response.sendRedirect(frontendUrl);
     }
 }
