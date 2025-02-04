@@ -1,8 +1,7 @@
 "use client"
 import BalanceCard from "@/components/cards/BalanceCard";
 import GoalCard from "@/components/cards/GoalCard";
-import { useEffect , useRef} from 'react';
-import { useFinancialProfileStore } from '@/store/user/userFinanceProfile';
+import { useEffect} from 'react';
 import RecommendationCard from '@/components/cards/RecommendationCard';
 import getUserProfile from '@/utils/financialProfile/getProfile';
 import Onbording from '@/components/modal/Onbording/onbording';
@@ -11,25 +10,24 @@ import getUserData from "@/utils/getUserData";
 import { useModalStore } from "@/store/onBording/modal";
 
 export default function Home() {
-  const { financialProfile } = useFinancialProfileStore();
-  const { modalState, openModal } = useModalStore();
-
-  const hasFetchedProfile = useRef(false)
+  const { modalState, openModal, closeModal } = useModalStore();
   
+
   useEffect(() => {
-
-    if (!hasFetchedProfile.current) {
-      hasFetchedProfile.current = true; 
-      getUserProfile(); 
-    }
-
-    if (!financialProfile && modalState !== "Abierto") {
-      openModal();
-    }
-
-      getUserData()
-  }, [financialProfile, modalState] );
-
+    const fetchProfile = async () => {
+      const { profileData } = await getUserProfile();
+      
+      if (!profileData && modalState !== "Abierto") {
+        openModal();
+      } else {
+        closeModal();
+      }
+    };
+  
+    fetchProfile();
+    getUserData(); 
+  }, [modalState]); 
+  
 
   const userGoals = [
     {
