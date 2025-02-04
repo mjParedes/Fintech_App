@@ -1,14 +1,19 @@
 import { create } from "zustand";
 import { fetchVariableData } from "@/utils/marketData/fetchDataBCRA";
-import { fetchBondsData } from "@/utils/marketData/fetchDataYFBonds";
-import { fetchCedearsData } from "@/utils/marketData/fetchDataYFCedears";
+// import { fetchBondsData } from "@/utils/marketData/fetchDataYFBonds";
+// import { fetchCedearsData } from "@/utils/marketData/fetchDataYFCedears";
 
-interface VariableData {
-  value: number;
-  date: string;
+interface BCRAResponse {
+  idVariable: number;
+  fecha: string;
+  valor: number;
+}
+interface BCRAData {
+  idVariable: number;
+  fecha: string;
+  valor: number;
 }
 
-// Estructura de los datos históricos (body)
 interface MarketData {
   date: string;
   open: number;
@@ -19,32 +24,30 @@ interface MarketData {
   adjclose: number;
 }
 
-// Estructura de la información del instrumento (meta)
 interface MetaData {
-  symbol: string;  // El símbolo del bono o cedear
-  currency: string; // Moneda
-  exchangeName: string; // Nombre del intercambio
-  fullExchangeName: string; // Nombre completo del intercambio
-  longName: string;  // Nombre completo del instrumento
+  symbol: string;
+  currency: string;
+  exchangeName: string;
+  fullExchangeName: string;
+  longName: string;
 }
 
-// Estructura completa de los datos de un bono o cedear
 export interface FinancialData {
-  meta: MetaData; // Información sobre el instrumento
-  body: MarketData[]; // Datos históricos del instrumento
+  meta: MetaData;
+  body: MarketData[];
 }
 
 interface MarketState {
-  reservasInternacionalesBCRA: VariableData[];
-  tipoCambioMinorista: VariableData[];
-  tipoCambioMayorista: VariableData[];
-  tasaPoliticaMonetaria: VariableData[];
-  badlarPesosBancosPrivados: VariableData[];
-  tasaPaseActivaBCRA: VariableData[];
-  tasaPrestamosPersonales: VariableData[];
-  baseMonetariaTotal: VariableData[];
-  inflacionMensual: VariableData[];
-  uva: VariableData[];
+  reservasInternacionalesBCRA: BCRAData[];
+  tipoCambioMinorista: BCRAData[];
+  tipoCambioMayorista: BCRAData[];
+  tasaPoliticaMonetaria: BCRAData[];
+  badlarPesosBancosPrivados: BCRAData[];
+  tasaPaseActivaBCRA: BCRAData[];
+  tasaPrestamosPersonales: BCRAData[];
+  baseMonetariaTotal: BCRAData[];
+  inflacionMensual: BCRAData[];
+  uva: BCRAData[];
 
   bonos: FinancialData[];
   cedears: FinancialData[];
@@ -67,7 +70,6 @@ const marketStore = create<MarketState>((set) => ({
   uva: [],
   bonos: [],
   cedears: [],
-
 
   loadAllVariablesData: async () => {
     try {
@@ -95,23 +97,61 @@ const marketStore = create<MarketState>((set) => ({
         fetchVariableData("uva")
       ]);
 
-      const bonos = await fetchBondsData();
-      const cedears = await fetchCedearsData();
+
+      const transformBCRAData = (bcraData: BCRAResponse[]): BCRAData[] => {
+        return bcraData.map(item => ({
+          idVariable: item.idVariable,  
+          fecha: item.fecha,
+          valor: item.valor
+        }));
+      };
 
       set({
-        reservasInternacionalesBCRA,
-        tipoCambioMinorista,
-        tipoCambioMayorista,
-        tasaPoliticaMonetaria,
-        badlarPesosBancosPrivados,
-        tasaPaseActivaBCRA,
-        tasaPrestamosPersonales,
-        baseMonetariaTotal,
-        inflacionMensual,
-        uva,
-        bonos,
-        cedears
-      })
+        reservasInternacionalesBCRA: transformBCRAData(reservasInternacionalesBCRA),
+        tipoCambioMinorista: transformBCRAData(tipoCambioMinorista),
+        tipoCambioMayorista: transformBCRAData(tipoCambioMayorista),
+        tasaPoliticaMonetaria: transformBCRAData(tasaPoliticaMonetaria),
+        badlarPesosBancosPrivados: transformBCRAData(badlarPesosBancosPrivados),
+        tasaPaseActivaBCRA: transformBCRAData(tasaPaseActivaBCRA),
+        tasaPrestamosPersonales: transformBCRAData(tasaPrestamosPersonales),
+        baseMonetariaTotal: transformBCRAData(baseMonetariaTotal),
+        inflacionMensual: transformBCRAData(inflacionMensual),
+        uva: transformBCRAData(uva),
+      });
+
+      // APPI Yahoo Finance
+      // const bonos = await fetchBondsData();
+      // const cedears = await fetchCedearsData();
+
+      // set({
+      //   bonos,
+      //   cedears
+      // });
+
+      //Respaldo de DATA !!!
+      try {
+        const response = await fetch("/data/bonds.json");
+        if (response.ok) {
+          const backupData = await response.json();
+          set({ bonos: backupData });
+        } else {
+          console.error("Failed to load backup bonos data.");
+        }
+      } catch (error) {
+        console.error("Error loading backup bonos data from local file", error);
+      }
+      try {
+        const response = await fetch("/data/cedears.json");
+        if (response.ok) {
+          const backupData = await response.json();
+          set({ cedears: backupData });
+        } else {
+          console.error("Failed to load backup cedears data.");
+        }
+      } catch (error) {
+        console.error("Error loading backup cedears data from local file", error);
+      }
+    
 
     } catch (error) {
       console.error("Error loading market variable data", error);
@@ -121,6 +161,7 @@ const marketStore = create<MarketState>((set) => ({
   loadBondsData: (data: FinancialData[]) => {
     set({ bonos: data });
   },
+
   loadCedearsData: (data: FinancialData[]) => {
     set({ cedears: data });
   },

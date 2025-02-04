@@ -11,7 +11,7 @@ export const fetchCedearsData = async (): Promise<FinancialData[]> => {
     ];
   
     const fetchPromises = cedears.map(async (symbol) => {
-      const response = await fetch(`${URL_YF}/${symbol}`, {
+      const response = await fetch(`${URL_YF}/history?symbol=${symbol}&interval=1wk&diffandsplits=false`, {
         method: 'GET',
         headers: {
           'X-RapidAPI-Key': `${API_KEY_YF}`,
@@ -19,6 +19,7 @@ export const fetchCedearsData = async (): Promise<FinancialData[]> => {
         }
       });
   
+
       const data = await response.json();
   
       return {

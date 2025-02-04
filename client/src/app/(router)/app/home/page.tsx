@@ -15,9 +15,6 @@ export default function Home() {
   const { financialProfile } = useFinancialProfileStore();
   const [formFinanceProfile, setFormFinanceProfile] = useState(false);
   const loadAllVariablesData = marketStore(state => state.loadAllVariablesData);
-  const allData = marketStore(state => state);
-
-  console.log(allData)
   
 useEffect(() => {
   getUserProfile();
