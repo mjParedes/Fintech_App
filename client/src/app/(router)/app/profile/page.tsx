@@ -1,6 +1,5 @@
 "use client";
 import { useEffect } from "react";
-import getUserData from "@/utils/getUserData";
 import Image from "next/image";
 import { ArrowLargeLeft } from "@/assets";
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -12,7 +11,6 @@ import { ProgressUser } from "@/components/cards/ProgressUserCard";
 export default function Profile() {
 
     useEffect(()=>{
-        getUserData()
         getUserProfile()
     }) 
     

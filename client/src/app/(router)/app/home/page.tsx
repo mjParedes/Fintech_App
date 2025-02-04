@@ -1,32 +1,33 @@
 "use client"
-// import { AccountBalance, ShoppingBag, Storage, LegendToggle } from '@mui/icons-material'
 import BalanceCard from "@/components/cards/BalanceCard";
-// import FinanceCard from "@/components/cards/FinanceCard";
 import GoalCard from "@/components/cards/GoalCard";
-import { useState, useEffect } from 'react';
-import { useFinancialProfileStore } from '@/store/user/userFinanceProfile';
+import { useEffect} from 'react';
 import RecommendationCard from '@/components/cards/RecommendationCard';
 import getUserProfile from '@/utils/financialProfile/getProfile';
 import Onbording from '@/components/modal/Onbording/onbording';
 import FinancialSampleCard from '@/components/cards/FinancialSampleCard';
-import marketStore from "@/store/market/dataMarket";
+import getUserData from "@/utils/getUserData";
+import { useModalStore } from "@/store/onBording/modal";
 
 export default function Home() {
-  const { financialProfile } = useFinancialProfileStore();
-  const [formFinanceProfile, setFormFinanceProfile] = useState(false);
-  const loadAllVariablesData = marketStore(state => state.loadAllVariablesData);
+  const { modalState, openModal, closeModal } = useModalStore();
   
-useEffect(() => {
-  getUserProfile();
-  if (!financialProfile) {
-    setFormFinanceProfile(true); 
-  } else {
-    setFormFinanceProfile(false); 
-  }
-  loadAllVariablesData();
-  
-}, [financialProfile, loadAllVariablesData]);
 
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const { profileData } = await getUserProfile();
+      
+      if (!profileData && modalState !== "Abierto") {
+        openModal();
+      } else {
+        closeModal();
+      }
+    };
+  
+    fetchProfile();
+    getUserData(); 
+  }, [modalState]); 
+  
 
   const userGoals = [
     {
@@ -99,11 +100,11 @@ useEffect(() => {
 
   return (
     <main className="px-4 pt-6 pb-24 space-y-4 w-full bg-primary300">
-      {formFinanceProfile && <Onbording />}
+      {modalState === "Abierto" && <Onbording />}
       <BalanceCard title="Tus rendimientos" amount={10250.45} earning={871.29} />
 
       {/* Financial samples */}
-      <div className='flex flex-wrap gap-4 lg:w-[80%] lg:mx-auto'>
+      <div className='flex flex-wrap gap-4 lg:w-[90%] lg:mx-auto'>
         {financialData.map((data, index) => (
           <FinancialSampleCard
             key={index}
@@ -121,7 +122,3 @@ useEffect(() => {
     </main>
   );
 }
-
-
-
-
