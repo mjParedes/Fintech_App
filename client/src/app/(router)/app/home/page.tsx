@@ -8,9 +8,12 @@ import Onbording from '@/components/modal/Onbording/onbording';
 import FinancialSampleCard from '@/components/cards/FinancialSampleCard';
 import getUserData from "@/utils/getUserData";
 import { useModalStore } from "@/store/onBording/modal";
+import marketStore from "@/store/market/dataMarket";
+import { getPortfolios } from "@/utils/portfoil/getPortfoil";
 
 export default function Home() {
   const { modalState, openModal, closeModal } = useModalStore();
+  const loadAllVariablesData = marketStore((state) => state.loadAllVariablesData);
   
 
   useEffect(() => {
@@ -23,6 +26,8 @@ export default function Home() {
         closeModal();
       }
     };
+    loadAllVariablesData();
+    getPortfolios()
   
     fetchProfile();
     getUserData(); 
