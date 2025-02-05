@@ -14,7 +14,6 @@ import { getPortfolios } from "@/utils/portfoil/getPortfoil";
 export default function Home() {
   const { modalState, openModal, closeModal } = useModalStore();
   const loadAllVariablesData = marketStore((state) => state.loadAllVariablesData);
-  
 
   useEffect(() => {
     const fetchProfile = async () => {
