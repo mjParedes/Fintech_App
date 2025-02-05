@@ -8,10 +8,13 @@ import CollapsibleSection from './components/CollapsibleSection'
 import AssetList from './components/AssetList'
 import MarketSection from './components/MarketSection'
 import OperationsHistory from './components/OperationsHistory'
+import { useBalanceAndMovsStore } from '@/store/balance/balanceAndMovements';
 
 export default function Portfolio() {
 
 	const [activeTab, setActiveTab] = useState<'portfolio' | 'movements'>('portfolio')
+	const {  getConvertedAmount, earnings } = useBalanceAndMovsStore()
+
 
 	const investments = [
 		{
@@ -92,7 +95,7 @@ export default function Portfolio() {
 					{/* Portfolio Content */}
 					{activeTab === 'portfolio' && (
 						<div>
-							<InvestmentCard title='Retorno de inversión' amount={10250.45} earning={871.29} />
+							<InvestmentCard title='Retorno de inversión' amount={getConvertedAmount()} earning={earnings} />
 							<div className='p-8 space-y-4'>
 								<h5 className='text-h5-semibold'>Composición de portafolio</h5>
 								<p className='text-p1-regular text-white700'>Descubre el origen del aumento de tu retorno de inversión.</p>
