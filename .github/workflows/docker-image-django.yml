@@ -21,15 +21,27 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: List files for debugging
+        run: ls -R   # Muestra toda la estructura de archivos para verificar dónde está el requirements.txt
+
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
+      - name: Check if requirements.txt exists
+        run: |
+          if [ -f "model-2/fintech_recommender/requirements.txt" ]; then
+            echo "✅ El archivo requirements.txt fue encontrado."
+          else
+            echo "❌ ERROR: El archivo requirements.txt NO existe."
+            exit 1
+          fi
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r model-2/fintech_recommender/requirements.txt  
+          pip install -r model-2/fintech_recommender/requirements.txt 
 
       - name: Run migrations
         run: |
