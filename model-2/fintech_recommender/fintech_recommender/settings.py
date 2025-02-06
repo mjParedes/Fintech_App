@@ -55,7 +55,29 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
-ALLOWED_HOSTS = ['iupi-abf3.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
+CORS_ALLOW_CREDENTIALS = True  # Permite el envío de cookies en solicitudes CORS
+CORS_ALLOW_HEADERS = [
+    'content-type',        # Necesario para enviar datos en el cuerpo de la solicitud (por ejemplo, JSON o form-data)
+    'accept',              # El tipo de contenido que espera el cliente (ej., application/json)
+    'authorization',       # Para manejar tokens de autenticación, como JWT
+    'x-csrftoken',         # Para proteger contra ataques CSRF en aplicaciones web
+    'origin',              # El origen de la solicitud (usado para CORS)
+    'x-requested-with',    # Usado comúnmente para detectar solicitudes AJAX
+    'x-api-key',           # Si estás utilizando una clave API para la autenticación
+    'cache-control',       # Controlar la caché
+    'accept-language',     # El lenguaje preferido de la solicitud
+    'x-forwarded-for',     # Información de la IP original en proxies (puede ser útil en servidores con proxies reversos)
+    'x-client-data',       # Algunos navegadores/envíos de datos incluyen esta cabecera
+]
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'DELETE',
+    'OPTIONS',
+]
+
 
 
 ROOT_URLCONF = 'fintech_recommender.urls'
