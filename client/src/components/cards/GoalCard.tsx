@@ -88,12 +88,12 @@ export default function GoalCard({ goals }: GoalsCardProps) {
 
 			{/* Footer */}
 			<div className='flex items-center justify-center w-full space-x-4'>
-				<Link href={'#'} passHref className='w-full'>
-					<Button size='medium' variant='basic' className='rounded-3xl w-full bg-accent25'>
+				<Link href={'/app/home/goals'} passHref className='w-full'>
+					<Button size='medium' className='rounded-3xl w-full bg-accent25'>
 						Ver más
 					</Button>
 				</Link>
-				<Link href={'#'} passHref className='w-full'>
+				<Link href={'/app/home/goals'} passHref className='w-full'>
 					<Button
 						size='medium'
 						variant='outline'

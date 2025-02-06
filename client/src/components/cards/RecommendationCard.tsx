@@ -39,7 +39,7 @@ export default function RecommendationCard({ title, items }: RecommendationProps
 
 			<div className='flex items-center justify-center w-full space-x-4'>
 				<Link href={'#'} passHref className='w-full'>
-					<Button size='medium' variant='basic' className='rounded-3xl w-full bg-accent25'>Ver más</Button>
+					<Button size='medium' className='rounded-3xl w-full bg-accent25'>Ver más</Button>
 				</Link>
 				<Link href={'#'} passHref className='w-full'>
 					<Button size='medium' variant='outline' className='rounded-3xl w-full bg-white100 border-none shadow-sm text-white900'>Editar</Button>
