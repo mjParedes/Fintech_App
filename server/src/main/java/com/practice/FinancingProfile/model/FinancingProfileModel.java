@@ -44,6 +44,6 @@ public class FinancingProfileModel {
     @JoinColumn(name = "user_id")
     private UserModel user;
 
-    @OneToMany(mappedBy = "financingProfile", targetEntity = ObjectiveModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<ObjectiveModel> objectiveModels = new ArrayList<>();
+//    @OneToMany(mappedBy = "financingProfile", targetEntity = ObjectiveModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private List<ObjectiveModel> objectiveModels = new ArrayList<>();
 }
