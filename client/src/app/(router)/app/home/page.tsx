@@ -8,13 +8,15 @@ import Onbording from '@/components/modal/Onbording/onbording';
 import FinancialSampleCard from '@/components/cards/FinancialSampleCard';
 import getUserData from "@/utils/getUserData";
 import { useModalStore } from "@/store/onBording/modal";
+import marketStore from "@/store/market/dataMarket";
+import { getPortfolios } from "@/utils/portfoil/getPortfoil";
 import { useBalanceAndMovsStore } from "@/store/balance/balanceAndMovements";
 import {  StorageRounded } from "@mui/icons-material";
 
 export default function Home() {
   const { modalState, openModal, closeModal } = useModalStore();
   const { earnings, getConvertedAmount } = useBalanceAndMovsStore();
-
+    const loadAllVariablesData = marketStore((state) => state.loadAllVariablesData);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -26,7 +28,8 @@ export default function Home() {
         closeModal();
       }
     };
-
+    loadAllVariablesData();
+    getPortfolios()
     fetchProfile();
     getUserData();
   }, [modalState]);
