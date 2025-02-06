@@ -25,7 +25,6 @@ export default function Portfolio() {
   const [loading, setLoading] = useState(true);  
   const loadAllVariablesData = marketStore((state) => state.loadAllVariablesData);
 
-    console.log(getConvertedAmount, earnings)
   useEffect(() => {
     loadAllVariablesData();
     const unsubscribe = marketStore.subscribe(
@@ -83,10 +82,11 @@ export default function Portfolio() {
   const totalBonos = investments[0].funds.reduce((total, fund) => total + fund.value, 0);
   const totalAcciones = investments[1].funds.reduce((total, fund) => total + fund.value, 0);
   const totalInvestments = totalBonos + totalAcciones;
-  const tasaPaseActiva = marketStore.getState().tasaPaseActivaBCRA[marketStore.getState().tasaPaseActivaBCRA.length - 1].valor || 39;
+  // const tasaPaseActiva = marketStore.getState().tasaPaseActivaBCRA[marketStore.getState().tasaPaseActivaBCRA.length - 1].valor || 39;
 
-  const A = totalInvestments * Math.pow(1 + tasaPaseActiva / 100, 1);
-  const earning = A - totalInvestments; 
+  // const A = totalInvestments * Math.pow(1 + tasaPaseActiva / 100, 1);
+  // const earning = A - totalInvestments; 
+  
 
   const updatedInvestments = investments.map((investment) => {
     return {
@@ -158,7 +158,7 @@ export default function Portfolio() {
           {/* Portfolio Content */}
           {activeTab === 'portfolio' && (
             <div>
-              <InvestmentCard title='Retorno de inversión' amount={totalInvestments} earning={earning} />
+              <InvestmentCard title='Retorno de inversión' amount={getConvertedAmount()} earning={earnings} />
               <div className='p-8 space-y-4'>
                 <h5 className='text-h5-semibold'>Composición de portafolio</h5>
                 <p className='text-p1-regular text-white700'>Descubre el origen del aumento de tu retorno de inversión.</p>
