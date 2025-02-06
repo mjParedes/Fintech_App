@@ -24,7 +24,7 @@ export default function FinancialSampleCard({ title, value, path }: FinancialSam
 				</div>
 				<div>
 					<Link href={path}>
-						<Button size='small' variant='basic' className='rounded-3xl w-full bg-accent25'>Ver detalle</Button>
+						<Button size='small' className='rounded-3xl w-full bg-accent25'>Ver detalle</Button>
 					</Link>
 				</div>
 			</div>
