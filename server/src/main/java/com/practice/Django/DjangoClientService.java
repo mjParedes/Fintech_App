@@ -12,7 +12,7 @@ public class DjangoClientService {
     private final WebClient webClient;
 
     public DjangoClientService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("http://localhost:8000").build();
+        this.webClient = webClientBuilder.baseUrl("https://iupi-abf3.onrender.com").build();
     }
 
     public Mono<UserOnboardingResponse> onboardUser(UserOnboardingRequest request) {
