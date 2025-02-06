@@ -14,15 +14,18 @@ import marketStore from '@/store/market/dataMarket'
 import { FinancialData } from '@/store/market/dataMarket'
 import Loading from '@/components/animations/Loader/loader'
 import { getPortfolios } from '@/utils/portfoil/getPortfoil'
+import { useBalanceAndMovsStore } from '@/store/balance/balanceAndMovements';
 
 export default function Portfolio() {
-  const [activeTab, setActiveTab] = useState<'portfolio' | 'movements'>('portfolio')
+	const [activeTab, setActiveTab] = useState<'portfolio' | 'movements'>('portfolio')
+	const {  getConvertedAmount, earnings } = useBalanceAndMovsStore()
   const { portfolios } = usePortfoilStore();
   const [bonos, setBonos] = useState<FinancialData[]>([]);
   const [cedears, setCedears] = useState<FinancialData[]>([]);
   const [loading, setLoading] = useState(true);  
   const loadAllVariablesData = marketStore((state) => state.loadAllVariablesData);
 
+    console.log(getConvertedAmount, earnings)
   useEffect(() => {
     loadAllVariablesData();
     const unsubscribe = marketStore.subscribe(
@@ -186,4 +189,5 @@ export default function Portfolio() {
       </div>
     </main>
   );
+
 }
