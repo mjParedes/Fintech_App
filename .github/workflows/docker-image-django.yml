@@ -21,9 +21,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Navigate to project directory
-        run: cd model-2/fintech_recommender
-
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
@@ -32,15 +29,15 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt  # Ahora sí encontrará el archivo
+          pip install -r model-2/fintech_recommender/requirements.txt  
 
       - name: Run migrations
         run: |
-          python manage.py migrate
+          python model-2/fintech_recommender/manage.py migrate  
 
       - name: Collect static files
         run: |
-          python manage.py collectstatic --noinput
+          python model-2/fintech_recommender/manage.py collectstatic --noinput  
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -53,7 +50,7 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t ${{ env.IMAGE_NAME }}:latest -f model-2/fintech_recommender/Dockerfile model-2/fintech_recommender
+          docker build -t ${{ env.IMAGE_NAME }}:latest model-2/fintech_recommender 
           docker push ${{ env.IMAGE_NAME }}:latest
 
       - name: Logout from Docker Hub
