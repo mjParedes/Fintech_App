@@ -50,7 +50,7 @@ public class ObjectivesServiceImpl implements ObjectivesService {
 
     @Override
     public ObjectivesResponseCreateDto createObjective(ObjectivesCreateRequestDto objectivesCreateRequestDto) {
-        FinancingProfileModel financingProfileEntity = financingProfileRepository.findById(objectivesCreateRequestDto.idFinancingProfile()).orElseThrow();
+//        FinancingProfileModel financingProfileEntity = financingProfileRepository.findById(objectivesCreateRequestDto.idFinancingProfile()).orElseThrow();
         EnumPriority priority;
         EnumObjectiveType objectiveType;
         EnumFrequency frequency;
@@ -71,7 +71,7 @@ public class ObjectivesServiceImpl implements ObjectivesService {
                 .annualProgress(objectivesCreateRequestDto.annualProgress())
                 .enumPriority(priority)
                 .enumFrequency(frequency)
-                .financingProfile(financingProfileEntity)
+//                .financingProfile(financingProfileEntity)
                 .build();
         objectiveRepository.save(objectiveModel);
 
@@ -82,7 +82,8 @@ public class ObjectivesServiceImpl implements ObjectivesService {
                 objectiveModel.getAnnualProgress(),
                 objectivesCreateRequestDto.priority(),
                 objectivesCreateRequestDto.frequency(),
-                objectivesCreateRequestDto.idFinancingProfile()
+                objectivesCreateRequestDto.startDate(),
+                objectivesCreateRequestDto.targetDate()
         );
     }
 
@@ -108,7 +109,7 @@ public class ObjectivesServiceImpl implements ObjectivesService {
                                 .findById(
                                         objectivesUpdateRequestDto.getIdFinancingProfile()
                                 ).orElseThrow();
-                        objective.setFinancingProfile(profileModel);
+//                        objective.setFinancingProfile(profileModel);
                     }
                     objective.setDescription(objectivesUpdateRequestDto.getDescription());
                     objective.setAmountObjective(objectivesUpdateRequestDto.getAmountObjective());
