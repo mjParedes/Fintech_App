@@ -1,73 +1,102 @@
-import Button from '@/components/ui/Button'
-import { ExpandMore } from '@mui/icons-material'
-import React, { useState, useEffect } from 'react'
-import marketStore from '@/store/market/dataMarket'
-import LineChart from '@/components/graphs/linealChart'
+import Button from '@/components/ui/Button';
+import { ExpandMore } from '@mui/icons-material';
+import React, { useState, useEffect } from 'react';
+import LineChart from '@/components/graphs/linealChart';
 
+// Definición de las interfaces
 export interface Asset {
-  name: string
-  price: number
-  change: string
-  trend: string
+  name: string;
+  price: number;
+  change: string;
+  trend: string;
   historicalData: { 
-    date: string
-    open: number
-    high: number
-    low: number
-    close: number
-    volume: number
-    adjclose: number
-  }[]
+    date: string;
+    open: number;
+    high: number;
+    low: number;
+    close: number;
+    volume: number;
+    adjclose: number;
+  }[]; 
+}
+
+interface MarketAsset {
+  meta: {
+    symbol: string;
+    currency: string;
+    exchangeName: string;
+    fullExchangeName: string;
+    longName: string;
+  };
+  body: { 
+    date: string;
+    open: number;
+    high: number;
+    low: number;
+    close: number;
+    volume: number;
+    adjclose: number;
+  }[];
 }
 
 interface AssetListProps {
-  assets: Asset[] 
+  assets: Asset[];    
+  bonos: MarketAsset[]; 
+  cedears: MarketAsset[]; 
 }
 
-export default function AssetList({ assets }: AssetListProps) {
-  const [isExpanded, setIsExpanded] = useState(false)
-  const [visibleAssets, setVisibleAssets] = useState(4)
-  const loadAllVariablesData = marketStore((state) => state.loadAllVariablesData)
-  const [assetsWithMarketInfo, setAssetsWithMarketInfo] = useState<Asset[]>([]) // Aquí almacenamos los activos con datos históricos
+export default function AssetList({ assets, bonos, cedears }: AssetListProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [visibleAssets, setVisibleAssets] = useState(4);
+  
+  const [assetsWithMarketInfo, setAssetsWithMarketInfo] = useState<Asset[]>([]);  // Aquí vamos a almacenar los activos con datos históricos
 
   const handleExpandToggle = () => {
-    setIsExpanded(!isExpanded)
-    setVisibleAssets(4)
-  }
+    setIsExpanded(!isExpanded);
+    setVisibleAssets(4);
+  };
 
   const handleLoadMoreToggle = () => {
-    setVisibleAssets(visibleAssets === 4 ? assets.length : 4)
-  }
+    setVisibleAssets(visibleAssets === 4 ? assets.length : 4);
+  };
 
-  // Obtener los datos del mercado por el nombre del activo
-  const getMarketData = (assetName: string) => {
-    const marketData = marketStore.getState() 
-    const allAssets = [...marketData.bonos, ...marketData.cedears] 
-    return allAssets.find(item => item.meta.longName.toLowerCase() === assetName.toLowerCase())
-  }
+
+const getHistoricalData = (assetName: string, type: 'bonos' | 'cedears') => {
+  let asset
+  if (type === 'bonos') asset = bonos 
+  else asset = cedears;
+  // console.log(type)
+  // console.log(asset)
+  // console.log(assetName)
+  const foundAsset = asset.find((item: MarketAsset) => item.meta.symbol.toLowerCase() === assetName.toLowerCase());
+  // console.log(foundAsset)
+  return foundAsset ? foundAsset.body : []; 
+};
+
 
   useEffect(() => {
-    loadAllVariablesData()
 
     const updatedAssets = assets.map((asset) => {
-      const marketData = getMarketData(asset.name)
-
-      // Si el mercado proporciona información histórica
-      const historicalData = marketData ? marketData.body : []
-	  console.log( marketData)
+      const historicalData = [
+        ...getHistoricalData(asset.name, 'bonos'),
+        ...getHistoricalData(asset.name, 'cedears'),
+      ];
+      // console.log(historicalData)
 
       return {
         ...asset,
-        price: marketData ? marketData.body[0].close : asset.price,
-        change: marketData ? (marketData.body[0].close - marketData.body[0].open).toFixed(2) : asset.change,
-        trend: marketData && (marketData.body[0].close - marketData.body[0].open) > 0 ? 'positive' : 'negative',
-        historicalData: historicalData, 
-      }
-    })
-    setAssetsWithMarketInfo(updatedAssets)
-  }, [assets, loadAllVariablesData])
+        historicalData: historicalData,
+        change: historicalData.length > 0 
+                ? (historicalData[0].close - historicalData[0].open).toFixed(2)
+                : asset.change,
+        trend: historicalData.length > 0 && (historicalData[0].close - historicalData[0].open) > 0
+               ? 'positive'
+               : 'negative',
+      };
+    });
 
-
+    setAssetsWithMarketInfo(updatedAssets); 
+  }, [assets, bonos, cedears]);  
 
   return (
     <div className='bg-white rounded-lg shadow-sm p-6'>
@@ -76,7 +105,7 @@ export default function AssetList({ assets }: AssetListProps) {
         En esta sección, encontrarás detalles sobre los activos en los que hemos invertido, incluyendo tendencias y análisis de mercado.
       </p>
       <div className='flex justify-between items-center'>
-        <h6 className='text-h6-semibold text-white800'>Acciones</h6>
+        <h6 className='text-h6-semibold text-white800'>Acciones y Bonos</h6>
         <div className='flex justify-center mb-4'>
           <button onClick={handleExpandToggle} className='text-white900 transition-colors'>
             <ExpandMore className={`transform transition-transform ${isExpanded ? 'rotate-180' : 'rotate-0'}`} />
@@ -89,15 +118,14 @@ export default function AssetList({ assets }: AssetListProps) {
           {assetsWithMarketInfo.slice(0, visibleAssets).map((asset, index) => (
             <div
               key={index}
-              className='flex flex-col justify-between items-center p-4 border rounded-lg hover:shadow-md transition-shadow bg-primary50 w-[200px] h-[160px]'
+              className='flex flex-col w-[200px] h-[180px]'
             >
-              <div className='flex flex-col items-center space-y-2'>
-                <h6 className='text-h6-bold'>{asset.name}</h6>
-                <p className='text-p1-regular text-white700'>{asset.price}</p>
-              </div>
-			  <LineChart historicalData={asset.historicalData} />
-              <p className={`font-semibold ${asset.trend === 'positive' ? 'text-green-600' : 'text-red-600'}`}>{asset.change}</p>
-              {/* Aquí puedes agregar el gráfico */}
+              <h6 className='text-h6-bold px-2'>{asset.name}</h6>
+              <p className='text-p1-regular text-white700 px-2'> ${asset.price}</p>
+              <LineChart historicalData={asset.historicalData} />
+              <p className="text-p2-semibold px-2 text-accent400">
+                {Number(asset.change) > 0 ? "+" + asset.change : "-" + asset.change}%
+              </p>
             </div>
           ))}
         </div>
@@ -113,5 +141,5 @@ export default function AssetList({ assets }: AssetListProps) {
         </Button>
       )}
     </div>
-  )
+  );
 }

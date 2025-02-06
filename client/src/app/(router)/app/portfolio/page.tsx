@@ -1,7 +1,8 @@
 'use client'
+
 import { ArrowBackIos, SettingsSuggest } from '@mui/icons-material'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import InvestmentCard from './components/InvestmentCard'
 import Button from '@/components/ui/Button'
 import CollapsibleSection from './components/CollapsibleSection'
@@ -10,19 +11,50 @@ import MarketSection from './components/MarketSection'
 import OperationsHistory from './components/OperationsHistory'
 import usePortfoilStore from '@/store/portfoil/portfoilStore'
 import marketStore from '@/store/market/dataMarket'
+import { FinancialData } from '@/store/market/dataMarket'
+import Loading from '@/components/animations/Loader/loader'
+import { getPortfolios } from '@/utils/portfoil/getPortfoil'
 
 export default function Portfolio() {
-
   const [activeTab, setActiveTab] = useState<'portfolio' | 'movements'>('portfolio')
   const { portfolios } = usePortfoilStore();
-  const tasaPaseActiva = marketStore.getState().tasaPaseActivaBCRA || 39;
-  const TEM = Number(tasaPaseActiva) / 12;
+  const [bonos, setBonos] = useState<FinancialData[]>([]);
+  const [cedears, setCedears] = useState<FinancialData[]>([]);
+  const [loading, setLoading] = useState(true);  
+  const loadAllVariablesData = marketStore((state) => state.loadAllVariablesData);
+
+  useEffect(() => {
+    loadAllVariablesData();
+    const unsubscribe = marketStore.subscribe(
+      (state) => {
+
+        if (state.bonos !== bonos || state.cedears !== cedears) {
+          setBonos(state.bonos);  
+          setCedears(state.cedears);
+          getPortfolios()
+          setLoading(false); 
+        }
+      }
+    );
+
+    return () => unsubscribe();  
+  }, [bonos, cedears, loadAllVariablesData]);
+
+
+  if (loading) {
+    return (
+      <main className="px-4 pt-6 pb-24 w-full h-min-screen text-white900">
+            <Loading/>
+      </main>
+    );
+  }
+
 
   const investments = [
     {
       title: 'Bonos',
       description: 'Los bonos son deuda. Al comprarlos, el inversionista presta dinero.',
-      funds: Object.entries(portfolios.Bonos || {}).map(([key, portfolio]) => {
+      funds: Object.entries(portfolios?.Bonos || {}).map(([key, portfolio]) => {
         const value = portfolio.quantity * portfolio.purchasePrice;
         return {
           key,
@@ -34,7 +66,7 @@ export default function Portfolio() {
     {
       title: 'Acciones',
       description: 'Las acciones son propiedad de una empresa. Al comprarlas, el inversionista es accionista.',
-      funds: Object.entries(portfolios.Acciones || {}).map(([key, portfolio]) => {
+      funds: Object.entries(portfolios?.Acciones || {}).map(([key, portfolio]) => {
         const value = portfolio.quantity * portfolio.purchasePrice;
         return {
           key,
@@ -48,42 +80,43 @@ export default function Portfolio() {
   const totalBonos = investments[0].funds.reduce((total, fund) => total + fund.value, 0);
   const totalAcciones = investments[1].funds.reduce((total, fund) => total + fund.value, 0);
   const totalInvestments = totalBonos + totalAcciones;
-  const earning = totalInvestments * TEM;
+  const tasaPaseActiva = marketStore.getState().tasaPaseActivaBCRA[marketStore.getState().tasaPaseActivaBCRA.length - 1].valor || 39;
+
+  const A = totalInvestments * Math.pow(1 + tasaPaseActiva / 100, 1);
+  const earning = A - totalInvestments; 
 
   const updatedInvestments = investments.map((investment) => {
     return {
       ...investment,
       funds: investment.funds.map(fund => ({
         ...fund,
-
         distribution: (fund.value / totalInvestments) * 100 
-	   }))
+      }))
     };
   });
 
   const mappedAssets = [
-	...portfolios.Bonos.map((item) => ({
-	  name: item.object[0], // Nombre del bono
-	  price: item.purchasePrice, // Precio de compra
-	  change: '0', // No tenemos un precio de mercado para calcular el cambio
-	  trend: 'neutral', 
-	  quantity: item.quantity, 
-	  historicalData: []
-	})),
-	...portfolios.Acciones.map((item) => ({
-	  name: item.object[0], // Nombre de la acción
-	  price: item.purchasePrice, // Precio de compra
-	  change: '0', // No tenemos un precio de mercado para calcular el cambio
-	  trend: 'neutral', 
-	  quantity: item.quantity, 
-	  historicalData: []
-	})),
+    ...portfolios?.Bonos.map((item) => ({
+      name: item.object[0],
+      price: item.purchasePrice,
+      change: '0', 
+      trend: 'neutral', 
+      quantity: item.quantity, 
+      historicalData: []
+    })),
+    ...portfolios?.Acciones.map((item) => ({
+      name: item.object[0], 
+      price: item.purchasePrice, 
+      change: '0', 
+      trend: 'neutral', 
+      quantity: item.quantity, 
+      historicalData: []
+    })),
   ];
 
   return (
     <main className="px-4 pt-6 pb-24 w-full h-min-screen text-white900">
       <div className='flex flex-col space-y-12'>
-
         {/* Header */}
         <div className='flex justify-between'>
           <div className='flex items-center'>
@@ -138,11 +171,9 @@ export default function Portfolio() {
                 ))}
               </div>
 
-			  <AssetList assets={mappedAssets}/>
-              <MarketSection />
-
+              <AssetList assets={mappedAssets} bonos={bonos} cedears={cedears}/>
+              <MarketSection bonos={bonos} cedears={cedears} />
             </div>
-
           )}
 
           {/* Movements Content */}
@@ -150,11 +181,9 @@ export default function Portfolio() {
             <div>
               <OperationsHistory />
             </div>
-
           )}
-
         </div>
       </div>
     </main>
-  )
+  );
 }

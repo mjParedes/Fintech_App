@@ -47,12 +47,12 @@ const DonutChart: React.FC<DonutChartProps> = ({ data, percentage }) => {
     });
 
     ctx.beginPath();
-    ctx.arc(0, 0, radius / 1.5, 0, 2 * Math.PI);
+    ctx.arc(0, 0, radius / 1.4, 0, 2 * Math.PI);
     ctx.closePath();
     ctx.fillStyle = '#fff';
     ctx.fill();
 
-    ctx.font = '30px Arial';
+    ctx.font = '30px sans-serif';
     ctx.fillStyle = "#002658";
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';

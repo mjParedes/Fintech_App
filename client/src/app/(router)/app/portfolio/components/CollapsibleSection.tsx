@@ -48,12 +48,12 @@ export default function CollapsibleSection({
 
       {/* Contenido desplegable */}
       {isOpen && (
-        <div className='bg-primary50 p-2  rounded-lg'>
+        <div className='bg-primary25 p-2  rounded-lg'>
           <table className='w-full text-sm'>
             <thead>
               <tr className='border-b'>
-                <th className='text-left text-p1-regular'>Fondo</th>
-                <th className='text-right text-p1-semibold'>Distribución</th>
+                <th className='text-left text-p2-regular'>Fondo</th>
+                <th className='text-right text-p2-semibold'>Distribución</th>
               </tr>
             </thead>
             <tbody>
