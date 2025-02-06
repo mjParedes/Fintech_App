@@ -55,10 +55,7 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
-
-
-
-
+ALLOWED_HOSTS = ['iupi-abf3.onrender.com', 'localhost', '127.0.0.1']
 
 
 ROOT_URLCONF = 'fintech_recommender.urls'
