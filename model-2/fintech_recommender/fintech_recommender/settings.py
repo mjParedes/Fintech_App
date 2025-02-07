@@ -104,16 +104,23 @@ WSGI_APPLICATION = 'fintech_recommender.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+#DATABASES = {
+ #   'default': {
+  #     'NAME': 'db_fintech',  # Nombre de la base de datos
+   #     'USER': 'db_fintech_user',  # Usuario de la base de datos
+    #    'PASSWORD': 'FXWVIxaqMINdxn7LCBmMZYUUCHTSkrYF',  # Contraseña del usuario
+     #   'HOST': 'dpg-cu1f4t9u0jms738iq21g-a.oregon-postgres.render.com',  # Host de la base de datos
+      #  'PORT': '5432',  # Puerto por defecto para PostgreSQL
+    #}
+#}
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'db_fintech',  # Nombre de la base de datos
-        'USER': 'db_fintech_user',  # Usuario de la base de datos
-        'PASSWORD': 'FXWVIxaqMINdxn7LCBmMZYUUCHTSkrYF',  # Contraseña del usuario
-        'HOST': 'dpg-cu1f4t9u0jms738iq21g-a.oregon-postgres.render.com',  # Host de la base de datos
-        'PORT': '5432',  # Puerto por defecto para PostgreSQL
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / "db.sqlite3",
     }
 }
+
 
 
 

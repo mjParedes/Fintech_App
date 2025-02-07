@@ -9,7 +9,7 @@ class UserProfile(models.Model):
     age = models.IntegerField()  # Calculado desde birthDate
     investment_experience = models.IntegerField()  # Mapear desde knowledge_level
     cluster = models.IntegerField(default=-1)
-    total_investment = models.DecimalField(max_digits=12, decimal_places=2, default=0.0)  # Campo nuevo para inversión total
+    total_investment = models.DecimalField(max_digits=12, decimal_places=2)  # Campo nuevo para inversión total
     
     class Meta:
         db_table = 'financing_profiles'  # Nombre de tabla si es necesario

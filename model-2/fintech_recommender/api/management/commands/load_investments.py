@@ -19,3 +19,5 @@ class Command(BaseCommand):
                 }
             )
         self.stdout.write(self.style.SUCCESS(f'Cargadas {len(df)} inversiones'))
+
+    
