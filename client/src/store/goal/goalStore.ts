@@ -2,11 +2,11 @@ import { create } from 'zustand'
 
 export interface Goal {
 	description: string
-	objectiveType: string
 	amountObjective: number
 	frequency: string
 	startDate: string
 	targetDate: string
+	objectiveType: string
 }
 
 export interface GoalStore {
