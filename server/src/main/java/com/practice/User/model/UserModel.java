@@ -42,7 +42,7 @@ public class UserModel {
     private String lastName;
 
     @Column(name = "phone_number")
-    private int phoneNumber;
+    private Long phoneNumber;
 
     private String country;
 

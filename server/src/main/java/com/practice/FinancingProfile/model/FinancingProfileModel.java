@@ -41,7 +41,6 @@ public class FinancingProfileModel {
     private Double patrimonyTotal;
 
     @OneToOne(mappedBy = "financingProfile", targetEntity = UserModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
     private UserModel user;
 
     @OneToMany(mappedBy = "financingProfile", targetEntity = ObjectiveModel.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
