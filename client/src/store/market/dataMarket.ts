@@ -35,7 +35,7 @@ export interface FinancialData {
   body: MarketData[];
 }
 
-interface MarketState {
+export interface MarketState {
   tipoCambioMinorista: BCRAData[];
   bonos: FinancialData[];
   cedears: FinancialData[];

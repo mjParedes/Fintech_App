@@ -1,7 +1,7 @@
-import { CardInvestment } from '@/components/cards/InvestmentCard';
+import InstrumentInitialsCircle from '@/components/graphs/InitialsCircle';
 import LineChartLittle from '@/components/graphs/linealChartLittle';
 import Button from '@/components/ui/Button';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import Link from 'next/link';
 import React, { useState, useMemo } from 'react';
 
 export interface MarketAsset {
@@ -33,7 +33,6 @@ interface MarketSectionProps {
 
 export default function MarketSection({ bonos, cedears }: MarketSectionProps) {
   const [tabSelected, setTabSelected] = useState<'En alza' | 'A la baja' | 'Bonos' | 'Cedears'>('En alza');
-  const [open, setOpen] = useState(false);
   const getTrend = (data: Array<MarketData>) => {
     return data.map((item) => {
       const variationPercentage = ((item.close - item.open) / item.open) * 100;
@@ -51,7 +50,7 @@ export default function MarketSection({ bonos, cedears }: MarketSectionProps) {
 
   const latestData = useMemo(() => {
     return assetsWithTrend.map((asset) => {
-      const latestMarketData = asset.body[asset.body.length - 1]; // Último dato del array con la tendencia
+      const latestMarketData = asset.body[asset.body.length - 1]; 
       return {
         symbol: asset.meta.symbol,
         close: latestMarketData.close,
@@ -76,22 +75,6 @@ export default function MarketSection({ bonos, cedears }: MarketSectionProps) {
     return latestData;
   }, [tabSelected, latestData]);
 
-  const [selectedAsset, setSelectedAsset] = useState<MarketAsset | null>(null);
-
-
-  const handleOpen = (symbol: string) => {
-
-    const asset = [...bonos, ...cedears].find((a) => a.meta.symbol === symbol);
-    if (asset) {
-      setSelectedAsset(asset);
-      setOpen(true);
-    }
-  };
-  
-  const handleClose = () => {
-    setOpen(false);
-    setSelectedAsset(null);
-  };
 
   return (
     <div className="flex flex-col gap-6 w-full">
@@ -128,12 +111,16 @@ export default function MarketSection({ bonos, cedears }: MarketSectionProps) {
             .filter((item) => cedears.some((ced) => ced.meta.symbol === item.symbol))
             .map((item) => (
               <div key={item.symbol}>
-              <div className="flex justify-between items-center border-b pb-2 w-full" onClick={() => handleOpen(item.symbol)}>
-                <div className="w-[20vh]">
+              <Link href={`/app/portfolio/detail/${item.symbol}`}>
+              <div className="flex justify-between items-center border-b pb-2 w-full" >
+                <div className="flex flex-row gap-2">
+                  <InstrumentInitialsCircle id={item.symbol}/>
+                  <div className="w-[20vh] ">
                   <p className="text-p1-semibold">{item.symbol}</p>
                   <p className="text-p1-regular text-white400 w-[20vh] overflow-hidden whitespace-nowrap text-ellipsis">
                     {item.longName}
                   </p>
+                  </div>
                 </div>
                 <div className="text-right flex flex-row gap-3 justify-center items-center">
                   <LineChartLittle bonos={bonos} cedears={cedears} symbol={item.symbol} />
@@ -150,12 +137,9 @@ export default function MarketSection({ bonos, cedears }: MarketSectionProps) {
                       : '0%'}
                   </p>
                   </div>
-                  <div className="flex justify-center items-center">
-                  <KeyboardArrowDownIcon/>
-                  </div>
                 </div>
                 </div>
-                {open && selectedAsset?.meta.symbol === item.symbol ? <CardInvestment onClose={handleClose} asset={selectedAsset} /> : ""}
+                </Link>
               </div>
             ))}
         </div>
@@ -169,12 +153,16 @@ export default function MarketSection({ bonos, cedears }: MarketSectionProps) {
             .filter((item) => bonos.some((bono) => bono.meta.symbol === item.symbol))
             .map((item) => (
               <div key={item.symbol}>
-              <div className="flex justify-between items-center border-b pb-2" onClick={() => handleOpen(item.symbol)}>
-              <div className="w-[20vh]">
+              <Link href={`/app/portfolio/detail/${item.symbol}`}>
+              <div className="flex justify-between items-center border-b pb-2" >
+              <div className="flex flex-row gap-2">
+                  <InstrumentInitialsCircle id={item.symbol}/>
+                  <div className="w-[20vh] ">
                   <p className="text-p1-semibold">{item.symbol}</p>
                   <p className="text-p1-regular text-white400 w-[20vh] overflow-hidden whitespace-nowrap text-ellipsis">
                     {item.longName}
                   </p>
+                  </div>
                 </div>
                 <div className="text-right flex flex-row gap-3 justify-center items-center">
                   <LineChartLittle bonos={bonos} cedears={cedears} symbol={item.symbol} />
@@ -191,12 +179,9 @@ export default function MarketSection({ bonos, cedears }: MarketSectionProps) {
                       : '0%'}
                   </p>
                   </div>
-                  <div className="flex justify-center items-center">
-                  <KeyboardArrowDownIcon/>
-                  </div>
                 </div>
                 </div>
-                {open && selectedAsset?.meta.symbol === item.symbol ? <CardInvestment onClose={handleClose} asset={selectedAsset} /> : ""}
+                </Link>
               </div>
             ))}
         </div>
@@ -206,13 +191,17 @@ export default function MarketSection({ bonos, cedears }: MarketSectionProps) {
     <div className="flex flex-col gap-3" >
       {filteredData.map((item) => (
         <div key={item.symbol}>
-        <div className="flex justify-between items-center border-b pb-2" onClick={() => handleOpen(item.symbol)}>
-        <div className="w-[20vh]">
-            <p className="text-p1-semibold">{item.symbol}</p>
-            <p className="text-p1-regular text-white400 w-[20vh] overflow-hidden whitespace-nowrap text-ellipsis">
-              {item.longName}
-            </p>
-          </div>
+        <Link href={`/app/portfolio/detail/${item.symbol}`}>
+        <div className="flex justify-between items-center border-b pb-2" >
+        <div className="flex flex-row gap-2">
+                  <InstrumentInitialsCircle id={item.symbol}/>
+                  <div className="w-[20vh] ">
+                  <p className="text-p1-semibold">{item.symbol}</p>
+                  <p className="text-p1-regular text-white400 w-[20vh] overflow-hidden whitespace-nowrap text-ellipsis">
+                    {item.longName}
+                  </p>
+                  </div>
+                </div>
           <div className="text-right flex flex-row gap-3 justify-center items-center">
             <LineChartLittle bonos={bonos} cedears={cedears} symbol={item.symbol} />
              <div><p className="text-p1-regular">${item.close.toFixed(2)}</p>
@@ -228,12 +217,9 @@ export default function MarketSection({ bonos, cedears }: MarketSectionProps) {
                 : '0%'}
             </p>
             </div>
-            <div className="flex justify-center items-center">
-            <KeyboardArrowDownIcon/>
-            </div>
           </div>
           </div>
-          {open && selectedAsset?.meta.symbol === item.symbol ? <CardInvestment onClose={handleClose} asset={selectedAsset} /> : ""}
+          </Link>
         </div>
       ))}  
     </div>
