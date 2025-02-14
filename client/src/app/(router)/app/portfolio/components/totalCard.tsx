@@ -9,7 +9,7 @@ interface InvestmentCardProps {
 
 export default function TotalCard({ total, bonds, asset }: InvestmentCardProps) {
 	return (
-		<div className='flex flex-col justify-start space-y-4 p-8 shadow-sm rounded-lg'>
+		<div className='flex flex-col justify-start space-y-4 p-8 shadow-xl rounded-lg'>
 			<div className='flex justify-between items-center'>
 				<p className='text-p1-bold'>Dinero invertido</p>
 				<CurrencySwitchBtn />

@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react'
 import { ExpandMore } from '@mui/icons-material'
 import DonutChart from '@/components/graphs/donnutChart'

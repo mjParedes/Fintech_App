@@ -1,3 +1,4 @@
+'use client';
 import InstrumentInitialsCircle from '@/components/graphs/InitialsCircle';
 import LineChartLittle from '@/components/graphs/linealChartLittle';
 import Button from '@/components/ui/Button';
@@ -124,18 +125,20 @@ export default function MarketSection({ bonos, cedears }: MarketSectionProps) {
                 </div>
                 <div className="text-right flex flex-row gap-3 justify-center items-center">
                   <LineChartLittle bonos={bonos} cedears={cedears} symbol={item.symbol} />
-                   <div><p className="text-p1-regular">${item.close.toFixed(2)}</p>
-                  <p
+                  <div className='flex flex-col gap-1 '>
+                    <p className="text-p1-semibold">${item.close.toFixed(2)}</p>
+                    <p
                     className={`font-semibold ${
                       item.trend === 'up' ? 'text-green-600' : item.trend === 'down' ? 'text-red-600' : ''
                     }`}
-                  >
+                    >
                     {item.trend === 'up'
                       ? `+${(((item.close - item.open) / item.open) * 100).toFixed(2)}%`
                       : item.trend === 'down'
                       ? `${(((item.open - item.close) / item.open) * 100).toFixed(2)}%`
                       : '0%'}
                   </p>
+                  <button className="w-full  h-[2em] rounded-lg bg-accent400 text-p2-semibold px-1 text-white">Ver mas</button>
                   </div>
                 </div>
                 </div>
@@ -166,18 +169,20 @@ export default function MarketSection({ bonos, cedears }: MarketSectionProps) {
                 </div>
                 <div className="text-right flex flex-row gap-3 justify-center items-center">
                   <LineChartLittle bonos={bonos} cedears={cedears} symbol={item.symbol} />
-                   <div><p className="text-p1-regular">${item.close.toFixed(2)}</p>
-                  <p
+                  <div className='flex flex-col gap-1 '>
+                    <p className="text-p1-semibold">${item.close.toFixed(2)}</p>
+                    <p
                     className={`font-semibold ${
                       item.trend === 'up' ? 'text-green-600' : item.trend === 'down' ? 'text-red-600' : ''
                     }`}
-                  >
+                    >
                     {item.trend === 'up'
                       ? `+${(((item.close - item.open) / item.open) * 100).toFixed(2)}%`
                       : item.trend === 'down'
                       ? `${(((item.open - item.close) / item.open) * 100).toFixed(2)}%`
                       : '0%'}
                   </p>
+                  <button className="w-full  h-[2em] rounded-lg bg-accent400 text-p2-semibold px-1 text-white">Ver mas</button>
                   </div>
                 </div>
                 </div>
@@ -204,19 +209,21 @@ export default function MarketSection({ bonos, cedears }: MarketSectionProps) {
                 </div>
           <div className="text-right flex flex-row gap-3 justify-center items-center">
             <LineChartLittle bonos={bonos} cedears={cedears} symbol={item.symbol} />
-             <div><p className="text-p1-regular">${item.close.toFixed(2)}</p>
-            <p
-              className={`font-semibold ${
-                item.trend === 'up' ? 'text-green-600' : item.trend === 'down' ? 'text-red-600' : ''
-              }`}
-            >
-              {item.trend === 'up'
-                ? `+${(((item.close - item.open) / item.open) * 100).toFixed(2)}%`
-                : item.trend === 'down'
-                ? `${(((item.open - item.close) / item.open) * 100).toFixed(2)}%`
-                : '0%'}
-            </p>
-            </div>
+            <div className='flex flex-col gap-1 '>
+                    <p className="text-p1-semibold">${item.close.toFixed(2)}</p>
+                    <p
+                    className={`font-semibold ${
+                      item.trend === 'up' ? 'text-green-600' : item.trend === 'down' ? 'text-red-600' : ''
+                    }`}
+                    >
+                    {item.trend === 'up'
+                      ? `+${(((item.close - item.open) / item.open) * 100).toFixed(2)}%`
+                      : item.trend === 'down'
+                      ? `${(((item.open - item.close) / item.open) * 100).toFixed(2)}%`
+                      : '0%'}
+                  </p>
+                  <button className="w-full  h-[2em] rounded-lg bg-accent400 text-p2-semibold px-1 text-white">Ver mas</button>
+                  </div>
           </div>
           </div>
           </Link>

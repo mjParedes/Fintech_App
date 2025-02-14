@@ -1,9 +1,9 @@
+'use client';
 import Button from '@/components/ui/Button';
 import { ExpandMore } from '@mui/icons-material';
 import React, { useState, useEffect } from 'react';
 import LineChart from '@/components/graphs/linealChart';
 
-// Definición de las interfaces
 export interface Asset {
   name: string;
   price: number;

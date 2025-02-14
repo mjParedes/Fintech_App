@@ -3,7 +3,9 @@ import InstrumentInitialsCircle from "../graphs/InitialsCircle";
 
 export interface InstrumentProps {
   id: string; 
-  market: FinancialData[][]; 
+  market: FinancialData[][];
+  usd?:number;
+  moneyWallet?:number;
 }
 
 export const GeneralInformationInstrument = ({ id, market }: InstrumentProps) => {
@@ -25,7 +27,7 @@ export const GeneralInformationInstrument = ({ id, market }: InstrumentProps) =>
   }
 
     return (
-      <div className="flex flex-col gap-3 p-4 w-full">
+      <div className="flex flex-col gap-3 p-4 pt-2 w-full">
         <h1 className="text-h6-semibold text-white900">Información general</h1>
         <div className="flex items-center m-auto">
             <InstrumentInitialsCircle id={id}/>
