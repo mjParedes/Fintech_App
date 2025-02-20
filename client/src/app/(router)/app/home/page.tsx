@@ -106,7 +106,7 @@ export default function Home() {
 
   return (
     <main className="px-4 pt-6 pb-24 space-y-4 w-full bg-white50">
-      {modalState === "Abierto" && <Onbording />}
+      {/* {modalState === "Abierto" && <Onbording />} */}
       <BalanceCard title="Retorno de inversion" amount={getConvertedAmount()} earning={earnings} />
 
       {/* Financial samples */}
