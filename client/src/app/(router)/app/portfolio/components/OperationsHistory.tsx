@@ -2,6 +2,17 @@
 import Button from '@/components/ui/Button';
 import { useState } from 'react';
 
+interface Operation {
+  id: number;
+  type: string;
+	instrument?: string;
+  amount: number;
+	profit?: number | null;
+  date?: string;
+	time?: string;
+  // Agrega más propiedades si las usas en renderOperation
+}
+
 const mockOperations = [
 	{
 		id: 1,
@@ -104,7 +115,7 @@ export default function OperationsHistory() {
 	const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
 	const currentOperations = mockOperations.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
-	const renderOperation = (operation) => (
+	const renderOperation = (operation:Operation) => (
 		<div key={operation.id} className="flex items-center justify-between py-4 border-b">
 			<div className="flex flex-col">
 				<div className="flex items-center gap-1">
