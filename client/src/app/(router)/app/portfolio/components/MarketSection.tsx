@@ -74,7 +74,7 @@ export default function MarketSection({ bonos, cedears }: MarketSectionProps) {
       return latestData.filter((item) => item.trend === 'down');
     }
     return latestData;
-  }, [tabSelected, latestData]);
+  }, [tabSelected, latestData,bonos,cedears]);
 
   const [selectedAsset, setSelectedAsset] = useState<MarketAsset | null>(null);
 
@@ -87,7 +87,7 @@ export default function MarketSection({ bonos, cedears }: MarketSectionProps) {
       setOpen(true);
     }
   };
-  
+
   const handleClose = () => {
     setOpen(false);
     setSelectedAsset(null);
@@ -235,7 +235,7 @@ export default function MarketSection({ bonos, cedears }: MarketSectionProps) {
           </div>
           {open && selectedAsset?.meta.symbol === item.symbol ? <CardInvestment onClose={handleClose} asset={selectedAsset} /> : ""}
         </div>
-      ))}  
+      ))}
     </div>
   )}
 </section>

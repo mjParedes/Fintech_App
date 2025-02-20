@@ -9,7 +9,7 @@ export interface Asset {
   price: number;
   change: string;
   trend: string;
-  historicalData: { 
+  historicalData: {
     date: string;
     open: number;
     high: number;
@@ -17,7 +17,7 @@ export interface Asset {
     close: number;
     volume: number;
     adjclose: number;
-  }[]; 
+  }[];
 }
 
 interface MarketAsset {
@@ -28,7 +28,7 @@ interface MarketAsset {
     fullExchangeName: string;
     longName: string;
   };
-  body: { 
+  body: {
     date: string;
     open: number;
     high: number;
@@ -40,15 +40,15 @@ interface MarketAsset {
 }
 
 interface AssetListProps {
-  assets: Asset[];    
-  bonos: MarketAsset[]; 
-  cedears: MarketAsset[]; 
+  assets: Asset[];
+  bonos: MarketAsset[];
+  cedears: MarketAsset[];
 }
 
 export default function AssetList({ assets, bonos, cedears }: AssetListProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [visibleAssets, setVisibleAssets] = useState(4);
-  
+
   const [assetsWithMarketInfo, setAssetsWithMarketInfo] = useState<Asset[]>([]);  // Aquí vamos a almacenar los activos con datos históricos
 
   const handleExpandToggle = () => {
@@ -61,20 +61,22 @@ export default function AssetList({ assets, bonos, cedears }: AssetListProps) {
   };
 
 
-const getHistoricalData = (assetName: string, type: 'bonos' | 'cedears') => {
-  let asset
-  if (type === 'bonos') asset = bonos 
-  else asset = cedears;
-  // console.log(type)
-  // console.log(asset)
-  // console.log(assetName)
-  const foundAsset = asset.find((item: MarketAsset) => item.meta.symbol.toLowerCase() === assetName.toLowerCase());
-  // console.log(foundAsset)
-  return foundAsset ? foundAsset.body : []; 
-};
+
 
 
   useEffect(() => {
+
+    const getHistoricalData = (assetName: string, type: 'bonos' | 'cedears') => {
+      let asset
+      if (type === 'bonos') asset = bonos
+      else asset = cedears;
+      // console.log(type)
+      // console.log(asset)
+      // console.log(assetName)
+      const foundAsset = asset.find((item: MarketAsset) => item.meta.symbol.toLowerCase() === assetName.toLowerCase());
+      // console.log(foundAsset)
+      return foundAsset ? foundAsset.body : [];
+    };
 
     const updatedAssets = assets.map((asset) => {
       const historicalData = [
@@ -86,7 +88,7 @@ const getHistoricalData = (assetName: string, type: 'bonos' | 'cedears') => {
       return {
         ...asset,
         historicalData: historicalData,
-        change: historicalData.length > 0 
+        change: historicalData.length > 0
                 ? (historicalData[0].close - historicalData[0].open).toFixed(2)
                 : asset.change,
         trend: historicalData.length > 0 && (historicalData[0].close - historicalData[0].open) > 0
@@ -95,8 +97,8 @@ const getHistoricalData = (assetName: string, type: 'bonos' | 'cedears') => {
       };
     });
 
-    setAssetsWithMarketInfo(updatedAssets); 
-  }, [assets, bonos, cedears]);  
+    setAssetsWithMarketInfo(updatedAssets);
+  }, [assets, bonos, cedears]);
 
   return (
     <div className='bg-white rounded-lg shadow-sm p-6'>

@@ -33,9 +33,10 @@ const LineChartLittle: React.FC<LineChartLittleProps> = ({ bonos, cedears, symbo
 
   // Buscar el asset en bonos o cedears
   const asset = bonos.find((item) => item.meta.symbol === symbol) || cedears.find((item) => item.meta.symbol === symbol);
-  const historicalData = asset?.body.map(({ date, close }) => ({ date, close })) || [];
 
   useEffect(() => {
+    const historicalData = asset?.body.map(({ date, close }) => ({ date, close })) || [];
+
     const canvas = canvasRef.current;
     if (canvas && historicalData.length > 0) {
       const ctx = canvas.getContext('2d');
@@ -43,7 +44,7 @@ const LineChartLittle: React.FC<LineChartLittleProps> = ({ bonos, cedears, symbo
         drawChart(ctx, historicalData);
       }
     }
-  }, [historicalData]);
+  }, [asset]);
 
   const drawChart = (ctx: CanvasRenderingContext2D, data: { date: string; close: number }[]) => {
     const width = 150;

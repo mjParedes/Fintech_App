@@ -11,12 +11,12 @@ import { useModalStore } from "@/store/onBording/modal";
 import marketStore from "@/store/market/dataMarket";
 import { getPortfolios } from "@/utils/portfoil/getPortfoil";
 import { useBalanceAndMovsStore } from "@/store/balance/balanceAndMovements";
-import {  StorageRounded } from "@mui/icons-material";
+import { StorageRounded } from "@mui/icons-material";
 
 export default function Home() {
   const { modalState, openModal, closeModal } = useModalStore();
   const { earnings, getConvertedAmount } = useBalanceAndMovsStore();
-    const loadAllVariablesData = marketStore((state) => state.loadAllVariablesData);
+  const loadAllVariablesData = marketStore((state) => state.loadAllVariablesData);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -28,11 +28,8 @@ export default function Home() {
         closeModal();
       }
     };
-    loadAllVariablesData();
-    getPortfolios()
-    fetchProfile();
-    getUserData();
-  }, []);
+    Promise.all([fetchProfile(), loadAllVariablesData(), getPortfolios(), getUserData()]);
+  }, [modalState, closeModal, openModal, loadAllVariablesData]);
 
 
   const userGoals = [
@@ -106,14 +103,14 @@ export default function Home() {
 
   return (
     <main className="px-4 pt-6 pb-24 space-y-4 w-full bg-white50">
-      {/* {modalState === "Abierto" && <Onbording />} */}
+      {modalState === "Abierto" && <Onbording />}
       <BalanceCard title="Retorno de inversion" amount={getConvertedAmount()} earning={earnings} />
 
       {/* Financial samples */}
       <div className='flex flex-col p-4 bg-white50 shadow-lg rounded-2xl space-y-6 lg:w-[90%] lg:mx-auto'>
         <div className="flex flex-col space-y-6">
           <div className='flex items-center space-x-2'>
-            <StorageRounded className='text-accent300'/>
+            <StorageRounded className='text-accent300' />
             <h6 className='text-h6-bold'>Finanzas</h6>
           </div>
           <p className="text-p2-regular text-white700">Obtén una vista previa, rápida y completa de cómo manejas tus finanzas, incluyendo tus ingresos, gastos, ahorros y deudas.</p>
