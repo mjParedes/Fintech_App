@@ -1,6 +1,6 @@
 "use client"
 import BalanceCard from "@/components/cards/BalanceCard";
-import GoalCard from "@/components/cards/GoalCard";
+import GoalCard, { Goal } from "@/components/cards/GoalCard";
 import { useEffect } from 'react';
 import RecommendationCard from '@/components/cards/RecommendationCard';
 import getUserProfile from '@/utils/financialProfile/getProfile';
@@ -32,7 +32,7 @@ export default function Home() {
   }, [modalState, closeModal, openModal, loadAllVariablesData]);
 
 
-  const userGoals = [
+  const userGoals : Goal[] = [
     {
       title: "Mi propia casa en el interior",
       amount: 5000000,

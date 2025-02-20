@@ -5,13 +5,13 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 
-interface Goal {
+export interface Goal {
 	title: string
 	amount: number
 	mode: 'saving' | 'pleasure' | 'buying'
 }
 
-interface GoalsCardProps {
+export interface GoalsCardProps {
 	goals: Goal[] | Goal
 }
 
